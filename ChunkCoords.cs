@@ -4,6 +4,9 @@ namespace ARA2D
 {
     public class ChunkCoords : IEquatable<ChunkCoords>
     {
+        const int X_SIZE = 6; // 2^6 = 64
+        const int Y_SIZE = 6; // 2^6 = 64
+
         public long Cx;
         public long Cy;
 
@@ -11,6 +14,11 @@ namespace ARA2D
         {
             Cx = cx;
             Cy = cy;
+        }
+
+        public static ChunkCoords FromBlockCoords(int x, int y)
+        {
+            return new ChunkCoords(x << X_SIZE, y << Y_SIZE);
         }
 
         public override int GetHashCode()

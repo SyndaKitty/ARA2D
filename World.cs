@@ -4,7 +4,7 @@ namespace ARA2D
 {
     public class World
     {
-        public WorldScene Scene;
+        //public WorldScene Scene;
 
         WorldGenerator generator;
         Dictionary<ChunkCoords, Chunk> chunks;
@@ -15,9 +15,10 @@ namespace ARA2D
             chunks = new Dictionary<ChunkCoords, Chunk>();
         }
 
-        public void GenerateChunk(ChunkCoords coords)
+        // TODO: Perhaps make async
+        public Chunk GenerateChunk(ChunkCoords coords)
         {
-            chunks[coords] = generator.GenerateChunk(coords);
+            return chunks[coords] = generator.GenerateChunk(coords);
         }
 
         public void UnloadChunk(ChunkCoords coords)
