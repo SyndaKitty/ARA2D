@@ -3,13 +3,16 @@ using Nez;
 
 namespace ARA2D
 {
-    public class TestScene : Scene
+    public class TestScene : Scene, WorldScene
     {
         Game game;
+        World world;
 
         public TestScene(Game game)
         {
             this.game = game;
+            world = game.world;
+            world.Scene = this;
         }
 
         public override void initialize()
