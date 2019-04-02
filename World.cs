@@ -14,12 +14,10 @@ namespace ARA2D
             chunks = new Dictionary<ChunkCoords, Chunk>();
         }
 
-        // TODO: Perhaps make async
         public void GenerateChunk(ChunkCoords coords)
         {
             var chunk = chunks[coords] = generator.GenerateChunk(coords);
-            // TODO: use events/delegates
-            worldScene.ChunkMeshGenerated(chunk.GenerateMesh());
+            // TODO: create ChunkGeneratedEvent entity
         }
 
         public void UnloadChunk(ChunkCoords coords)
