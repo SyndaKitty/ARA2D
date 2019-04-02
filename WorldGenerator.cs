@@ -5,7 +5,7 @@
         public Chunk GenerateChunk(ChunkCoords coords)
         {
             // TODO
-            return null;
+            return new Chunk(coords);
         }
     }
 }
