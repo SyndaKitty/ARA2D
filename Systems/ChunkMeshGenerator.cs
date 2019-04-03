@@ -5,13 +5,13 @@ using Microsoft.Xna.Framework;
 
 namespace ARA2D.Systems
 {
-    public class ChunkMeshCreator : EntityProcessingSystem
+    public class ChunkMeshGenerator : EntityProcessingSystem
     {
         // Generate up to 4 chunk meshes per frame for now 
         // TODO: Have variable handling depending on current performance     
         public int HandlePerFrame = 4;
 
-        public ChunkMeshCreator() : base(new Matcher().all(typeof(ChunkGeneratedEvent)))
+        public ChunkMeshGenerator() : base(new Matcher().all(typeof(ChunkGeneratedEvent)))
         {
         }
 
@@ -24,12 +24,14 @@ namespace ARA2D.Systems
             int[] triangles = CreateTrianglesArray();
             Mesh m = CreateMesh(positions, triangles);
 
-            Entity e = new Entity();
-            e.scene = Core.scene;
+            Entity e = new Entity($"ChunkMesh{chunkGenEvent.Coords.Cx},{chunkGenEvent.Coords.Cy}");
             e.addComponent(m);
+            Core.scene.addEntity(e);
+
+            entity.destroy();
         }
 
-        private static Vector2[] CreatePositionsArray()
+        static Vector2[] CreatePositionsArray()
         {
             var positions = new Vector2[(Chunk.Size + 1) * (Chunk.Size + 1)];
 
@@ -44,7 +46,7 @@ namespace ARA2D.Systems
             return positions;
         }
 
-        private static int[] CreateTrianglesArray()
+        static int[] CreateTrianglesArray()
         {
             int[] triangles = new int[Chunk.Size * Chunk.Size * 6];
             for (int ti = 0, vi = 0, y = 0; y < Chunk.Size; y++, vi++)
@@ -60,7 +62,7 @@ namespace ARA2D.Systems
             return triangles;
         }
 
-        private Mesh CreateMesh(Vector2[] positions, int[] triangles)
+        Mesh CreateMesh(Vector2[] positions, int[] triangles)
         {
             Mesh m = new Mesh();
             m.setVertPositions(positions);
@@ -72,7 +74,7 @@ namespace ARA2D.Systems
 
         protected override void process(List<Entity> entities)
         {
-            for (int i = 0; i < HandlePerFrame; i++)
+            for (int i = 0; i < HandlePerFrame && i < entities.Count; i++)
             {
                 process(entities[i]);
             }

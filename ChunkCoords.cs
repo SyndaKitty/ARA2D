@@ -16,7 +16,7 @@ namespace ARA2D
             Cy = cy;
         }
 
-        public static ChunkCoords FromBlockCoords(int x, int y)
+        public static ChunkCoords FromBlockCoords(long x, long y)
         {
             return new ChunkCoords(x << X_SIZE, y << Y_SIZE);
         }

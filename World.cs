@@ -17,7 +17,7 @@ namespace ARA2D
         public void GenerateChunk(ChunkCoords coords)
         {
             var chunk = chunks[coords] = generator.GenerateChunk(coords);
-            // TODO: create ChunkGeneratedEvent entity
+            Events.ChunkGenerated(coords, chunk);
         }
 
         public void UnloadChunk(ChunkCoords coords)

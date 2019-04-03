@@ -17,7 +17,10 @@ namespace ARA2D
         {
             base.Initialize();
             world = new World(new WorldGenerator());
-            scene = new TestScene(this);
+            var testScene = new TestScene(this);
+            scene = testScene;
+            testScene.InitialGeneration();
+
         }
     }
 }
