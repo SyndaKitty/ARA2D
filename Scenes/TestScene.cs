@@ -4,28 +4,26 @@ using Nez;
 
 namespace ARA2D
 {
-    public class TestScene : Scene, WorldScene
+    public class TestScene : Scene
     {
         Game game;
-        World world;
+        readonly World world;
 
         public TestScene(Game game)
         {
             this.game = game;
             world = game.world;
-            world.worldScene = this;
         }
 
         public override void initialize()
         {
-            //var cameraEntity = createEntity("Camera");
-            //cameraEntity.addComponent(camera = new Camera());
+            CreateCamera();
 
-            addRenderer(new DefaultRenderer(/*camera: camera*/));
+            addRenderer(new DefaultRenderer(camera: camera));
             clearColor = Color.Black;
             setDefaultDesignResolution(1280, 720, SceneResolutionPolicy.ShowAllPixelPerfect);
 
-            addEntityProcessor(new ChunkMeshGenerator());
+            CreateSystems();
         }
 
         public override void update()
@@ -38,10 +36,19 @@ namespace ARA2D
             world.GenerateChunk(new ChunkCoords(0, 0));
         }
 
-        public void ChunkMeshGenerated(Mesh m)
+        void CreateCamera()
         {
-            var chunkMeshEntity = createEntity("chunk");
-            chunkMeshEntity.addComponent(m);
+            var cameraEntity = createEntity("Camera");
+            cameraEntity.addComponent(camera = new Camera());
+            camera.setPosition(new Vector2(-Screen.width / 2, -Screen.height / 2));
+            camera.maximumZoom = 32;
+            camera.minimumZoom = 1;
+            camera.zoom = 1;
+        }
+
+        void CreateSystems()
+        {
+            addEntityProcessor(new ChunkMeshGenerator());
         }
     }
 }

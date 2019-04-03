@@ -4,8 +4,8 @@ namespace ARA2D.Components
 {
     public class ChunkGeneratedEvent : Component
     {
-        public ChunkCoords Coords;
-        public Chunk Chunk;
+        public readonly ChunkCoords Coords;
+        public readonly Chunk Chunk;
 
         public ChunkGeneratedEvent(ChunkCoords coords, Chunk chunk)
         {

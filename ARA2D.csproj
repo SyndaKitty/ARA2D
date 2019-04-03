@@ -46,6 +46,7 @@
     <Compile Include="Chunk.cs" />
     <Compile Include="ChunkCoords.cs" />
     <Compile Include="Components\ChunkGeneratedEvent.cs" />
+    <Compile Include="Components\ChunkRemovedEvent.cs" />
     <Compile Include="Events.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Program.cs" />
@@ -55,7 +56,6 @@
     <Compile Include="Tile.cs" />
     <Compile Include="World.cs" />
     <Compile Include="WorldGenerator.cs" />
-    <Compile Include="WorldScene.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

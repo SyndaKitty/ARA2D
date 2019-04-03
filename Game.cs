@@ -20,7 +20,6 @@ namespace ARA2D
             var testScene = new TestScene(this);
             scene = testScene;
             testScene.InitialGeneration();
-
         }
     }
 }

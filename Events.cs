@@ -11,5 +11,12 @@ namespace ARA2D
             entity.addComponent(new ChunkGeneratedEvent(coords, chunk));
             Core.scene.addEntity(entity);
         }
+
+        public static void ChunkRemoved(ChunkCoords coords)
+        {
+            var entity = new Entity($"ChunkRemoved{coords.Cx},{coords.Cy}");
+            entity.addComponent(new ChunkRemovedEvent(coords));
+            Core.scene.addEntity(entity);
+        }
     }
 }

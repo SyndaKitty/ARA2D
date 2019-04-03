@@ -4,7 +4,6 @@ namespace ARA2D
 {
     public class World
     {
-        public WorldScene worldScene;
         WorldGenerator generator;
         Dictionary<ChunkCoords, Chunk> chunks;
 
@@ -23,6 +22,7 @@ namespace ARA2D
         public void UnloadChunk(ChunkCoords coords)
         {
             chunks.Remove(coords);
+            Events.ChunkRemoved(coords);
         }
 
         public Chunk this[ChunkCoords coords] => chunks[coords];
