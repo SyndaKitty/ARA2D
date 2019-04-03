@@ -3,8 +3,7 @@ A game about programming robots to make a factory.
 
 I originally planned on making this game in 3D, but over time found that it would be better realized in 2D
 
------
-
+### Inspiration
 The game draws inspiration from a variety of games:
 + Factory games (Factorio, Satisfactory)
 + Programming games (Exapunk, TIS-100)
