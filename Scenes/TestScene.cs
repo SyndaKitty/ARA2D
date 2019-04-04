@@ -39,7 +39,7 @@ namespace ARA2D
             float yInput = (Input.isKeyDown(Keys.W) ? -1 : 0) + (Input.isKeyDown(Keys.S) ? 1 : 0);
             camera.setPosition(camera.position + new Vector2(xInput, yInput) * CameraSpeed * Time.deltaTime);
 
-            float dz = (Input.mouseWheelDelta) * .1f;
+            float dz = (Input.mouseWheelDelta) * .001f;
             camera.setZoom(camera.zoom + dz);
         }
 
@@ -61,7 +61,7 @@ namespace ARA2D
 
         void LoadContent()
         {
-            ChunkTextures = content.Load<Texture2D>("images/TestGrid");
+            ChunkTextures = content.Load<Texture2D>("images/TestGrid2");
         }
 
         void CreateSystems()

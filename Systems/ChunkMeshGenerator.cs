@@ -44,13 +44,13 @@ namespace ARA2D.Systems
             {
                 for (int x = 0; x < Chunk.Size; x++)
                 {
-
+                    int blockIndex = Random.nextInt(16);
                     for (int corner = 0; corner < 4; corner++, vi++)
                     {
                         int cx = corner % 2;
                         int cy = corner / 2;
                         vertices[vi].Position = new Vector3((x + cx) * Tile.Size, (y+cy) * Tile.Size, 0 );
-                        vertices[vi].TextureCoordinate = GetUVCoordsFromIndex(1, corner);
+                        vertices[vi].TextureCoordinate = GetUVCoordsFromIndex(blockIndex, corner);
                         vertices[vi].Color = Color.White;
                     }
                 }
