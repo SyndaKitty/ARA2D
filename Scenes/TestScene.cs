@@ -1,5 +1,6 @@
 ﻿using ARA2D.Systems;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Nez;
 
@@ -7,6 +8,7 @@ namespace ARA2D
 {
     public class TestScene : Scene
     {
+        public Texture2D ChunkTextures;
         Game game;
         readonly World world;
 
@@ -24,6 +26,7 @@ namespace ARA2D
             clearColor = Color.Black;
             setDefaultDesignResolution(1280, 720, SceneResolutionPolicy.ShowAllPixelPerfect);
 
+            LoadContent();
             CreateSystems();
         }
 
@@ -52,9 +55,14 @@ namespace ARA2D
             camera.zoom = 1;
         }
 
+        void LoadContent()
+        {
+            ChunkTextures = content.Load<Texture2D>("images/TestGrid");
+        }
+
         void CreateSystems()
         {
-            addEntityProcessor(new ChunkMeshGenerator());
+            addEntityProcessor(new ChunkMeshGenerator(ChunkTextures));
         }
     }
 }

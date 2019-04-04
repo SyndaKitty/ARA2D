@@ -12,11 +12,11 @@ namespace ARA2D.Systems
         // TODO: Have variable handling depending on current performance     
         public int HandlePerFrame = 4;
 
-        //Texture2D chunkTextures;
+        Texture2D chunkTextures;
 
-        public ChunkMeshGenerator(/*Texture2D chunkTextures*/) : base(new Matcher().all(typeof(ChunkGeneratedEvent)))
+        public ChunkMeshGenerator(Texture2D chunkTextures) : base(new Matcher().all(typeof(ChunkGeneratedEvent)))
         {
-            //this.chunkTextures = chunkTextures;
+            this.chunkTextures = chunkTextures;
         }
 
         public override void process(Entity entity)
@@ -73,7 +73,7 @@ namespace ARA2D.Systems
             m.SetIndices(indices);
             m.RecalculateBounds();
             m.SetColorForAllVertices(Color.White);
-            //m.SetTexture(chunkTextures);
+            m.SetTexture(chunkTextures);
 
             return m;
         }

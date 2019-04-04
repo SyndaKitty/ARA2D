@@ -170,6 +170,36 @@ namespace ARA2D
             for (var i = 0; i < vertices.Length; i++)
                 vertices[i].Position = positions[i];
         }
+        
+        /// <summary>
+        /// Sets the texture coordinates. If the uvs array size does not match the vertices array size the vertices will be recreated.
+        /// </summary>
+        /// <param name="uvs">Texture positions</param>
+        public void SetVertexUVPositions(Vector2[] uvs)
+        {
+            if (vertices == null || vertices.Length != uvs.Length)
+                vertices = new VertexPositionColorTexture[uvs.Length];
+
+            for (var i = 0; i < vertices.Length; i++)
+                vertices[i].TextureCoordinate = uvs[i];
+        }
+
+        /// <summary>
+        /// Copies all vertex properties from the passed array. If sizes don't match array is recreated.
+        /// </summary>
+        /// <param name="newVertices"></param>
+        public void SetVertices(VertexPositionColorTexture[] newVertices)
+        {
+            if (vertices == null || this.vertices.Length != newVertices.Length)
+                vertices = new VertexPositionColorTexture[newVertices.Length];
+
+            for (var i = 0; i < newVertices.Length; i++)
+            {
+                vertices[i].Position = newVertices[i].Position;
+                vertices[i].Color = newVertices[i].Color;
+                vertices[i].TextureCoordinate = newVertices[i].TextureCoordinate;
+            }
+        }
 
         /// <summary>
         /// sets the triangle indices for rendering
