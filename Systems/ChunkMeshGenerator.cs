@@ -25,7 +25,7 @@ namespace ARA2D.Systems
             var chunk = chunkGenEvent.Chunk;
 
             var vertices = CreateVertexArray();
-            var indices = CreateTrianglesArray();
+            var indices = CreateIndicesArray();
             var mesh = CreateMesh(vertices, indices);
 
             Entity e = new Entity($"ChunkMesh{chunkGenEvent.Coords.Cx},{chunkGenEvent.Coords.Cy}");
@@ -37,35 +37,69 @@ namespace ARA2D.Systems
 
         static VertexPositionColorTexture[] CreateVertexArray()
         {
-            var vertices = new VertexPositionColorTexture[(Chunk.Size + 1) * (Chunk.Size + 1)];
+            var vertices = new VertexPositionColorTexture[Chunk.Size * Chunk.Size * 4];
 
-            for (int i = 0, y = 0; y <= Chunk.Size; y++)
+            int vi = 0;
+            for (int y = 0; y < Chunk.Size; y++)
             {
-                for (int x = 0; x <= Chunk.Size; x++, i++)
+                for (int x = 0; x < Chunk.Size; x++)
                 {
-                    vertices[i].Position = new Vector3(x * Tile.Size, y * Tile.Size, 0 );
-                    vertices[i].TextureCoordinate = new Vector2((float)x / Chunk.Size, (float)y / Chunk.Size);
-                    vertices[i].Color = Color.White;
+
+                    for (int corner = 0; corner < 4; corner++, vi++)
+                    {
+                        int cx = corner % 2;
+                        int cy = corner / 2;
+                        vertices[vi].Position = new Vector3((x + cx) * Tile.Size, (y+cy) * Tile.Size, 0 );
+                        vertices[vi].TextureCoordinate = GetUVCoordsFromIndex(1, corner);
+                        vertices[vi].Color = Color.White;
+                    }
                 }
             }
 
             return vertices;
         }
 
-        static short[] CreateTrianglesArray()
+        /// <summary>
+        /// Get texture coordinates for the block index given
+        /// </summary>
+        /// <param name="blockIndex"></param>
+        /// <param name="corner">The corner of the block wanted
+        /// 0 = Top-left
+        /// 1 = Top-right
+        /// 2 = Bottom-left
+        /// 3 = Bottom-right
+        /// </param>
+        /// <returns></returns>
+        static Vector2 GetUVCoordsFromIndex(int blockIndex, int corner)
         {
-            short[] triangles = new short[Chunk.Size * Chunk.Size * 6];
-            for (int ti = 0, vi = 0, y = 0; y < Chunk.Size; y++, vi++)
+            // TODO: pull texture info from JSON
+            int width = 4;
+            int height = 4;
+
+            int x = blockIndex % width + corner % 2;
+            int y = blockIndex / width + corner / 2;
+
+            return new Vector2((float) x / width, (float) y / height);
+        }
+
+        static short[] CreateIndicesArray()
+        {
+            short[] indices = new short[Chunk.Size * Chunk.Size * 6];
+            int i = 0;
+            int vi = 0;
+            for (int y = 0; y < Chunk.Size; y++)
             {
-                for (int x = 0; x < Chunk.Size; x++, ti += 6, vi++)
+                for (int x = 0; x < Chunk.Size; x++, vi += 4)
                 {
-                    triangles[ti] = (short)vi;
-                    triangles[ti + 3] = triangles[ti + 1] = (short)(vi + 1);
-                    triangles[ti + 5] = triangles[ti + 2] = (short)(vi + Chunk.Size + 1);
-                    triangles[ti + 4] = (short)(vi + Chunk.Size + 2);
+                    indices[i++] = (short) vi;
+                    indices[i++] = (short) (vi + 1);
+                    indices[i++] = (short) (vi + 3);
+                    indices[i++] = (short) vi;
+                    indices[i++] = (short) (vi + 3);
+                    indices[i++] = (short) (vi + 2);
                 }
             }
-            return triangles;
+            return indices;
         }
 
         RenderableComponent CreateMesh(VertexPositionColorTexture[] vertices, short[] indices)

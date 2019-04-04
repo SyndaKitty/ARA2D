@@ -38,6 +38,9 @@ namespace ARA2D
             float xInput = (Input.isKeyDown(Keys.A) ? -1 : 0) + (Input.isKeyDown(Keys.D) ? 1 : 0);
             float yInput = (Input.isKeyDown(Keys.W) ? -1 : 0) + (Input.isKeyDown(Keys.S) ? 1 : 0);
             camera.setPosition(camera.position + new Vector2(xInput, yInput) * CameraSpeed * Time.deltaTime);
+
+            float dz = (Input.mouseWheelDelta) * .1f;
+            camera.setZoom(camera.zoom + dz);
         }
 
         public void InitialGeneration()
@@ -50,7 +53,8 @@ namespace ARA2D
             var cameraEntity = createEntity("Camera");
             cameraEntity.addComponent(camera = new Camera());
             camera.setPosition(new Vector2(-Screen.width / 2, -Screen.height / 2));
-            camera.maximumZoom = 2f;
+
+            camera.maximumZoom = 10f;
             camera.minimumZoom = 1f;
             camera.zoom = 0f;
         }
