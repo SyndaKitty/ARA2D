@@ -58,7 +58,7 @@ namespace ARA2D
         {
             var cameraEntity = createEntity("Camera");
             cameraEntity.addComponent(camera = new Camera());
-            camera.setPosition(new Vector2(-Screen.width / 2, -Screen.height / 2));
+            camera.setPosition(new Vector2(-Screen.width * .5f, -Screen.height * .5f));
 
             camera.maximumZoom = 10f;
             camera.minimumZoom = 1f;

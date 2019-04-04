@@ -3,6 +3,7 @@ using ARA2D.Components;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace ARA2D.Systems
 {
@@ -27,6 +28,8 @@ namespace ARA2D.Systems
             var chunkGenEvent = entity.getComponent<ChunkGeneratedEvent>();
             var chunk = chunkGenEvent.Chunk;
 
+            Console.WriteLine(DateTime.Now + " " + chunk.Coords);
+
             if (GeneratedChunks.Contains(chunk.Coords))
             {
                 entity.destroy();
@@ -41,6 +44,7 @@ namespace ARA2D.Systems
             meshEntity.addComponent(mesh);
             scene.addEntity(meshEntity);
             meshEntity.position = chunk.Coords.ToWorldCoords();
+            Console.WriteLine("Moved to " + meshEntity.position);
 
             GeneratedChunks.Add(chunk.Coords);
 
@@ -58,7 +62,7 @@ namespace ARA2D.Systems
             {
                 for (int x = 0; x < Chunk.Size; x++)
                 {
-                    int blockIndex = Random.nextInt(16);
+                    int blockIndex = Nez.Random.nextInt(16);
                     for (int corner = 0; corner < 4; corner++, vi++)
                     {
                         int cx = corner % 2;

@@ -17,7 +17,7 @@ namespace ARA2D
         public void GenerateChunk(ChunkCoords coords)
         {
             if (loadedChunks.ContainsKey(coords)) return; 
-            var chunk = loadedChunks[coords] = generator.GenerateChunk(coords);
+            generator.GenerateChunk(coords); 
         }
 
         public void UnloadChunk(ChunkCoords coords)
@@ -29,6 +29,11 @@ namespace ARA2D
         public bool IsChunkLoaded(ChunkCoords coords)
         {
             return loadedChunks.ContainsKey(coords);
+        }
+
+        public void SetChunk(ChunkCoords coords, Chunk chunk)
+        {
+            loadedChunks[coords] = chunk;
         }
 
         public Chunk this[ChunkCoords coords] => loadedChunks[coords];

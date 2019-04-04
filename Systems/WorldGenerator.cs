@@ -18,13 +18,13 @@ namespace ARA2D.Systems
             entity.destroy();
         }
 
-        public Chunk GenerateChunk(ChunkCoords coords)
+        public void GenerateChunk(ChunkCoords coords)
         {
-            if (world.IsChunkLoaded(coords)) return world[coords];
+            if (world.IsChunkLoaded(coords)) return;
             // TODO: Generate chunks with Perlin/Simplex noise
             var chunk = new Chunk(coords);
             Events.ChunkGenerated(coords, chunk);
-            return chunk;
+            world.SetChunk(coords, chunk);
         }
     }
 }
