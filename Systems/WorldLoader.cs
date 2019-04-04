@@ -29,8 +29,11 @@ namespace ARA2D.Systems
 
             var screenCenter = cam.screenToWorldPoint(new Point((int)(Screen.width * .5f), (int)(Screen.height * .5f)));
             var coords = ChunkCoords.FromWorldSpace(screenCenter.X, screenCenter.Y);
+            Console.WriteLine(cam.position + " -> " + coords);
             CheckCoords(coords);
             // TODO: Replace spiral pattern with radial expansion
+            
+            // TODO: Investigate why this code locks up mesh generation
             // Check chunks in spiral fashion
             //for (int length = 1, direction = 1; length < 5; length++, direction = -direction)
             //{

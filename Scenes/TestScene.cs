@@ -37,7 +37,7 @@ namespace ARA2D
 
         public override void update()
         {
-            const float CameraSpeed = 100;
+            const float CameraSpeed = 400;
             base.update();
 
             float xInput = (Input.isKeyDown(Keys.A) ? -1 : 0) + (Input.isKeyDown(Keys.D) ? 1 : 0);

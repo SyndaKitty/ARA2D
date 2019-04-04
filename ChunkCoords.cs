@@ -23,7 +23,7 @@ namespace ARA2D
         {
             long scaledX = (long)(x / Tile.Size);
             long scaledY = (long)(y / Tile.Size);
-            return new ChunkCoords(scaledX << Chunk.Bits, scaledY << Chunk.Bits);
+            return new ChunkCoords(scaledX >> Chunk.Bits, scaledY >> Chunk.Bits);
         }
 
         public Vector2 ToWorldCoords()
