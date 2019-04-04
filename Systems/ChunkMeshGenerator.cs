@@ -28,8 +28,6 @@ namespace ARA2D.Systems
             var chunkGenEvent = entity.getComponent<ChunkGeneratedEvent>();
             var chunk = chunkGenEvent.Chunk;
 
-            Console.WriteLine(DateTime.Now + " " + chunk.Coords);
-
             if (GeneratedChunks.Contains(chunk.Coords))
             {
                 entity.destroy();
@@ -44,7 +42,6 @@ namespace ARA2D.Systems
             meshEntity.addComponent(mesh);
             scene.addEntity(meshEntity);
             meshEntity.position = chunk.Coords.ToWorldCoords();
-            Console.WriteLine("Moved to " + meshEntity.position);
 
             GeneratedChunks.Add(chunk.Coords);
 

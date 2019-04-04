@@ -1,5 +1,6 @@
 ﻿using ARA2D.Components;
 using Nez;
+using System;
 
 namespace ARA2D.Systems
 {
@@ -20,7 +21,11 @@ namespace ARA2D.Systems
 
         public void GenerateChunk(ChunkCoords coords)
         {
-            if (world.IsChunkLoaded(coords)) return;
+            if (world.IsChunkLoaded(coords))
+            {
+                return;
+            }
+
             // TODO: Generate chunks with Perlin/Simplex noise
             var chunk = new Chunk(coords);
             Events.ChunkGenerated(coords, chunk);

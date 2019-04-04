@@ -9,7 +9,7 @@ namespace ARA2D.Systems
     {
         public float Modifier;
         public bool Enabled;
-        public float Frames = 1;
+        public float Frames = 10;
 
         ChunkMeshGenerator chunkMeshGenerator;
         float frameNumber;
@@ -29,31 +29,30 @@ namespace ARA2D.Systems
 
             var screenCenter = cam.screenToWorldPoint(new Point((int)(Screen.width * .5f), (int)(Screen.height * .5f)));
             var coords = ChunkCoords.FromWorldSpace(screenCenter.X, screenCenter.Y);
-            Console.WriteLine(cam.position + " -> " + coords);
             CheckCoords(coords);
             // TODO: Replace spiral pattern with radial expansion
-            
-            // TODO: Investigate why this code locks up mesh generation
+
+            long x = coords.Cx;
+            long y = coords.Cy;
             // Check chunks in spiral fashion
-            //for (int length = 1, direction = 1; length < 5; length++, direction = -direction)
-            //{
-            //    for (int i = 0; i < length; i++)
-            //    {
-            //        coords.Cx += direction;
-            //        CheckCoords(coords);
-            //    }
-            //    for (int i = 0; i < length; i++)
-            //    {
-            //        coords.Cy += direction;
-            //        CheckCoords(coords);
-            //    }
-            //}
+            for (int length = 1, direction = 1; length < 6; length++, direction = -direction)
+            {
+                for (int i = 0; i < length; i++)
+                {
+                    x += direction;
+                    CheckCoords(new ChunkCoords(x, y));
+                }
+                for (int i = 0; i < length; i++)
+                {
+                    y += direction;
+                    CheckCoords(new ChunkCoords(x, y));
+                }
+            }
         }
 
         void CheckCoords(ChunkCoords coords)
         {
             if (chunkMeshGenerator.ChunkLoaded(coords)) return;
-            Console.WriteLine("ChunkGenerateRequest " + coords);
             var entity = scene.createEntity($"ChunkGenerateRequest{coords.Cx},{coords.Cy}");
             entity.addComponent(new PassiveChunkGenerate(coords, true));
         }
