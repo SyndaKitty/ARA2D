@@ -24,30 +24,32 @@ namespace ARA2D.Systems
             var chunkGenEvent = entity.getComponent<ChunkGeneratedEvent>();
             var chunk = chunkGenEvent.Chunk;
 
-            Vector2[] positions = CreatePositionsArray();
-            short[] triangles = CreateTrianglesArray();
-            RenderableComponent renderable = CreateMesh(positions, triangles);
+            var vertices = CreateVertexArray();
+            var indices = CreateTrianglesArray();
+            var mesh = CreateMesh(vertices, indices);
 
             Entity e = new Entity($"ChunkMesh{chunkGenEvent.Coords.Cx},{chunkGenEvent.Coords.Cy}");
-            e.addComponent(renderable);
+            e.addComponent(mesh);
             Core.scene.addEntity(e);
 
             entity.destroy();
         }
 
-        static Vector2[] CreatePositionsArray()
+        static VertexPositionColorTexture[] CreateVertexArray()
         {
-            var positions = new Vector2[(Chunk.Size + 1) * (Chunk.Size + 1)];
+            var vertices = new VertexPositionColorTexture[(Chunk.Size + 1) * (Chunk.Size + 1)];
 
             for (int i = 0, y = 0; y <= Chunk.Size; y++)
             {
                 for (int x = 0; x <= Chunk.Size; x++, i++)
                 {
-                    positions[i] = new Vector2(x, y);
+                    vertices[i].Position = new Vector3(x * Tile.Size, y * Tile.Size, 0 );
+                    vertices[i].TextureCoordinate = new Vector2((float)x / Chunk.Size, (float)y / Chunk.Size);
+                    vertices[i].Color = Color.White;
                 }
             }
 
-            return positions;
+            return vertices;
         }
 
         static short[] CreateTrianglesArray()
@@ -66,15 +68,14 @@ namespace ARA2D.Systems
             return triangles;
         }
 
-        RenderableComponent CreateMesh(Vector2[] positions, short[] indices)
+        RenderableComponent CreateMesh(VertexPositionColorTexture[] vertices, short[] indices)
         {
             UvMesh m = new UvMesh();
-            m.SetVertexPositions(positions);
+            m.SetVertices(vertices);
             m.SetIndices(indices);
             m.RecalculateBounds();
-            m.SetColorForAllVertices(Color.White);
             m.SetTexture(chunkTextures);
-
+            m.debugRenderEnabled = true;
             return m;
         }
 

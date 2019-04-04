@@ -9,7 +9,7 @@ namespace ARA2D
     {
         public World world;
 
-        public Game() : base(isFullScreen: false, enableEntitySystems: true, windowTitle: "ARA2D Prototype")
+        public Game() : base(isFullScreen: false, enableEntitySystems: true, windowTitle: "ARA2D Prototype", width: 1920, height: 1080)
         {
         }
 

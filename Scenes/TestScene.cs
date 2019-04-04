@@ -21,10 +21,10 @@ namespace ARA2D
         public override void initialize()
         {
             CreateCamera();
-
+            Core.debugRenderEnabled = true;
             addRenderer(new DefaultRenderer(camera: camera));
             clearColor = Color.Black;
-            setDefaultDesignResolution(1280, 720, SceneResolutionPolicy.ShowAllPixelPerfect);
+            setDefaultDesignResolution(1920, 1080, SceneResolutionPolicy.ShowAllPixelPerfect);
 
             LoadContent();
             CreateSystems();
@@ -32,7 +32,7 @@ namespace ARA2D
 
         public override void update()
         {
-            const float CameraSpeed = 10;
+            const float CameraSpeed = 100;
             base.update();
 
             float xInput = (Input.isKeyDown(Keys.A) ? -1 : 0) + (Input.isKeyDown(Keys.D) ? 1 : 0);
@@ -50,9 +50,9 @@ namespace ARA2D
             var cameraEntity = createEntity("Camera");
             cameraEntity.addComponent(camera = new Camera());
             camera.setPosition(new Vector2(-Screen.width / 2, -Screen.height / 2));
-            camera.maximumZoom = 32;
-            camera.minimumZoom = 1;
-            camera.zoom = 1;
+            camera.maximumZoom = 2f;
+            camera.minimumZoom = 1f;
+            camera.zoom = 0f;
         }
 
         void LoadContent()

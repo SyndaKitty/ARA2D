@@ -8,5 +8,6 @@ namespace ARA2D
 {
     public struct Tile
     {
+        public const int Size = 16;
     }
 }
