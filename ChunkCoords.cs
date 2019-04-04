@@ -1,12 +1,10 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 
 namespace ARA2D
 {
     public class ChunkCoords : IEquatable<ChunkCoords>
     {
-        const int X_SIZE = 6; // 2^6 = 64
-        const int Y_SIZE = 6; // 2^6 = 64
-
         public long Cx;
         public long Cy;
 
@@ -18,7 +16,12 @@ namespace ARA2D
 
         public static ChunkCoords FromBlockCoords(long x, long y)
         {
-            return new ChunkCoords(x << X_SIZE, y << Y_SIZE);
+            return new ChunkCoords(x >> Chunk.Bits, y >> Chunk.Bits);
+        }
+
+        public Vector2 ToWorldCoords()
+        {
+            return new Vector2(Cx << Chunk.Bits, Cy << Chunk.Bits);
         }
 
         public override int GetHashCode()

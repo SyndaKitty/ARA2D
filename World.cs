@@ -1,30 +1,36 @@
-﻿using System.Collections.Generic;
+﻿using ARA2D.Systems;
+using System.Collections.Generic;
 
 namespace ARA2D
 {
     public class World
     {
         WorldGenerator generator;
-        Dictionary<ChunkCoords, Chunk> chunks;
+        Dictionary<ChunkCoords, Chunk> loadedChunks;
 
         public World(WorldGenerator generator)
         {
             this.generator = generator;
-            chunks = new Dictionary<ChunkCoords, Chunk>();
+            loadedChunks = new Dictionary<ChunkCoords, Chunk>();
         }
 
         public void GenerateChunk(ChunkCoords coords)
         {
-            var chunk = chunks[coords] = generator.GenerateChunk(coords);
-            Events.ChunkGenerated(coords, chunk);
+            if (loadedChunks.ContainsKey(coords)) return; 
+            var chunk = loadedChunks[coords] = generator.GenerateChunk(coords);
         }
 
         public void UnloadChunk(ChunkCoords coords)
         {
-            chunks.Remove(coords);
+            loadedChunks.Remove(coords);
             Events.ChunkRemoved(coords);
         }
 
-        public Chunk this[ChunkCoords coords] => chunks[coords];
+        public bool IsChunkLoaded(ChunkCoords coords)
+        {
+            return loadedChunks.ContainsKey(coords);
+        }
+
+        public Chunk this[ChunkCoords coords] => loadedChunks[coords];
     }
 }

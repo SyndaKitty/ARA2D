@@ -10,30 +10,44 @@ namespace ARA2D.Systems
     {
         // Generate up to 4 chunk meshes per frame for now 
         // TODO: Have variable handling depending on current performance     
-        public int HandlePerFrame = 4;
+        public int HandlePerFrame = 1;
 
+        HashSet<ChunkCoords> GeneratedChunks;
         Texture2D chunkTextures;
 
+        // TODO: Handle a ChunkMeshRemoval component
         public ChunkMeshGenerator(Texture2D chunkTextures) : base(new Matcher().all(typeof(ChunkGeneratedEvent)))
         {
             this.chunkTextures = chunkTextures;
+            GeneratedChunks = new HashSet<ChunkCoords>();
         }
 
         public override void process(Entity entity)
-        {
+        { 
             var chunkGenEvent = entity.getComponent<ChunkGeneratedEvent>();
             var chunk = chunkGenEvent.Chunk;
+
+            if (GeneratedChunks.Contains(chunk.Coords))
+            {
+                entity.destroy();
+                return;
+            }
 
             var vertices = CreateVertexArray();
             var indices = CreateIndicesArray();
             var mesh = CreateMesh(vertices, indices);
 
-            Entity e = new Entity($"ChunkMesh{chunkGenEvent.Coords.Cx},{chunkGenEvent.Coords.Cy}");
-            e.addComponent(mesh);
-            Core.scene.addEntity(e);
+            Entity meshEntity = new Entity($"ChunkMesh{chunkGenEvent.Coords.Cx},{chunkGenEvent.Coords.Cy}");
+            meshEntity.addComponent(mesh);
+            scene.addEntity(meshEntity);
+            meshEntity.position = chunk.Coords.ToWorldCoords();
+
+            GeneratedChunks.Add(chunk.Coords);
 
             entity.destroy();
         }
+
+        public bool ChunkLoaded(ChunkCoords coords) => GeneratedChunks.Contains(coords);
 
         static VertexPositionColorTexture[] CreateVertexArray()
         {

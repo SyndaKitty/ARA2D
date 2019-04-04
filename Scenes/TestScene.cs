@@ -9,13 +9,15 @@ namespace ARA2D
     public class TestScene : Scene
     {
         public Texture2D ChunkTextures;
-        Game game;
-        readonly World world;
+        
+        World world;
 
-        public TestScene(Game game)
+        WorldLoader worldLoader;
+        ChunkMeshGenerator chunkMeshGenerator;
+        WorldGenerator worldGenerator;
+
+        public TestScene()
         {
-            this.game = game;
-            world = game.world;
         }
 
         public override void initialize()
@@ -28,6 +30,9 @@ namespace ARA2D
 
             LoadContent();
             CreateSystems();
+
+            world = new World(worldGenerator);
+            worldGenerator.world = world;
         }
 
         public override void update()
@@ -45,7 +50,8 @@ namespace ARA2D
 
         public void InitialGeneration()
         {
-            world.GenerateChunk(new ChunkCoords(0, 0));
+            worldLoader.Enabled = true;
+            //world.GenerateChunk(new ChunkCoords(0, 0));
         }
 
         void CreateCamera()
@@ -66,7 +72,9 @@ namespace ARA2D
 
         void CreateSystems()
         {
-            addEntityProcessor(new ChunkMeshGenerator(ChunkTextures));
+            addEntityProcessor(chunkMeshGenerator = new ChunkMeshGenerator(ChunkTextures));
+            addEntityProcessor(worldLoader = new WorldLoader(chunkMeshGenerator, .5f));
+            addEntityProcessor(worldGenerator = new WorldGenerator());
         }
     }
 }

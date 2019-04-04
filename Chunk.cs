@@ -1,12 +1,10 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Nez;
-
-namespace ARA2D
+﻿namespace ARA2D
 {
     public class Chunk
     {
-        public const int Size = 32;
+        public const int Bits = 5; // 2^5 = 32
+        public const int Size = 1 << Bits;
+
         public readonly ChunkCoords Coords;
         public Tile[,] tiles;
 

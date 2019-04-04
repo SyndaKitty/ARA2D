@@ -16,8 +16,8 @@ namespace ARA2D
         protected override void Initialize()
         {
             base.Initialize();
-            world = new World(new WorldGenerator());
-            var testScene = new TestScene(this);
+            exitOnEscapeKeypress = false;
+            var testScene = new TestScene();
             scene = testScene;
             testScene.InitialGeneration();
         }
