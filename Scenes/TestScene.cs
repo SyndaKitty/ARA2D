@@ -1,5 +1,6 @@
 ﻿using ARA2D.Systems;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using Nez;
 
 namespace ARA2D
@@ -28,7 +29,12 @@ namespace ARA2D
 
         public override void update()
         {
+            const float CameraSpeed = 10;
             base.update();
+
+            float xInput = (Input.isKeyDown(Keys.A) ? -1 : 0) + (Input.isKeyDown(Keys.D) ? 1 : 0);
+            float yInput = (Input.isKeyDown(Keys.W) ? -1 : 0) + (Input.isKeyDown(Keys.S) ? 1 : 0);
+            camera.setPosition(camera.position + new Vector2(xInput, yInput) * CameraSpeed * Time.deltaTime);
         }
 
         public void InitialGeneration()
