@@ -19,9 +19,21 @@ right
 give
 take
 ```
+It's not immediately clear how I should handle failures. For example what should two robots do when they are trying to move to the same space? I still need to think about this. Likely there will be parameters for some commands, for example: `move retry`. A command like that will have to take into account deadlock and other edge cases.
 
 The command set itself is generally not sophisticated enough to get more complicated tasks done. For these types of tasks, the player is allowed to write their own commands with lua.
-TODO: example
+For example:
+```lua
+function square(amount)
+  amount = amount or 1
+  for i = 1,amount do
+    for t = 1,4 do
+      move()
+      left()
+    end
+  end
+end
+```
 
 ### Robots
 Robots are highly configurable with different upgrades available to suit the task at hand
@@ -33,8 +45,8 @@ Robots are highly configurable with different upgrades available to suit the tas
 | Solar Panel?| Robot can generate electricity by itself       |
 | TODO        | More ideas                                     |
 
-### Factory
-TODO: Explain factory gameplay
+### Production Gameplay
+The production mechanics will be similar to that of other "Factory"-style game. Raw resources can be attained, which through several production steps can be refined and crafted into different products. The resulting products can be combined to make more advanced products. The products made by the factory go into making the factory bigger and more efficient. The game will have the creation of some advanced resource-intensive product as the end-goal of the game.
 
 ### Automation
-I plan to let the player automate EVERYTHING. TODO: Expand
+I plan to let the player automate everything. Ideally it should be possible to start with a single robot and complete the game with a sufficiently advanced script.
