@@ -54,6 +54,7 @@
     <Compile Include="Scenes\TestScene.cs" />
     <Compile Include="Systems\ChunkMeshGenerator.cs" />
     <Compile Include="Tile.cs" />
+    <Compile Include="UvMesh.cs" />
     <Compile Include="World.cs" />
     <Compile Include="WorldGenerator.cs" />
   </ItemGroup>

@@ -2,6 +2,7 @@
 using ARA2D.Components;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace ARA2D.Systems
 {
@@ -11,8 +12,11 @@ namespace ARA2D.Systems
         // TODO: Have variable handling depending on current performance     
         public int HandlePerFrame = 4;
 
-        public ChunkMeshGenerator() : base(new Matcher().all(typeof(ChunkGeneratedEvent)))
+        //Texture2D chunkTextures;
+
+        public ChunkMeshGenerator(/*Texture2D chunkTextures*/) : base(new Matcher().all(typeof(ChunkGeneratedEvent)))
         {
+            //this.chunkTextures = chunkTextures;
         }
 
         public override void process(Entity entity)
@@ -21,11 +25,11 @@ namespace ARA2D.Systems
             var chunk = chunkGenEvent.Chunk;
 
             Vector2[] positions = CreatePositionsArray();
-            int[] triangles = CreateTrianglesArray();
-            Mesh m = CreateMesh(positions, triangles);
+            short[] triangles = CreateTrianglesArray();
+            RenderableComponent renderable = CreateMesh(positions, triangles);
 
             Entity e = new Entity($"ChunkMesh{chunkGenEvent.Coords.Cx},{chunkGenEvent.Coords.Cy}");
-            e.addComponent(m);
+            e.addComponent(renderable);
             Core.scene.addEntity(e);
 
             entity.destroy();
@@ -46,29 +50,31 @@ namespace ARA2D.Systems
             return positions;
         }
 
-        static int[] CreateTrianglesArray()
+        static short[] CreateTrianglesArray()
         {
-            int[] triangles = new int[Chunk.Size * Chunk.Size * 6];
+            short[] triangles = new short[Chunk.Size * Chunk.Size * 6];
             for (int ti = 0, vi = 0, y = 0; y < Chunk.Size; y++, vi++)
             {
                 for (int x = 0; x < Chunk.Size; x++, ti += 6, vi++)
                 {
-                    triangles[ti] = vi;
-                    triangles[ti + 3] = triangles[ti + 1] = vi + 1;
-                    triangles[ti + 5] = triangles[ti + 2] = vi + Chunk.Size + 1;
-                    triangles[ti + 4] = vi + Chunk.Size + 2;
+                    triangles[ti] = (short)vi;
+                    triangles[ti + 3] = triangles[ti + 1] = (short)(vi + 1);
+                    triangles[ti + 5] = triangles[ti + 2] = (short)(vi + Chunk.Size + 1);
+                    triangles[ti + 4] = (short)(vi + Chunk.Size + 2);
                 }
             }
             return triangles;
         }
 
-        Mesh CreateMesh(Vector2[] positions, int[] triangles)
+        RenderableComponent CreateMesh(Vector2[] positions, short[] indices)
         {
-            Mesh m = new Mesh();
-            m.setVertPositions(positions);
-            m.setTriangles(triangles);
-            m.recalculateBounds(false);
-            m.setColorForAllVerts(Color.White);
+            UvMesh m = new UvMesh();
+            m.SetVertexPositions(positions);
+            m.SetIndices(indices);
+            m.RecalculateBounds();
+            m.SetColorForAllVertices(Color.White);
+            //m.SetTexture(chunkTextures);
+
             return m;
         }
 
