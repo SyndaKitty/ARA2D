@@ -3,6 +3,8 @@ A game about programming robots to make a factory.
 
 I originally planned on making this game in 3D, but over time found that it would be better realized in 2D
 
+Progress on the project can be viewed on the [Trello Board](https://trello.com/b/p6UpTeuF/ara2d)
+
 ### Inspiration
 The game draws inspiration from a variety of games:
 + Factory games (Factorio, Satisfactory)
