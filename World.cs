@@ -5,13 +5,15 @@ namespace ARA2D
 {
     public class World
     {
-        WorldGenerator generator;
-        Dictionary<ChunkCoords, Chunk> loadedChunks;
+        readonly WorldGenerator generator;
+        readonly Dictionary<ChunkCoords, Chunk> loadedChunks;
+        readonly Dictionary<int, TileEntity> tileEntities;
 
         public World(WorldGenerator generator)
         {
             this.generator = generator;
             loadedChunks = new Dictionary<ChunkCoords, Chunk>();
+            tileEntities = new Dictionary<int, TileEntity>();
         }
 
         public void GenerateChunk(ChunkCoords coords)
@@ -34,6 +36,16 @@ namespace ARA2D
         public void SetChunk(ChunkCoords coords, Chunk chunk)
         {
             loadedChunks[coords] = chunk;
+        }
+
+        public bool IsTileEntityLoaded(int id)
+        {
+            return tileEntities.ContainsKey(id);
+        }
+
+        public void SetTileEntity(int id, TileEntity entity)
+        {
+            tileEntities[id] = entity;
         }
 
         public Chunk this[ChunkCoords coords] => loadedChunks[coords];
