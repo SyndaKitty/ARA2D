@@ -34,7 +34,7 @@ namespace ARA2D.Systems
                 return;
             }
 
-            var vertices = CreateVertexArray();
+            var vertices = CreateVertexArray(chunk.BaseTiles);
             var indices = CreateIndicesArray();
             var mesh = CreateMesh(vertices, indices);
 
@@ -50,7 +50,7 @@ namespace ARA2D.Systems
 
         public bool ChunkLoaded(ChunkCoords coords) => GeneratedChunks.Contains(coords);
 
-        static VertexPositionColorTexture[] CreateVertexArray()
+        static VertexPositionColorTexture[] CreateVertexArray(short[,] baseTileTypes)
         {
             var vertices = new VertexPositionColorTexture[Chunk.Size * Chunk.Size * 4];
 
@@ -59,7 +59,7 @@ namespace ARA2D.Systems
             {
                 for (int x = 0; x < Chunk.Size; x++)
                 {
-                    int blockIndex = Nez.Random.nextInt(16);
+                    int blockIndex = baseTileTypes[x, y];
                     for (int corner = 0; corner < 4; corner++, vi++)
                     {
                         int cx = corner % 2;

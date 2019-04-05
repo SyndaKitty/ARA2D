@@ -1,6 +1,6 @@
-﻿using ARA2D.Components;
+﻿using System.Xml.Serialization;
+using ARA2D.Components;
 using Nez;
-using System;
 
 namespace ARA2D.Systems
 {
@@ -27,7 +27,16 @@ namespace ARA2D.Systems
             }
 
             // TODO: Generate chunks with Perlin/Simplex noise
-            var chunk = new Chunk(coords);
+            short[,] tiles = new short[Chunk.Size,Chunk.Size];
+            for (int y = 0; y < Chunk.Size; y++)
+            {
+                for (int x = 0; x < Chunk.Size; x++)
+                {
+                    tiles[x, y] = 0;
+                }
+            }
+
+            var chunk = new Chunk(coords, tiles);
             Events.ChunkGenerated(coords, chunk);
             world.SetChunk(coords, chunk);
         }

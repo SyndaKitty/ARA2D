@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Runtime.InteropServices;
 
 namespace ARA2D
 {
-    public struct Tile
+    public static class Tile
     {
         public const int Size = 16;
     }
