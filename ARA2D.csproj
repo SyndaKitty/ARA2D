@@ -54,11 +54,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scenes\TestScene.cs" />
     <Compile Include="Systems\ChunkMeshGenerator.cs" />
-    <Compile Include="Systems\WorldGenerator.cs" />
+    <Compile Include="WorldGenerators\SandboxGenerator.cs" />
     <Compile Include="Systems\WorldLoader.cs" />
     <Compile Include="Tile.cs" />
+    <Compile Include="TileEntity.cs" />
     <Compile Include="UvMesh.cs" />
     <Compile Include="World.cs" />
+    <Compile Include="WorldGenerators\WorldGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

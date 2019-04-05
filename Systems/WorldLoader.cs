@@ -54,7 +54,7 @@ namespace ARA2D.Systems
         {
             if (chunkMeshGenerator.ChunkLoaded(coords)) return;
             var entity = scene.createEntity($"ChunkGenerateRequest{coords.Cx},{coords.Cy}");
-            entity.addComponent(new PassiveChunkGenerate(coords, true));
+            entity.addComponent(new PassiveChunkGenerate(coords));
         }
     }
 }
