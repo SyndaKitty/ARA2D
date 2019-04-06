@@ -9,7 +9,7 @@ namespace ARA2D.Systems
     public class WorldLoader : EntityProcessingSystem
     {
         public bool Enabled;
-        public float Frames = 10;
+        public float Frames = 20;
 
         int maxX;
         public int MaxX

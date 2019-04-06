@@ -6,10 +6,11 @@ namespace ARA2D
 {
     public interface TileEntity
     {
+        int ID { get; set; }
+        List<ChunkCoords> ContainingChunkCoords { get; set; }
+
         RenderableComponent GenerateRenderable();
-        int GetID();
         Tuple<int, int> GetBounds();
         bool CanSleep();
-        List<ChunkCoords> ContainingChunks();
     }
 }

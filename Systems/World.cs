@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 using ARA2D.Components;
@@ -62,10 +63,33 @@ namespace ARA2D.Systems
             return tileEntities.ContainsKey(id);
         }
 
-        public void SetTileEntity(int id, TileEntity entity)
+        // Place a tile entity at the block coordinates specified
+        public void SetTileEntity(TileEntity entity, long bx, long by)
         {
-            Insist.isNotNull(entity);
-            tileEntities[id] = entity;
+            entity.ID = NextTileEntityID();
+            tileEntities[entity.ID] = entity;
+
+            // Find all the containing chunks
+            entity.ContainingChunkCoords = new List<ChunkCoords>();
+            var anchorCoords = ChunkCoords.FromBlockCoords(bx, by);
+            entity.ContainingChunkCoords.Add(anchorCoords);
+            var (width, height) = entity.GetBounds();
+            bool overX = bx + width >= Chunk.Size;
+            bool overY = by + height >= Chunk.Size;
+            if (overX) entity.ContainingChunkCoords.Add(new ChunkCoords(anchorCoords.Cx + 1, anchorCoords.Cy));
+            if (overY) entity.ContainingChunkCoords.Add(new ChunkCoords(anchorCoords.Cx, anchorCoords.Cy + 1));
+            if (overX && overY) entity.ContainingChunkCoords.Add(new ChunkCoords(anchorCoords.Cx + 1, anchorCoords.Cy + 1));
+
+            foreach (var coords in entity.ContainingChunkCoords)
+            {
+                RequiredChunk(coords).ContainedTileEntityIDs.Add(entity.ID);
+            }
+        }
+
+        public Chunk RequiredChunk(ChunkCoords coords)
+        {
+            if (!loadedChunks.ContainsKey(coords)) return GenerateChunk(coords);
+            return loadedChunks[coords];
         }
 
         public int NextTileEntityID()
