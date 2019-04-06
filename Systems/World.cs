@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using ARA2D.Components;using ARA2D.WorldGenerators;
+﻿using System.Collections.Generic;
+using ARA2D.Components;
+using ARA2D.WorldGenerators;
 using Nez;
 
-namespace ARA2D
+namespace ARA2D.Systems
 {
     public class World : EntityProcessingSystem
     {
@@ -56,7 +56,6 @@ namespace ARA2D
         public override void process(Entity entity)
         {
             var request = entity.getComponent<PassiveChunkGenerate>();
-            Console.WriteLine(request.Coords.Cx + " " + request.Coords.Cy);
             GenerateChunk(request.Coords);
             entity.destroy();
         }

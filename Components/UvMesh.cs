@@ -2,70 +2,10 @@
 using Nez;
 using Microsoft.Xna.Framework;
 
-namespace ARA2D
+namespace ARA2D.Components
 {
-    #region Old implementation
-
-    //public class UvMesh : RenderableComponent
-    //{
-    //    VertexBuffer vBuffer;
-    //    IndexBuffer iBuffer;
-
-    //    VertexPositionColorTexture[] vertices;
-    //    public VertexPositionColorTexture[] Vertices
-    //    {
-    //        get => vertices;
-    //        set
-    //        {
-    //            vertices = value;
-    //            vBuffer = new VertexBuffer(Core.graphicsDevice, typeof(VertexPositionColorTexture), Vertices.Length, BufferUsage.WriteOnly);
-    //            vBuffer.SetData(Vertices);
-    //        }
-    //    }
-
-    //    short[] indices;
-    //    public short[] Indices
-    //    {
-    //        get => indices;
-    //        set
-    //        {
-    //            indices = value;
-    //            iBuffer = new IndexBuffer(Core.graphicsDevice, typeof(short), Indices.Length, BufferUsage.WriteOnly);
-    //            iBuffer.SetData(Indices);
-    //        }
-    //    }
-
-    //    public UvMesh()
-    //    {
-    //    }
-
-    //    public override void render(Graphics graphics, Camera camera)
-    //    {
-    //        if (vBuffer == null || iBuffer == null) return;
-
-    //        var g = graphics.batcher.graphicsDevice;
-    //        g.Indices = iBuffer;
-    //        g.SetVertexBuffer(vBuffer);
-
-    //        RasterizerState rasterizerState = new RasterizerState();
-    //        rasterizerState.CullMode = CullMode.CullClockwiseFace;
-    //        g.RasterizerState = rasterizerState;
-
-    //        var basicEffect = new BasicEffect(g);
-    //        basicEffect.World = entity.
-
-    //        foreach (EffectPass pass in basic)
-    //    }
-    //}
-
-    #endregion
-
     /// <summary>
-    /// basic class that can be used to create simple meshes. For more advanced usage subclass and override what is needed. The general gist
-    /// of usage is the following:
-    /// - call setVertPositions
-    /// - call setTriangles to set the triangle indices
-    /// - call recalculateBounds to prepare the Mesh for rendering and culling
+    /// Class used to create meshes with control over the texture coordinates
     /// </summary>
     public class UvMesh : RenderableComponent
     {

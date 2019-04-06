@@ -3,7 +3,6 @@ using ARA2D.Components;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 
 namespace ARA2D.Systems
 {
@@ -13,7 +12,7 @@ namespace ARA2D.Systems
         // TODO: Have variable handling depending on current performance     
         public int HandlePerFrame = 5;
 
-        HashSet<ChunkCoords> GeneratedChunks;
+        readonly HashSet<ChunkCoords> GeneratedChunks;
         Texture2D chunkTextures;
 
         // TODO: Handle a ChunkMeshRemoval component
