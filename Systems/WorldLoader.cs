@@ -2,22 +2,51 @@
 using Microsoft.Xna.Framework;
 using Nez;
 using System;
+using System.Collections.Generic;
 
 namespace ARA2D.Systems
 {
     public class WorldLoader : EntityProcessingSystem
     {
-        public float Modifier;
         public bool Enabled;
         public float Frames = 10;
 
-        ChunkMeshGenerator chunkMeshGenerator;
+        int maxX;
+        public int MaxX
+        {
+            get => maxX;
+            set
+            {
+                if (maxX == value) return;
+                maxX = value;
+                CalcOffsetPoints();
+            }
+        }
+
+        int maxY;
+        public int MaxY
+        {
+            get => maxY;
+            set
+            {
+                if (maxY == value) return;
+                maxY = value;
+                CalcOffsetPoints();
+            }
+        }
+
+        List<OffsetPoint> offsetPoints;
+        readonly ChunkMeshGenerator chunkMeshGenerator;
         float frameNumber;
 
-        public WorldLoader(ChunkMeshGenerator chunkMeshGenerator, float modifier) : base(new Matcher().all(typeof(Camera)))
+        public WorldLoader(ChunkMeshGenerator chunkMeshGenerator, int maxX, int maxY) : base(
+            new Matcher().all(typeof(Camera)))
         {
             this.chunkMeshGenerator = chunkMeshGenerator;
-            Modifier = modifier;
+
+            this.maxX = maxX;
+            this.maxY = maxY;
+            CalcOffsetPoints();
         }
 
         public override void process(Entity entity)
@@ -27,26 +56,14 @@ namespace ARA2D.Systems
 
             var cam = entity.getComponent<Camera>();
 
-            var screenCenter = cam.screenToWorldPoint(new Point((int)(Screen.width * .5f), (int)(Screen.height * .5f)));
+            var screenCenter =
+                cam.screenToWorldPoint(new Point((int) (Screen.width * .5f), (int) (Screen.height * .5f)));
             var coords = ChunkCoords.FromWorldSpace(screenCenter.X, screenCenter.Y);
             CheckCoords(coords);
-            // TODO: Replace spiral pattern with radial expansion
 
-            long x = coords.Cx;
-            long y = coords.Cy;
-            // Check chunks in spiral fashion
-            for (int length = 1, direction = 1; length < 6; length++, direction = -direction)
+            foreach (var offsetPoint in offsetPoints)
             {
-                for (int i = 0; i < length; i++)
-                {
-                    x += direction;
-                    CheckCoords(new ChunkCoords(x, y));
-                }
-                for (int i = 0; i < length; i++)
-                {
-                    y += direction;
-                    CheckCoords(new ChunkCoords(x, y));
-                }
+                CheckCoords(new ChunkCoords(coords.Cx + offsetPoint.Ox, coords.Cy + offsetPoint.Oy));
             }
         }
 
@@ -55,6 +72,43 @@ namespace ARA2D.Systems
             if (chunkMeshGenerator.ChunkLoaded(coords)) return;
             var entity = scene.createEntity($"ChunkGenerateRequest{coords.Cx},{coords.Cy}");
             entity.addComponent(new PassiveChunkGenerate(coords));
+        }
+
+        void CalcOffsetPoints()
+        {
+            if (offsetPoints == null) offsetPoints = new List<OffsetPoint>();
+
+            int tier = Math.Max(MaxX, MaxY);
+            offsetPoints.Clear();
+            for (int y = -tier; y <= tier; y++)
+            {
+                if (Math.Abs(y) > maxY) continue;
+                for (int x = -tier; x <= tier; x++)
+                {
+                    if (Math.Abs(x) > MaxX) continue;
+                    offsetPoints.Add(new OffsetPoint(x, y));
+                }
+            }
+            offsetPoints.Sort();
+        }
+    }
+
+    public struct OffsetPoint : IComparable<OffsetPoint>
+    {
+        public int Ox;
+        public int Oy;
+        public float distance;
+
+        public OffsetPoint(int ox, int oy)
+        {
+            Ox = ox;
+            Oy = oy;
+            distance = (float)Math.Sqrt(Ox * Ox + Oy * Oy);
+        }
+
+        public int CompareTo(OffsetPoint other)
+        {
+            return distance.CompareTo(other.distance);
         }
     }
 }

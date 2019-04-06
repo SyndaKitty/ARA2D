@@ -11,7 +11,6 @@ namespace ARA2D
     {
         public Texture2D ChunkTextures;
         
-        World world;
         WorldLoader worldLoader;
         ChunkMeshGenerator chunkMeshGenerator;
 
@@ -68,8 +67,8 @@ namespace ARA2D
         void CreateSystems()
         {
             addEntityProcessor(chunkMeshGenerator = new ChunkMeshGenerator(ChunkTextures));
-            addEntityProcessor(worldLoader = new WorldLoader(chunkMeshGenerator, .5f));
-            addEntityProcessor(world = new World(new SandboxGenerator()));
+            addEntityProcessor(worldLoader = new WorldLoader(chunkMeshGenerator, 3, 3));
+            addEntityProcessor(new World(new SandboxGenerator()));
         }
     }
 }

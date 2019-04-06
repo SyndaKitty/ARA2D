@@ -9,9 +9,9 @@ namespace ARA2D.Systems
 {
     public class ChunkMeshGenerator : EntityProcessingSystem
     {
-        // Generate up to 4 chunk meshes per frame for now 
+        // Generate up to 5 chunk meshes per frame for now 
         // TODO: Have variable handling depending on current performance     
-        public int HandlePerFrame = 1;
+        public int HandlePerFrame = 5;
 
         HashSet<ChunkCoords> GeneratedChunks;
         Texture2D chunkTextures;
