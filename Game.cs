@@ -7,8 +7,6 @@ namespace ARA2D
     /// </summary>
     public class Game : Core
     {
-        public World world;
-
         public Game() : base(isFullScreen: false, enableEntitySystems: true, windowTitle: "ARA2D Prototype", width: 1280, height: 720)
         {
         }

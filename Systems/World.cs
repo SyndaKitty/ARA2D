@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.InteropServices;
 using ARA2D.Components;
 using ARA2D.WorldGenerators;
 using Nez;
@@ -10,6 +12,11 @@ namespace ARA2D.Systems
         readonly WorldGenerator generator;
         readonly Dictionary<ChunkCoords, Chunk> loadedChunks;
         readonly Dictionary<int, TileEntity> tileEntities;
+
+        // TODO: Find a better system to track IDs for tile entities
+        // This way isn't flexible and likely to break
+        int currentTileEntityID;
+        Queue<int> ReleasedTileEntityIDs = new Queue<int>(128);
 
         public World(WorldGenerator generator) : base(new Matcher().all(typeof(PassiveChunkGenerate)))
         {
@@ -29,6 +36,16 @@ namespace ARA2D.Systems
 
         public void UnloadChunk(ChunkCoords coords)
         {
+            if (!loadedChunks.ContainsKey(coords)) return;
+            // If there is a tile entity in the chunk that can't be put to sleep, don't unload the chunk
+            foreach (var tileEntityIDs in loadedChunks[coords].TileEntityIDs)
+            {
+                if (!tileEntities[tileEntityIDs].CanSleep())
+                {
+                    return;
+                }
+            }
+
             loadedChunks.Remove(coords);
             Events.ChunkRemoved(coords);
         }
@@ -47,8 +64,27 @@ namespace ARA2D.Systems
 
         public void SetTileEntity(int id, TileEntity entity)
         {
+            Insist.isNotNull(entity);
             tileEntities[id] = entity;
         }
+
+        public int NextTileEntityID()
+        {
+            if (ReleasedTileEntityIDs.Count == 0)
+            {
+                return currentTileEntityID++;
+            }
+            return ReleasedTileEntityIDs.Dequeue();
+        }
+
+        public void DeleteTileEntity(int id)
+        {
+            Insist.isTrue(IsTileEntityLoaded(id));
+            tileEntities.Remove(id);
+            ReleasedTileEntityIDs.Enqueue(id);
+        }
+
+        public TileEntity this[int id] => tileEntities[id];
         #endregion TileEntities
 
         public Chunk this[ChunkCoords coords] => loadedChunks[coords];
