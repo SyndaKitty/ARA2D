@@ -1,4 +1,5 @@
 ﻿using ARA2D.Systems;
+using ARA2D.TileEntities;
 using ARA2D.WorldGenerators;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -13,6 +14,7 @@ namespace ARA2D
         
         WorldLoader worldLoader;
         ChunkMeshGenerator chunkMeshGenerator;
+        World world;
 
         public TestScene()
         {
@@ -46,6 +48,8 @@ namespace ARA2D
         public void InitialGeneration()
         {
             worldLoader.Enabled = true;
+
+            world.SetTileEntity(new TestTileEntity(), 1, 1);
         }
 
         void CreateCamera()
@@ -68,7 +72,7 @@ namespace ARA2D
         {
             addEntityProcessor(chunkMeshGenerator = new ChunkMeshGenerator(ChunkTextures));
             addEntityProcessor(worldLoader = new WorldLoader(chunkMeshGenerator, 2, 2));
-            addEntityProcessor(new World(new SandboxGenerator()));
+            addEntityProcessor(world = new World(new SandboxGenerator()));
         }
     }
 }
