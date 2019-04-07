@@ -12,5 +12,7 @@ namespace ARA2D
         RenderableComponent GenerateRenderable();
         Tuple<int, int> GetBounds();
         bool CanSleep();
+
+        void Update();
     }
 }

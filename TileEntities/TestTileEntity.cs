@@ -32,5 +32,9 @@ namespace ARA2D.TileEntities
         {
             return false;
         }
+
+        public void Update()
+        {
+        }
     }
 }

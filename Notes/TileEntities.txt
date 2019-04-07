@@ -1,0 +1,16 @@
+﻿TileEntities exist unaffiliated to chunks.
+The World or some other central system should track TileEntities separate from chunks.
+
+Chunks do influence Tile Entities in some sense. When a chunk is loaded, any tile entities living in the chunk should be renderered
+When the chunk is unloaded, the rendering entity should be destroyed
+In order to accomplish this, either the chunks should track what tile entities are contained within them, or the tile entity system can track what 
+ChunkCoords each TileEntity is at, then when the world loads a chunk it can tell the TileEntitySystem to generate renderables for those Coordinates
+For TileEntities that exist at the border of a Chunk, we might just want to record where the "anchor" of that TileEntity is and ignore overlap.
+
+TileEntities do take up space, and there should be some way to prevent them from colliding or overlapping. 
+In one approach, chunks will also track a separate layer. An int array would store what tile entity is at each tile location.
+This takes a lot of unnecessary memory.
+A more simplistic approach might be to, whenever we need to check for a collision, 
+aggregate the TileEntities that exist in the Chunk in question, and the 8 surrounding chunks.
+Then loops through those TileEntities and check for collisions with the tiles in question.
+This might take more processing than necessary, but is probably enough for now.
