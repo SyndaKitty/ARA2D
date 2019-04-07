@@ -14,3 +14,13 @@ A more simplistic approach might be to, whenever we need to check for a collisio
 aggregate the TileEntities that exist in the Chunk in question, and the 8 surrounding chunks.
 Then loops through those TileEntities and check for collisions with the tiles in question.
 This might take more processing than necessary, but is probably enough for now.
+
+Another approach might to be instead of keeping track of the tile entities layer in Chunks, just have a new type of chunk: TileEntityChunk
+This Chunk has the int array that keeps track of the IDs of the tile entities for each tile. This makes lookups really quick when wanting to check collisions, 
+or even just looking at what entity exists at that location. 
+These chunks could be calculated by the TileEntitySystem that keeps track of all existing TileEntities and their bounds.
+This approach has the advantage of it being decoupled from the chunks system. Normal chunks have different requirements. Namely all chunks around the camera
+should remain loaded, and chunks far away from the camera shouldn't be. TileEntityChunks have different requirements on loading. 
+Why calculate and keep in memory the TileEntity contents for chunks around the camera if there aren't any existing TileEntities?
+It's better to dynamically calculate and store that information for Chunks where it has been requested.
+Better yet, empty Chunks don't have to calculate the int array, they can just return false for any collision checks
