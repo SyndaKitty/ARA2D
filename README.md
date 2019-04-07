@@ -7,9 +7,9 @@ Progress on the project can be viewed on the [Trello Board](https://trello.com/b
 
 ### Inspiration
 The game draws inspiration from a variety of games:
-+ Factory games (Factorio, Satisfactory)
-+ Programming games (Exapunk, TIS-100)
-+ Minecraft Mods (ComputerCraft, OpenComputers)
++ Factory games ([Factorio](https://www.factorio.com/), [Satisfactory](https://www.satisfactorygame.com/))
++ Programming games ([Exapunks](http://www.zachtronics.com/exapunks/), [TIS-100](http://www.zachtronics.com/tis-100/))
++ Minecraft Mods ([ComputerCraft](http://www.computercraft.info/), [OpenComputers](https://github.com/MightyPirates/OpenComputers))
 
 ### Programming
 Robots scripts are run via a reduced command set
@@ -44,7 +44,7 @@ Robots are highly configurable with different upgrades available to suit the tas
 |-------------|------------------------------------------------|
 | Battery     | Robot lasts longer before running out of charge|
 | Storage     | Robot can store more than one slot of items    |
-| Solar Panel?| Robot can generate electricity by itself       |
+| Solar Panel | Robot can generate electricity by itself       |
 | TODO        | More ideas                                     |
 
 ### Production Gameplay
