@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Nez;
 using Nez.Sprites;
@@ -19,8 +20,10 @@ namespace ARA2D.TileEntities
             {
                 texture = Core.content.Load<Texture2D>("images/TestEntity");
             }
+            var sprite = new Sprite(texture);
+            sprite.origin = new Vector2(0, 0);
 
-            return new Sprite(texture);
+            return sprite;
         }
 
         public Tuple<int, int> GetBounds()

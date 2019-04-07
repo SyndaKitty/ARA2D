@@ -33,23 +33,37 @@ namespace ARA2D.Systems
         {
             return tileEntities.ContainsKey(id);
         }
-
-        public void PlaceTileEntity(TileEntity tileEntity, long bx, long by)
+        
+        public bool PlaceTileEntity(TileEntity tileEntity, long bx, long by)
         {
+            var bounds = tileEntity.GetBounds();
+            if (!CheckOrMarkBounds(bounds, bx, by)) return false;
+            
             tileEntity.ID = idTracker.GetNextID();
+            CheckOrMarkBounds(bounds, bx, by, tileEntity.ID);
             tileEntities[tileEntity.ID] = tileEntity;
-
+            
             // Add tileEntity renderable
-            var entity = Core.scene.createEntity($"TileEntity{tileEntity.ID} Renderable");
+            var entity = Core.scene.createEntity($"TIRenderable{tileEntity.ID}");
             entity.addComponent(tileEntity.GenerateRenderable());
             entity.position = new Vector2(bx * Tile.Size, by * Tile.Size);
-
-            MarkBounds(tileEntity, bx, by);
+            return true;
         }
 
-        void MarkBounds(TileEntity tileEntity, long bx, long by)
+        // TODO: Find a better way to prevent repitition
+        /// <summary>
+        /// This method has two different uses:
+        /// If passed id is 0, then check to see if the bounds can fit at the x,y provided
+        /// If passed it is not 0, then set ID of tile entity for the bounds at the x,y provided
+        /// </summary>
+        /// <param name="bounds">The bounds of the tile entity</param>
+        /// <param name="bx">The x location of the anchor</param>
+        /// <param name="by">The y location of the anchor</param>
+        /// <param name="id">The id of the tileEntity, use 0 to perform a check to see if the bounds fit.</param>
+        /// <returns>If id is 0, returns whether or not the bounds fit at the location provided. Otherwise returns true</returns>
+        bool CheckOrMarkBounds(Tuple<int, int> bounds, long bx, long by, int id = 0)
         {
-            var (width, height) = tileEntity.GetBounds();
+            var (width, height) = bounds;
             //long prevX, prevY;
             for (long y = by; y < by + height; y++)
             {
@@ -57,12 +71,20 @@ namespace ARA2D.Systems
                 {
                     // TODO: Optimize this by avoiding unnecessary re-lookups of chunkcoords
                     ChunkCoords coords = ChunkCoords.FromBlockCoords(x, y);
-                    RequiredChunk(coords).TileEntityIDs[x & Chunk.LocalBitMask, y & Chunk.LocalBitMask] = tileEntity.ID;
-                    Console.WriteLine($"ID {tileEntity.ID} written at {coords} localX: {x & Chunk.LocalBitMask} localY: {y & Chunk.LocalBitMask}");
+
+                    if (id == 0)
+                    {
+                        if (RequiredChunk(coords).TileEntityIDs[x & Chunk.LocalBitMask, y & Chunk.LocalBitMask] > 0) return false;
+                    }
+                    else
+                    {
+                        RequiredChunk(coords).TileEntityIDs[x & Chunk.LocalBitMask, y & Chunk.LocalBitMask] = id;
+                    }
                     //prevX = x;
                 } 
                 //prevY = y;
             }
+            return true;
         }
 
         TileEntityChunk RequiredChunk(ChunkCoords coords)

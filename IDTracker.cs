@@ -6,7 +6,7 @@ namespace ARA2D
     public class IDTracker
     {
         // TODO: Implement a way to load from file
-        int currentTileEntityID;
+        int currentTileEntityID = 1;
         readonly Queue<int> ReleasedTileEntityIDs = new Queue<int>(128);
 
         public int GetNextID()
