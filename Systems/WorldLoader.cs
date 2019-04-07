@@ -53,9 +53,7 @@ namespace ARA2D.Systems
         {
             if (!Enabled || frameNumber++ < Frames) return;
             frameNumber = 0;
-
             var cam = entity.getComponent<Camera>();
-
             var screenCenter =
                 cam.screenToWorldPoint(new Point((int) (Screen.width * .5f), (int) (Screen.height * .5f)));
             var coords = ChunkCoords.FromWorldSpace(screenCenter.X, screenCenter.Y);

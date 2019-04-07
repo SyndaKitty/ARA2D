@@ -1,4 +1,5 @@
-﻿using ARA2D.Systems;
+﻿using System;
+using ARA2D.Systems;
 using ARA2D.TileEntities;
 using ARA2D.WorldGenerators;
 using Microsoft.Xna.Framework;
@@ -55,10 +56,7 @@ namespace ARA2D
 
         void CreateCamera()
         {
-            var cameraEntity = createEntity("Camera");
-            cameraEntity.addComponent(camera = new Camera());
             camera.setPosition(new Vector2(-Screen.width * .5f, -Screen.height * .5f));
-
             camera.maximumZoom = 10f;
             camera.minimumZoom = 1f;
             camera.zoom = 0f;
