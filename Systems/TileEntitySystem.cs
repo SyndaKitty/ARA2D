@@ -8,16 +8,12 @@ namespace ARA2D.Systems
     public class TileEntitySystem : ProcessingSystem
     {
         readonly Dictionary<int, TileEntity> tileEntities;
-
-        // TODO: Probably move this to it's own class
-        // TODO: Find a better system to track IDs for tile entities
-        // This way isn't flexible and likely to break
-        int currentTileEntityID;
-        Queue<int> ReleasedTileEntityIDs = new Queue<int>(128);
+        readonly IDTracker idTracker;
 
         public TileEntitySystem()
         {
             tileEntities = new Dictionary<int, TileEntity>();
+            idTracker = new IDTracker();
         }
 
         public void ChunkUnloaded(ChunkCoords coords)
@@ -36,7 +32,7 @@ namespace ARA2D.Systems
 
         public void PlaceTileEntity(TileEntity tileEntity, long bx, long by)
         {
-            tileEntity.ID = NextTileEntityID();
+            tileEntity.ID = idTracker.GetNextID();
             tileEntities[tileEntity.ID] = tileEntity;
 
             // Add tileEntity renderable
@@ -45,20 +41,11 @@ namespace ARA2D.Systems
             entity.position = new Vector2(bx * Tile.Size, by * Tile.Size);
         }
 
-        public int NextTileEntityID()
-        {
-            if (ReleasedTileEntityIDs.Count == 0)
-            {
-                return currentTileEntityID++;
-            }
-            return ReleasedTileEntityIDs.Dequeue();
-        }
-
         public void DeleteTileEntity(int id)
         {
             Insist.isTrue(IsTileEntityLoaded(id));
             tileEntities.Remove(id);
-            ReleasedTileEntityIDs.Enqueue(id);
+            idTracker.ReleaseID(id);
         }
     }
 }

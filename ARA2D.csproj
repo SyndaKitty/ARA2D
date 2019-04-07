@@ -50,6 +50,7 @@
     <Compile Include="Components\ChunkRemovedEvent.cs" />
     <Compile Include="Events.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="IDTracker.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scenes\TestScene.cs" />
