@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.InteropServices;
+﻿using System.Collections.Generic;
 using ARA2D.Components;
 using ARA2D.WorldGenerators;
-using Microsoft.Xna.Framework;
 using Nez;
 
 namespace ARA2D.Systems
@@ -15,6 +11,7 @@ namespace ARA2D.Systems
 
         readonly WorldGenerator generator;
         readonly Dictionary<ChunkCoords, Chunk> loadedChunks;
+
 
         public World(WorldGenerator generator, TileEntitySystem tileEntitySystem) : base(new Matcher().all(typeof(PassiveChunkGenerate)))
         {
@@ -44,7 +41,6 @@ namespace ARA2D.Systems
         {
             return loadedChunks.ContainsKey(coords);
         }
-        #endregion Chunks
 
         public Chunk RequiredChunk(ChunkCoords coords)
         {
@@ -53,6 +49,8 @@ namespace ARA2D.Systems
         }
 
         public Chunk this[ChunkCoords coords] => loadedChunks[coords];
+        #endregion Chunks
+
 
         public override void process(Entity entity)
         {

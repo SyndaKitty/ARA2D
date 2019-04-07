@@ -57,6 +57,7 @@
     <Compile Include="Systems\ChunkMeshGenerator.cs" />
     <Compile Include="Systems\TileEntitySystem.cs" />
     <Compile Include="TileEntities\TestTileEntity.cs" />
+    <Compile Include="TileEntityChunk.cs" />
     <Compile Include="WorldGenerators\SandboxGenerator.cs" />
     <Compile Include="Systems\WorldLoader.cs" />
     <Compile Include="Tile.cs" />

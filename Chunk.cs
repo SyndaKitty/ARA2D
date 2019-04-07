@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using ARA2D.Systems;
 
 namespace ARA2D
@@ -14,17 +15,20 @@ namespace ARA2D
         public const int Size = 1 << Bits;
 
         public readonly ChunkCoords Coords;
-        public int[,] TileEntityIDs; // TODO think about better ways to structure this
         public short[,] BaseTiles;
+        public static int LocalBitMask;
 
         public readonly List<int> ContainedTileEntityIDs;
 
-        public Chunk(ChunkCoords coords, short[,] baseTiles, int[,] tileEntityIDs = null, List<int> tileEntities = null)
+        static Chunk ()
+        {
+            LocalBitMask = (int)Math.Pow(2, Bits) - 1;
+        }
+
+        public Chunk(ChunkCoords coords, short[,] baseTiles)
         {
             BaseTiles = baseTiles;
             Coords = coords;
-            TileEntityIDs = tileEntityIDs ?? new int[Size,Size];
-            ContainedTileEntityIDs = tileEntities ?? new List<int>();
         }
     }
 }

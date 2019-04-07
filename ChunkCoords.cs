@@ -48,5 +48,11 @@ namespace ARA2D
         {
             return $"Chunk{Cx},{Cy}";
         }
+
+        public static void GlobalToLocalBlockCoords(int x, int y, out int lx, out int ly)
+        {
+            lx = x & Chunk.LocalBitMask;
+            ly = y & Chunk.LocalBitMask;
+        }
     }
 }
