@@ -11,7 +11,7 @@ namespace ARA2D
         public TileEntityChunk(ChunkCoords coords)
         {
             Coords = coords;
-            TileEntityIDs = new int[Chunk.Size,Chunk.Size];
+            TileEntityIDs = new int[TileChunk.Size,TileChunk.Size];
         }
     }
 }

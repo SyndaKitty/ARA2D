@@ -2,17 +2,17 @@
 {
     public class SandboxGenerator : WorldGenerator
     {
-        public Chunk GenerateChunk(ChunkCoords coords)
+        public TileChunk GenerateChunk(ChunkCoords coords)
         {
-            short[,] tiles = new short[Chunk.Size,Chunk.Size];
-            for (int y = 0; y < Chunk.Size; y++)
+            short[,] tiles = new short[TileChunk.Size,TileChunk.Size];
+            for (int y = 0; y < TileChunk.Size; y++)
             {
-                for (int x = 0; x < Chunk.Size; x++)
+                for (int x = 0; x < TileChunk.Size; x++)
                 {
                     tiles[x, y] = 0;
                 }
             }
-            return new Chunk(coords, tiles);
+            return new TileChunk(coords, tiles);
         }
     }
 }

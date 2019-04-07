@@ -1,25 +1,34 @@
-﻿using ARA2D.Components;
-using Nez;
-
+﻿using System;
 namespace ARA2D
 {
     public static class Events
     {
-        // TODO: I should probably remove this type of code.
-        // Using ECS for an event queue sounds like a cool idea, but causes some overhead, and also
-        // doesn't allow for multiple systems to respond to an entity event
-        public static void ChunkGenerated(ChunkCoords coords, Chunk chunk)
+        public delegate void TileChunkGenerated(ChunkCoords coords, TileChunk chunk);
+        public static event TileChunkGenerated OnTileChunkGenerated;
+
+        public static void TriggerTileChunkGenerated(ChunkCoords coords, TileChunk chunk)
         {
-            var entity = new Entity($"ChunkGenerated{coords.Cx},{coords.Cy}");
-            entity.addComponent(new ChunkGeneratedEvent(coords, chunk));
-            Core.scene.addEntity(entity);
+            Console.WriteLine($"TileChunkGenerated {coords.Cx},{coords.Cy}");
+            OnTileChunkGenerated?.Invoke(coords, chunk);
         }
 
-        public static void ChunkRemoved(ChunkCoords coords)
+        public delegate void TileChunkRemoved(ChunkCoords coords);
+        public static event TileChunkRemoved OnTileChunkRemoved;
+        
+        public static void TriggerTileChunkRemoved(ChunkCoords coords)
         {
-            var entity = new Entity($"ChunkRemoved{coords.Cx},{coords.Cy}");
-            entity.addComponent(new ChunkRemovedEvent(coords));
-            Core.scene.addEntity(entity);
+            Console.WriteLine($"TileChunkRemoved {coords.Cx},{coords.Cy}");
+            OnTileChunkRemoved?.Invoke(coords);
+        }
+
+        // TODO: Is there a better way to make passive requests?
+        public delegate void PassiveTileChunkRequest(ChunkCoords coords);
+        public static event PassiveTileChunkRequest OnPassiveTileChunkRequest;
+
+        public static void TriggerPassiveTileChunkRequest(ChunkCoords coords)
+        {
+            Console.WriteLine($"PassiveTileChunkRequest {coords.Cx},{coords.Cy}");
+            OnPassiveTileChunkRequest?.Invoke(coords);
         }
     }
 }

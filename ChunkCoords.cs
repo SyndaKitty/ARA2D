@@ -16,19 +16,19 @@ namespace ARA2D
 
         public static ChunkCoords FromBlockCoords(long x, long y)
         {
-            return new ChunkCoords(x >> Chunk.Bits, y >> Chunk.Bits);
+            return new ChunkCoords(x >> TileChunk.Bits, y >> TileChunk.Bits);
         }
 
         public static ChunkCoords FromWorldSpace(float x, float y)
         {
             long scaledX = (long)(x / Tile.Size);
             long scaledY = (long)(y / Tile.Size);
-            return new ChunkCoords(scaledX >> Chunk.Bits, scaledY >> Chunk.Bits);
+            return new ChunkCoords(scaledX >> TileChunk.Bits, scaledY >> TileChunk.Bits);
         }
 
         public Vector2 ToWorldCoords()
         {
-            return new Vector2(Cx << Chunk.Bits, Cy << Chunk.Bits) * Tile.Size;
+            return new Vector2(Cx << TileChunk.Bits, Cy << TileChunk.Bits) * Tile.Size;
         }
 
         public override int GetHashCode()
@@ -51,8 +51,8 @@ namespace ARA2D
 
         public static void GlobalToLocalBlockCoords(int x, int y, out int lx, out int ly)
         {
-            lx = x & Chunk.LocalBitMask;
-            ly = y & Chunk.LocalBitMask;
+            lx = x & TileChunk.LocalBitMask;
+            ly = y & TileChunk.LocalBitMask;
         }
     }
 }

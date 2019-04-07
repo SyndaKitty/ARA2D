@@ -12,15 +12,21 @@ namespace ARA2D.Systems
 
         readonly IDTracker idTracker;
 
-        // TODO: Hook up ChunkGenerated event from World.cs to load TileEntity renderables
         public TileEntitySystem()
         {
             tileEntities = new Dictionary<int, TileEntity>();
             loadedChunks = new Dictionary<ChunkCoords, TileEntityChunk>();
             idTracker = new IDTracker();
+            Events.OnTileChunkGenerated += TileChunkGenerated;
+            Events.OnTileChunkRemoved += TileChunkRemoved;
         }
 
-        public void ChunkUnloaded(ChunkCoords coords)
+        public void TileChunkGenerated(ChunkCoords coords, TileChunk chunk)
+        {
+            // TODO: Load tile entity renderables
+        }
+
+        public void TileChunkRemoved(ChunkCoords coords)
         {
             // TODO: Unload the renderable for the chunk
         }
@@ -80,11 +86,11 @@ namespace ARA2D.Systems
 
                     if (id == 0)
                     {
-                        if (RequiredChunk(coords).TileEntityIDs[x & Chunk.LocalBitMask, y & Chunk.LocalBitMask] > 0) return false;
+                        if (RequiredChunk(coords).TileEntityIDs[x & TileChunk.LocalBitMask, y & TileChunk.LocalBitMask] > 0) return false;
                     }
                     else
                     {
-                        RequiredChunk(coords).TileEntityIDs[x & Chunk.LocalBitMask, y & Chunk.LocalBitMask] = id;
+                        RequiredChunk(coords).TileEntityIDs[x & TileChunk.LocalBitMask, y & TileChunk.LocalBitMask] = id;
                     }
                     //prevX = x;
                 } 

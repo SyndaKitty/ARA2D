@@ -1,5 +1,4 @@
-﻿using ARA2D.Components;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Nez;
 using System;
 using System.Collections.Generic;
@@ -67,9 +66,12 @@ namespace ARA2D.Systems
 
         void CheckCoords(ChunkCoords coords)
         {
+            // TODO: Keep track of the chunks requested over the past X frames and don't check/request those
+            // Or maybe that's on the world to ignore requests?
+            // Maybe we should even implement a RequestManager to handle this kind of stuff
+
             if (chunkMeshGenerator.ChunkLoaded(coords)) return;
-            var entity = scene.createEntity($"ChunkGenerateRequest{coords.Cx},{coords.Cy}");
-            entity.addComponent(new PassiveChunkGenerate(coords));
+            Events.TriggerPassiveTileChunkRequest(coords);
         }
 
         void CalcOffsetPoints()

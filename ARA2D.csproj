@@ -43,11 +43,8 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Chunk.cs" />
+    <Compile Include="TileChunk.cs" />
     <Compile Include="ChunkCoords.cs" />
-    <Compile Include="Components\ChunkGeneratedEvent.cs" />
-    <Compile Include="Components\PassiveChunkGenerate.cs" />
-    <Compile Include="Components\ChunkRemovedEvent.cs" />
     <Compile Include="Events.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="IDTracker.cs" />

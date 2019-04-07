@@ -6,30 +6,27 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace ARA2D.Systems
 {
-    public class ChunkMeshGenerator : EntityProcessingSystem
+    public class ChunkMeshGenerator : ProcessingSystem
     {
-        // Generate up to 5 chunk meshes per frame for now 
-        // TODO: Have variable handling depending on current performance     
-        public int HandlePerFrame = 5;
+        // TODO: Implement variable handling depending on current performance     
+        // We could do this by only handling so many ChunkGenerated events per frame, and after that queueing them up
+        // public int HandlePerFrame = 5;
 
-        readonly HashSet<ChunkCoords> GeneratedChunks;
-        Texture2D chunkTextures;
+        readonly HashSet<ChunkCoords> LoadedMeshes;
+        readonly Texture2D chunkTextures;
 
-        // TODO: Handle a ChunkMeshRemoval component
-        public ChunkMeshGenerator(Texture2D chunkTextures) : base(new Matcher().all(typeof(ChunkGeneratedEvent)))
+        // TODO: Handle a ChunkRemoved event
+        public ChunkMeshGenerator(Texture2D chunkTextures)
         {
             this.chunkTextures = chunkTextures;
-            GeneratedChunks = new HashSet<ChunkCoords>();
+            LoadedMeshes = new HashSet<ChunkCoords>();
+            Events.OnTileChunkGenerated += TileChunkGenerated;
         }
 
-        public override void process(Entity entity)
-        { 
-            var chunkGenEvent = entity.getComponent<ChunkGeneratedEvent>();
-            var chunk = chunkGenEvent.Chunk;
-
-            if (GeneratedChunks.Contains(chunk.Coords))
+        public void TileChunkGenerated(ChunkCoords coords, TileChunk chunk)
+        {
+            if (LoadedMeshes.Contains(chunk.Coords))
             {
-                entity.destroy();
                 return;
             }
 
@@ -37,26 +34,24 @@ namespace ARA2D.Systems
             var indices = CreateIndicesArray();
             var mesh = CreateMesh(vertices, indices);
 
-            Entity meshEntity = new Entity($"ChunkMesh{chunkGenEvent.Coords.Cx},{chunkGenEvent.Coords.Cy}");
+            Entity meshEntity = new Entity($"ChunkMesh{coords.Cx},{coords.Cy}");
             meshEntity.addComponent(mesh);
             scene.addEntity(meshEntity);
             meshEntity.position = chunk.Coords.ToWorldCoords();
 
-            GeneratedChunks.Add(chunk.Coords);
-
-            entity.destroy();
+            LoadedMeshes.Add(chunk.Coords);
         }
 
-        public bool ChunkLoaded(ChunkCoords coords) => GeneratedChunks.Contains(coords);
+        public bool ChunkLoaded(ChunkCoords coords) => LoadedMeshes.Contains(coords);
 
         static VertexPositionColorTexture[] CreateVertexArray(short[,] baseTileTypes)
         {
-            var vertices = new VertexPositionColorTexture[Chunk.Size * Chunk.Size * 4];
+            var vertices = new VertexPositionColorTexture[TileChunk.Size * TileChunk.Size * 4];
 
             int vi = 0;
-            for (int y = 0; y < Chunk.Size; y++)
+            for (int y = 0; y < TileChunk.Size; y++)
             {
-                for (int x = 0; x < Chunk.Size; x++)
+                for (int x = 0; x < TileChunk.Size; x++)
                 {
                     int blockIndex = baseTileTypes[x, y];
                     for (int corner = 0; corner < 4; corner++, vi++)
@@ -98,12 +93,12 @@ namespace ARA2D.Systems
 
         static short[] CreateIndicesArray()
         {
-            short[] indices = new short[Chunk.Size * Chunk.Size * 6];
+            short[] indices = new short[TileChunk.Size * TileChunk.Size * 6];
             int i = 0;
             int vi = 0;
-            for (int y = 0; y < Chunk.Size; y++)
+            for (int y = 0; y < TileChunk.Size; y++)
             {
-                for (int x = 0; x < Chunk.Size; x++, vi += 4)
+                for (int x = 0; x < TileChunk.Size; x++, vi += 4)
                 {
                     indices[i++] = (short) vi;
                     indices[i++] = (short) (vi + 1);
@@ -127,12 +122,9 @@ namespace ARA2D.Systems
             return m;
         }
 
-        protected override void process(List<Entity> entities)
+        public override void process()
         {
-            for (int i = 0; i < HandlePerFrame && i < entities.Count; i++)
-            {
-                process(entities[i]);
-            }
+            
         }
     }
 }

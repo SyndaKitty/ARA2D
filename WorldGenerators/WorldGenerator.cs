@@ -2,6 +2,6 @@
 {
     public interface WorldGenerator
     {
-        Chunk GenerateChunk(ChunkCoords coords);
+        TileChunk GenerateChunk(ChunkCoords coords);
     }
 }

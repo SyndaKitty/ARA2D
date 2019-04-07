@@ -1,5 +1,4 @@
-﻿using System;
-using ARA2D.Systems;
+﻿using ARA2D.Systems;
 using ARA2D.TileEntities;
 using ARA2D.WorldGenerators;
 using Microsoft.Xna.Framework;
@@ -76,7 +75,7 @@ namespace ARA2D
             addEntityProcessor(chunkMeshGenerator = new ChunkMeshGenerator(ChunkTextures));
             addEntityProcessor(worldLoader = new WorldLoader(chunkMeshGenerator, 2, 2));
             addEntityProcessor(tileEntitySystem = new TileEntitySystem());
-            addEntityProcessor(world = new World(new SandboxGenerator(), tileEntitySystem));
+            addEntityProcessor(world = new World(new SandboxGenerator()));
         }
     }
 }
