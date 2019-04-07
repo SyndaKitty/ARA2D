@@ -22,18 +22,24 @@ namespace ARA2D.Systems
 
         public void ChunkUnloaded(ChunkCoords coords)
         {
-            
+            // TODO: Unload the renderable for the chunk
         }
 
         public override void process()
         {
+            // TODO: Run TileEntity logic
         }
 
         public bool IsTileEntityLoaded(int id)
         {
             return tileEntities.ContainsKey(id);
         }
-        
+
+        public bool CanPlaceTileEntity(TileEntity entity, long bx, long by)
+        {
+            return CheckOrMarkBounds(entity.GetBounds(), bx, by);
+        }
+
         public bool PlaceTileEntity(TileEntity tileEntity, long bx, long by)
         {
             var bounds = tileEntity.GetBounds();

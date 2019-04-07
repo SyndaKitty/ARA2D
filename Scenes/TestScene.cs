@@ -52,6 +52,10 @@ namespace ARA2D
             worldLoader.Enabled = true;
 
             tileEntitySystem.PlaceTileEntity(new TestTileEntity(), 1, 1);
+            for (int i = 0; i < 12; i++)
+            {
+                tileEntitySystem.PlaceTileEntity(new TestTileEntity(), i, i);
+            }
         }
 
         void CreateCamera()
