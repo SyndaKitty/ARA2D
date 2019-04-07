@@ -10,22 +10,25 @@ namespace ARA2D.Systems
     {
         // TODO: Implement variable handling depending on current performance     
         // We could do this by only handling so many ChunkGenerated events per frame, and after that queueing them up
+        // Then only handle up to X requests per frame, starting with new requests first, then queue second.
+        // After Y frames, requests are cleared, as they are no longer considered relevant
         // public int HandlePerFrame = 5;
 
-        readonly HashSet<ChunkCoords> LoadedMeshes;
+        readonly Dictionary<ChunkCoords, Entity> LoadedMeshes;
         readonly Texture2D chunkTextures;
 
         // TODO: Handle a ChunkRemoved event
         public ChunkMeshGenerator(Texture2D chunkTextures)
         {
             this.chunkTextures = chunkTextures;
-            LoadedMeshes = new HashSet<ChunkCoords>();
+            LoadedMeshes = new Dictionary<ChunkCoords, Entity>();
             Events.OnTileChunkGenerated += TileChunkGenerated;
+            Events.OnTileChunkRemoved += TileChunkRemoved;
         }
 
         public void TileChunkGenerated(ChunkCoords coords, TileChunk chunk)
         {
-            if (LoadedMeshes.Contains(chunk.Coords))
+            if (LoadedMeshes.ContainsKey(chunk.Coords))
             {
                 return;
             }
@@ -39,10 +42,16 @@ namespace ARA2D.Systems
             scene.addEntity(meshEntity);
             meshEntity.position = chunk.Coords.ToWorldCoords();
 
-            LoadedMeshes.Add(chunk.Coords);
+            LoadedMeshes.Add(chunk.Coords, meshEntity);
         }
 
-        public bool ChunkLoaded(ChunkCoords coords) => LoadedMeshes.Contains(coords);
+        public void TileChunkRemoved(ChunkCoords coords)
+        {
+            LoadedMeshes[coords].destroy();
+            LoadedMeshes.Remove(coords);
+        }
+
+        public bool ChunkLoaded(ChunkCoords coords) => LoadedMeshes.ContainsKey(coords);
 
         static VertexPositionColorTexture[] CreateVertexArray(short[,] baseTileTypes)
         {
@@ -82,8 +91,8 @@ namespace ARA2D.Systems
         static Vector2 GetUVCoordsFromIndex(int blockIndex, int corner)
         {
             // TODO: pull texture info from JSON
-            int width = 4;
-            int height = 4;
+            const int width = 4;
+            const int height = 4;
 
             int x = blockIndex % width + corner % 2;
             int y = blockIndex / width + corner / 2;
