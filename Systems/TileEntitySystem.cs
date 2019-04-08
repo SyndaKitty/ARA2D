@@ -59,6 +59,8 @@ namespace ARA2D.Systems
             var entity = Core.scene.createEntity($"TIRenderable{tileEntity.ID}");
             entity.addComponent(tileEntity.GenerateRenderable());
             entity.position = new Vector2(bx * Tile.Size, by * Tile.Size);
+            var (width, height) = tileEntity.GetBounds();
+            entity.scale = new Vector2(width, height) * tileEntity.DefaultScale();
             return true;
         }
 
