@@ -7,14 +7,14 @@ namespace ARA2D.Systems
 {
     public class TileEntitySystem : ProcessingSystem
     {
-        readonly Dictionary<int, TileEntity> tileEntities;
+        readonly Dictionary<int, ITileEntity> tileEntities;
         readonly Dictionary<ChunkCoords, TileEntityChunk> loadedChunks;
 
         readonly IDTracker idTracker;
 
         public TileEntitySystem()
         {
-            tileEntities = new Dictionary<int, TileEntity>();
+            tileEntities = new Dictionary<int, ITileEntity>();
             loadedChunks = new Dictionary<ChunkCoords, TileEntityChunk>();
             idTracker = new IDTracker();
             Events.OnTileChunkGenerated += TileChunkGenerated;
@@ -41,26 +41,21 @@ namespace ARA2D.Systems
             return tileEntities.ContainsKey(id);
         }
 
-        public bool CanPlaceTileEntity(TileEntity entity, long bx, long by)
+        public bool CanPlaceTileEntity(ITileEntity entity, long bx, long by)
         {
-            return CheckOrMarkBounds(entity.GetBounds(), bx, by);
+            return CheckOrMarkBounds(entity.Width, entity.Height, bx, by);
         }
 
-        public bool PlaceTileEntity(TileEntity tileEntity, long bx, long by)
+        public bool PlaceTileEntity(ITileEntity tileEntity, long bx, long by)
         {
-            var bounds = tileEntity.GetBounds();
-            if (!CheckOrMarkBounds(bounds, bx, by)) return false;
+            if (!CheckOrMarkBounds(tileEntity.Width, tileEntity.Height, bx, by)) return false;
             
             tileEntity.ID = idTracker.GetNextID();
-            CheckOrMarkBounds(bounds, bx, by, tileEntity.ID);
+            CheckOrMarkBounds(tileEntity.Width, tileEntity.Height, bx, by, tileEntity.ID);
             tileEntities[tileEntity.ID] = tileEntity;
-            
+
             // Add tileEntity renderable
-            var entity = Core.scene.createEntity($"TIRenderable{tileEntity.ID}");
-            entity.addComponent(tileEntity.GenerateRenderable());
-            entity.position = new Vector2(bx * Tile.Size, by * Tile.Size);
-            var (width, height) = tileEntity.GetBounds();
-            entity.scale = new Vector2(width, height) * tileEntity.DefaultScale();
+            tileEntity.CreateEntity(scene, bx, by);
             return true;
         }
 
@@ -75,9 +70,8 @@ namespace ARA2D.Systems
         /// <param name="by">The y location of the anchor</param>
         /// <param name="id">The id of the tileEntity, use 0 to perform a check to see if the bounds fit.</param>
         /// <returns>If id is 0, returns whether or not the bounds fit at the location provided. Otherwise returns true</returns>
-        bool CheckOrMarkBounds(Tuple<int, int> bounds, long bx, long by, int id = 0)
+        bool CheckOrMarkBounds(int width, int height, long bx, long by, int id = 0)
         {
-            var (width, height) = bounds;
             //long prevX, prevY;
             for (long y = by; y < by + height; y++)
             {

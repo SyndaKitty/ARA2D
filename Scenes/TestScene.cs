@@ -6,37 +6,27 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Nez;
-using Nez.Sprites;
 
 namespace ARA2D
 {
     public class TestScene : Scene
     {
-        public Texture2D ChunkTextures;
-        
+        Texture2D ChunkTextures;
+        Texture2D TestEntityTexture;
+
         WorldLoader worldLoader;
         ChunkMeshGenerator chunkMeshGenerator;
         World world;
         TileEntitySystem tileEntitySystem;
 
         TestTileEntity tileEntityToPlace;
-        Entity tileEntityPlacementGhost;
-        Sprite tileEntityPlacementSprite;
-        Color validPlacementColor;
-        Color invalidPlacementColor;
+        Color validPlacementColor = new Color(255, 255, 255, 180);
+        Color invalidPlacementColor = new Color(255, 64, 64, 180);
 
         public TestScene()
         {
-            tileEntityToPlace = new TestTileEntity();
-            tileEntityPlacementGhost = createEntity("TileEntityPlacementGhost");
-
-            validPlacementColor = new Color(255, 255, 255, 180);
-            invalidPlacementColor = new Color(255, 64, 64, 180);
-
-            tileEntityPlacementGhost.position = Vector2.Zero;
-            tileEntityPlacementSprite = tileEntityToPlace.GenerateRenderable() as Sprite;
-
-            tileEntityPlacementGhost.addComponent(tileEntityPlacementSprite);
+            tileEntityToPlace = new TestTileEntity(TestEntityTexture);
+            tileEntityToPlace.CreateEntity(this, 0, 0);
         }
 
         public override void initialize()
@@ -63,13 +53,12 @@ namespace ARA2D
             camera.setZoom(camera.zoom + dz);
 
             // Adjust tileEntityToPlace bounds
-            if (Input.isKeyPressed(Keys.Left)) tileEntityToPlace.Width = Math.Max(tileEntityToPlace.Width - 1, 1);
-            if (Input.isKeyPressed(Keys.Right)) tileEntityToPlace.Width = Math.Min(tileEntityToPlace.Width + 1, TileChunk.Size);
+            if (Input.isKeyPressed(Keys.Left)) tileEntityToPlace.Width -= 1;
+            if (Input.isKeyPressed(Keys.Right)) tileEntityToPlace.Width += 1;
 
-            if (Input.isKeyPressed(Keys.Up)) tileEntityToPlace.Height = Math.Max(tileEntityToPlace.Height - 1, 1);
-            if (Input.isKeyPressed(Keys.Down)) tileEntityToPlace.Height = Math.Min(tileEntityToPlace.Height + 1, TileChunk.Size);
-
-            tileEntityPlacementGhost.scale = new Vector2(tileEntityToPlace.Width, tileEntityToPlace.Height) * tileEntityToPlace.DefaultScale();
+            if (Input.isKeyPressed(Keys.Up)) tileEntityToPlace.Height -= 1;
+            if (Input.isKeyPressed(Keys.Down)) tileEntityToPlace.Height += 1;
+            tileEntityToPlace.RecalculateScale();
 
             // Adjust tileEntityToPlace ghost position
             var mousePoint = camera.screenToWorldPoint(Input.mousePosition);
@@ -83,14 +72,15 @@ namespace ARA2D
                 : (float)Math.Round(anchorPoint.Y + .5f) - .5f;
             anchorPoint.X -= tileEntityToPlace.Width * .5f;
             anchorPoint.Y -= tileEntityToPlace.Height * .5f;
-            tileEntityPlacementGhost.position = anchorPoint * Tile.Size;
 
+            tileEntityToPlace.Entity.position = anchorPoint * Tile.Size;
+            
             long anchorX = (long) Math.Round(anchorPoint.X);
-            long anchorY = (long)Math.Round(anchorPoint.Y);
+            long anchorY = (long) Math.Round(anchorPoint.Y);
 
             var canPlace = tileEntitySystem.CanPlaceTileEntity(tileEntityToPlace, anchorX, anchorY);
 
-            tileEntityPlacementSprite.setColor(canPlace ? validPlacementColor : invalidPlacementColor);
+            tileEntityToPlace.Sprite.setColor(canPlace ? validPlacementColor : invalidPlacementColor);
 
             // Place tile entity
             if (Input.leftMouseButtonDown && canPlace)
@@ -102,12 +92,6 @@ namespace ARA2D
         public void InitialGeneration()
         {
             worldLoader.Enabled = true;
-
-            tileEntitySystem.PlaceTileEntity(new TestTileEntity(), 1, 1);
-            //for (int i = 0; i < 36; i++)
-            //{
-            //    tileEntitySystem.PlaceTileEntity(new TestTileEntity(), i, i);
-            //}
         }
 
         void CreateCamera()
@@ -121,6 +105,7 @@ namespace ARA2D
         void LoadContent()
         {
             ChunkTextures = content.Load<Texture2D>("images/TestGrid2");
+            TestEntityTexture = content.Load<Texture2D>("images/TestEntity2");
         }
 
         void CreateSystems()
