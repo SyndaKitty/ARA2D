@@ -43,6 +43,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Systems\CameraController.cs" />
     <Compile Include="TileChunk.cs" />
     <Compile Include="ChunkCoords.cs" />
     <Compile Include="Events.cs" />

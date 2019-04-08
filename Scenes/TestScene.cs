@@ -11,14 +11,18 @@ namespace ARA2D
 {
     public class TestScene : Scene
     {
+        // Content
         Texture2D ChunkTextures;
         Texture2D TestEntityTexture;
 
+        // Systems
         WorldLoader worldLoader;
         ChunkMeshGenerator chunkMeshGenerator;
         World world;
         TileEntitySystem tileEntitySystem;
+        CameraController cameraController;
 
+        // TOOD: Should probably move these to a system
         TestTileEntity tileEntityToPlace;
         Color validPlacementColor = new Color(255, 255, 255, 180);
         Color invalidPlacementColor = new Color(255, 64, 64, 180);
@@ -31,7 +35,6 @@ namespace ARA2D
 
         public override void initialize()
         {
-            CreateCamera();
             addRenderer(new DefaultRenderer(camera: camera));
             clearColor = Color.Black;
             setDefaultDesignResolution(1920, 1080, SceneResolutionPolicy.ShowAllPixelPerfect);
@@ -42,15 +45,7 @@ namespace ARA2D
 
         public override void update()
         {
-            const float CameraSpeed = 400;
             base.update();
-
-            float xInput = (Input.isKeyDown(Keys.A) ? -1 : 0) + (Input.isKeyDown(Keys.D) ? 1 : 0);
-            float yInput = (Input.isKeyDown(Keys.W) ? -1 : 0) + (Input.isKeyDown(Keys.S) ? 1 : 0);
-            camera.setPosition(camera.position + new Vector2(xInput, yInput) * CameraSpeed * Time.deltaTime);
-
-            float dz = (Input.mouseWheelDelta) * .001f;
-            camera.setZoom(camera.zoom + dz);
 
             // Adjust tileEntityToPlace bounds
             if (Input.isKeyPressed(Keys.Left)) tileEntityToPlace.Width -= 1;
@@ -93,14 +88,6 @@ namespace ARA2D
             worldLoader.Enabled = true;
         }
 
-        void CreateCamera()
-        {
-            camera.setPosition(new Vector2(-Screen.width * .5f, -Screen.height * .5f));
-            camera.maximumZoom = 10f;
-            camera.minimumZoom = 1f;
-            camera.zoom = 0f;
-        }
-
         void LoadContent()
         {
             ChunkTextures = content.Load<Texture2D>("images/TestGrid2");
@@ -113,6 +100,7 @@ namespace ARA2D
             addEntityProcessor(worldLoader = new WorldLoader(chunkMeshGenerator, 2, 2));
             addEntityProcessor(tileEntitySystem = new TileEntitySystem());
             addEntityProcessor(world = new World(new SandboxGenerator()));
+            addEntityProcessor(cameraController = new CameraController(camera));
         }
     }
 }
