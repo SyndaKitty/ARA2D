@@ -18,6 +18,7 @@ namespace ARA2D.TileEntities
             set
             {
                 width = Math.Max(Math.Min(value, TileChunk.Size), 1);
+                CalculateScale();
             }
         }
         public int Height
@@ -26,10 +27,11 @@ namespace ARA2D.TileEntities
             set
             {
                 height = Math.Max(Math.Min(value, TileChunk.Size), 1);
+                CalculateScale();
             }
         }
 
-        public Vector2 Scale { get; protected set; }
+        public Vector2 BaseScale { get; protected set; }
         public Vector2 Origin { get; protected set; }
         public Texture2D Texture { get; protected set; }
         public Entity Entity { get; protected set; }
@@ -43,7 +45,7 @@ namespace ARA2D.TileEntities
 
         public BasicTileEntity(Texture2D texture, int width, int height, Vector2 scale, Vector2 origin)
         {
-            Scale = scale;
+            BaseScale = scale;
             Texture = texture;
             Origin = origin;
             Width = width;
@@ -53,7 +55,7 @@ namespace ARA2D.TileEntities
         public void CreateEntity(Scene scene, long tx, long ty)
         {
             Entity = scene.createEntity($"TIRenderable{ID}");
-            Entity.scale = Scale * new Vector2(Width, Height);
+            CalculateScale();
             Entity.position = TileCoords.ToWorldSpace(tx, ty);
             Sprite = new Sprite(Texture) { origin = Origin };
             Entity.addComponent(Sprite);
@@ -67,6 +69,12 @@ namespace ARA2D.TileEntities
 
         public virtual void Update()
         {
+        }
+
+        protected void CalculateScale()
+        {
+            if (Entity == null) return;
+            Entity.scale = BaseScale * new Vector2(Width, Height);
         }
     }
 }

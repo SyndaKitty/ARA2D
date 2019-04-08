@@ -58,8 +58,7 @@ namespace ARA2D
 
             if (Input.isKeyPressed(Keys.Up)) tileEntityToPlace.Height -= 1;
             if (Input.isKeyPressed(Keys.Down)) tileEntityToPlace.Height += 1;
-            tileEntityToPlace.RecalculateScale();
-
+            
             // Adjust tileEntityToPlace ghost position
             var mousePoint = camera.screenToWorldPoint(Input.mousePosition);
             var anchorPoint = mousePoint /= Tile.Size;
