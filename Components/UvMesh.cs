@@ -154,7 +154,6 @@ namespace ARA2D.Components
 
         #endregion
 
-
         #region Component/RenderableComponent overrides
 
         public override void onAddedToEntity()

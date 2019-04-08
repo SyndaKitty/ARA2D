@@ -44,6 +44,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Systems\CameraController.cs" />
+    <Compile Include="Systems\TileEntityPlacer.cs" />
     <Compile Include="TileChunk.cs" />
     <Compile Include="ChunkCoords.cs" />
     <Compile Include="Events.cs" />
@@ -56,7 +57,6 @@
     <Compile Include="Systems\TileEntitySystem.cs" />
     <Compile Include="TileCoords.cs" />
     <Compile Include="TileEntities\BasicTileEntity.cs" />
-    <Compile Include="TileEntities\TestTileEntity.cs" />
     <Compile Include="TileEntityChunk.cs" />
     <Compile Include="WorldGenerators\SandboxGenerator.cs" />
     <Compile Include="Systems\WorldLoader.cs" />
