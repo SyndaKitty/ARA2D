@@ -29,7 +29,7 @@ namespace ARA2D.Systems
 
             uiRoot = scene.createEntity("UIRoot");
             var uiCanvas = new UICanvas();
-            uiCanvas.renderLayer = -100;
+            uiCanvas.renderLayer = Layers.ScreenSpace;
             uiCanvas.isFullScreen = true;
             uiRoot.addComponent(uiCanvas);
 

@@ -35,7 +35,9 @@ namespace ARA2D
         public override void initialize()
         {
             //Core.debugRenderEnabled = true;
-            addRenderer(new DefaultRenderer(camera: camera));
+            addRenderer(new ScreenSpaceRenderer(100, Layers.ScreenSpace));
+            addRenderer(new RenderLayerExcludeRenderer(100, Layers.ScreenSpace));
+
             clearColor = Color.Black;
             setDefaultDesignResolution(1920, 1080, SceneResolutionPolicy.ShowAllPixelPerfect);
 
