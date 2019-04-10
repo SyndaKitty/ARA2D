@@ -11,24 +11,24 @@ namespace ARA2D.Systems
         // TODO: Implement variable handling depending on current performance     
         // We could do this by only handling so many ChunkGenerated events per frame, and after that queueing them up
         // Then only handle up to X requests per frame, starting with new requests first, then queue second.
-        // After Y frames, requests are cleared, as they are no longer considered relevant
+        // After Y frames of being in the queue, requests are cleared, as they are no longer considered relevant
         // public int HandlePerFrame = 5;
 
-        readonly Dictionary<ChunkCoords, Entity> LoadedMeshes;
+        readonly Dictionary<ChunkCoords, Entity> loadedMeshes;
         readonly Texture2D chunkTextures;
 
         // TODO: Handle a ChunkRemoved event
         public ChunkMeshGenerator(Texture2D chunkTextures)
         {
             this.chunkTextures = chunkTextures;
-            LoadedMeshes = new Dictionary<ChunkCoords, Entity>();
+            loadedMeshes = new Dictionary<ChunkCoords, Entity>();
             Events.OnTileChunkGenerated += TileChunkGenerated;
             Events.OnTileChunkRemoved += TileChunkRemoved;
         }
 
         public void TileChunkGenerated(ChunkCoords coords, TileChunk chunk)
         {
-            if (LoadedMeshes.ContainsKey(chunk.Coords))
+            if (loadedMeshes.ContainsKey(chunk.Coords))
             {
                 return;
             }
@@ -37,21 +37,21 @@ namespace ARA2D.Systems
             var indices = CreateIndicesArray();
             var mesh = CreateMesh(vertices, indices);
 
-            Entity meshEntity = new Entity($"ChunkMesh{coords.Cx},{coords.Cy}");
+            Entity meshEntity = new Entity($"ChunkMesh{coords.Cx}|{coords.Cy}");
             meshEntity.addComponent(mesh);
             scene.addEntity(meshEntity);
             meshEntity.position = chunk.Coords.ToWorldCoords();
 
-            LoadedMeshes.Add(chunk.Coords, meshEntity);
+            loadedMeshes.Add(chunk.Coords, meshEntity);
         }
 
         public void TileChunkRemoved(ChunkCoords coords)
         {
-            LoadedMeshes[coords].destroy();
-            LoadedMeshes.Remove(coords);
+            loadedMeshes[coords].destroy();
+            loadedMeshes.Remove(coords);
         }
 
-        public bool ChunkLoaded(ChunkCoords coords) => LoadedMeshes.ContainsKey(coords);
+        public bool ChunkLoaded(ChunkCoords coords) => loadedMeshes.ContainsKey(coords);
 
         static VertexPositionColorTexture[] CreateVertexArray(short[,] baseTileTypes)
         {

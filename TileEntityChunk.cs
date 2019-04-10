@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace ARA2D
+﻿namespace ARA2D
 {
     public class TileEntityChunk
     {

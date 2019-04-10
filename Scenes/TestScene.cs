@@ -11,10 +11,10 @@ namespace ARA2D
     public class TestScene : Scene
     {
         // Content
-        Texture2D ChunkTextures;
-        Texture2D TestEntityTexture;
-        Texture2D BuildingFrameTexture;
-        Texture2D SelectedBuildingFrameTexture;
+        Texture2D chunkTextures;
+        Texture2D testEntityTexture;
+        Texture2D buildingFrameTexture;
+        Texture2D selectedBuildingFrameTexture;
 
         // Systems
         WorldLoader worldLoader;
@@ -29,7 +29,7 @@ namespace ARA2D
         
         public TestScene()
         {
-            tileEntityPlacer.SetTemplate(new BasicTileEntity(TestEntityTexture, 1, 1, new Vector2(.5f, .5f)));
+            tileEntityPlacer.SetTemplate(new BasicTileEntity(testEntityTexture, 1, 1, Vector2.One));
         }
 
         public override void initialize()
@@ -51,20 +51,20 @@ namespace ARA2D
         public void InitialGeneration()
         {
             worldLoader.Enabled = true;
-            buildingMenu.Initialize(BuildingFrameTexture, SelectedBuildingFrameTexture);
+            buildingMenu.Initialize(selectedBuildingFrameTexture, buildingFrameTexture);
         }
 
         void LoadContent()
         {
-            ChunkTextures = content.Load<Texture2D>("images/TestGrid2");
-            TestEntityTexture = content.Load<Texture2D>("images/TestEntity2");
-            BuildingFrameTexture = content.Load<Texture2D>("UI/BuildingFrame");
-            SelectedBuildingFrameTexture = content.Load<Texture2D>("UI/SelectedBuildingFrame");
+            chunkTextures = content.Load<Texture2D>("images/TestGrid2");
+            testEntityTexture = content.Load<Texture2D>("images/TestEntity2");
+            buildingFrameTexture = content.Load<Texture2D>("UI/BuildingFrame");
+            selectedBuildingFrameTexture = content.Load<Texture2D>("UI/SelectedBuildingFrame");
         }
 
         void CreateSystems()
         {
-            addEntityProcessor(chunkMeshGenerator = new ChunkMeshGenerator(ChunkTextures));
+            addEntityProcessor(chunkMeshGenerator = new ChunkMeshGenerator(chunkTextures));
             addEntityProcessor(worldLoader = new WorldLoader(chunkMeshGenerator, 2, 2));
             addEntityProcessor(tileEntitySystem = new TileEntitySystem());
             addEntityProcessor(world = new World(new SandboxGenerator()));

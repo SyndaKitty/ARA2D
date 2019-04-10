@@ -6,7 +6,7 @@ namespace ARA2D.Systems
 {
     public class CameraController : EntityProcessingSystem
     {
-        public float CameraSpeed = 400;
+        public float CameraSpeed = 600;
 
         public CameraController(Camera camera) : base(new Matcher().all(typeof(Camera)))
         {

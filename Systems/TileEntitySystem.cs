@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
 using Nez;
 
 namespace ARA2D.Systems
@@ -59,7 +57,7 @@ namespace ARA2D.Systems
             return true;
         }
 
-        // TODO: Find a better way to prevent repitition
+        // TODO: Find a better way to prevent repetition
         /// <summary>
         /// This method has two different uses:
         /// If passed id is 0, then check to see if the bounds can fit at the x,y provided
