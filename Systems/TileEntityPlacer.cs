@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using Nez;
 using System;
 
@@ -31,6 +32,12 @@ namespace ARA2D.Systems
         public override void process()
         {
             if (template?.Entity == null) return;
+
+            if (Input.isKeyPressed(Keys.Left)) template.Width -= 1;
+            if (Input.isKeyPressed(Keys.Right)) template.Width += 1;
+            if (Input.isKeyPressed(Keys.Up)) template.Height -= 1;
+            if (Input.isKeyPressed(Keys.Down)) template.Height += 1;
+
 
             // Adjust tileEntityToPlace ghost position
             var mousePoint = scene.camera.screenToWorldPoint(Input.mousePosition);

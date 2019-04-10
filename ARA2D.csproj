@@ -43,6 +43,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Systems\BuildingMenu.cs" />
     <Compile Include="Systems\CameraController.cs" />
     <Compile Include="Systems\TileEntityPlacer.cs" />
     <Compile Include="TileChunk.cs" />
