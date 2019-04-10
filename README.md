@@ -11,7 +11,7 @@ The game draws inspiration from a variety of games:
 + Programming games ([Exapunks](http://www.zachtronics.com/exapunks/), [TIS-100](http://www.zachtronics.com/tis-100/))
 + Minecraft Mods ([ComputerCraft](http://www.computercraft.info/), [OpenComputers](https://github.com/MightyPirates/OpenComputers))
 
-## Puzzles?
+### Puzzles?
 I like the idea of a sandbox game, but I also think this idea would apply really well to a puzzle adaptation.
 
 ### Programming
