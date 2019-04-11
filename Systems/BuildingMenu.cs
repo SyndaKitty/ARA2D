@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using System;
+using Microsoft.Xna.Framework.Graphics;
 using Nez;
 using Nez.UI;
 using System.Collections.Generic;
@@ -9,41 +10,29 @@ namespace ARA2D.Systems
     {
         //List<Texture2D> buildingTextures;
         List<ImageButton> imageButtons;
-        Entity uiRoot;
         IDrawable selectedFrame;
         IDrawable frame;
 
         // TODO: Pass list of building info
-        public BuildingMenu()
+        public BuildingMenu(UICanvas canvas, Texture2D selectedBuildingFrame, Texture2D buildingFrame)
         {
             imageButtons = new List<ImageButton>();
-        }
-
-        public void Initialize(Texture2D selectedBuildingFrame, Texture2D buildingFrame)
-        {
             selectedFrame = new SubtextureDrawable(selectedBuildingFrame);
             frame = new SubtextureDrawable(buildingFrame);
-
-            uiRoot = scene.createEntity("UIRoot");
-            var uiCanvas = new UICanvas();
-            uiCanvas.renderLayer = Layers.ScreenSpace;
-            uiCanvas.isFullScreen = true;
-            uiRoot.addComponent(uiCanvas);
-
-            var table = uiCanvas.stage.addElement(new Table());
+            
+            var table = canvas.stage.addElement(new Table());
             table.setFillParent(true);
+            var container = new HorizontalGroup(10);
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 5; i++)
             {
-                var container = new Container();
                 var imageButton = new ImageButton(frame, frame, selectedFrame);
-                imageButton.padLeft(10);
-                imageButton.padBottom(10);
-                container.setElement(imageButton);
+                container.addElement(imageButton);
                 table.add(container);
                 imageButtons.Add(imageButton);
             }
 
+            table.add(container).setPadLeft(10).setPadBottom(10);
             table.left().bottom();
         }
 

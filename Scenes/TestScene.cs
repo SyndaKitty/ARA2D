@@ -28,7 +28,8 @@ namespace ARA2D
         BuildingMenu buildingMenu;
 
         // UI
-        
+        UICanvas canvas;
+
         public TestScene()
         {
             tileEntityPlacer.SetTemplate(new BasicTileEntity(testEntityTexture, 1, 1, Vector2.One));
@@ -37,10 +38,15 @@ namespace ARA2D
         public override void initialize()
         {
             //Core.debugRenderEnabled = true;
+
             var uiCameraEntity = createEntity("UICamera");
             var uiCamera = new Camera();
             uiCameraEntity.addComponent(new ScreenSpace());
             uiCameraEntity.addComponent(uiCamera);
+
+            var uiRoot = createEntity("UIRoot");
+            canvas = new UICanvas { renderLayer = Layers.ScreenSpace, isFullScreen = true };
+            uiRoot.addComponent(canvas);
 
             addRenderer(new ScreenSpaceRenderer(uiCamera, 100, Layers.ScreenSpace));
             addRenderer(new RenderLayerExcludeRenderer(100, Layers.ScreenSpace));
@@ -50,17 +56,13 @@ namespace ARA2D
 
             LoadContent();
             CreateSystems();
+
+            worldLoader.Enabled = true;
         }
 
         public override void update()
         {
             base.update();
-        }
-
-        public void InitialGeneration()
-        {
-            //worldLoader.Enabled = true;
-            buildingMenu.Initialize(selectedBuildingFrameTexture, buildingFrameTexture);
         }
 
         void LoadContent()
@@ -79,7 +81,7 @@ namespace ARA2D
             addEntityProcessor(world = new World(new SandboxGenerator()));
             addEntityProcessor(cameraController = new CameraController(camera));
             addEntityProcessor(tileEntityPlacer = new TileEntityPlacer(tileEntitySystem));
-            addEntityProcessor(buildingMenu = new BuildingMenu());
+            addEntityProcessor(buildingMenu = new BuildingMenu(canvas, selectedBuildingFrameTexture, buildingFrameTexture));
         }
     }
 }

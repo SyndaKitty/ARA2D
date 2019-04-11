@@ -17,7 +17,6 @@ namespace ARA2D
             exitOnEscapeKeypress = false;
             var testScene = new TestScene();
             scene = testScene;
-            testScene.InitialGeneration();
         }
     }
 }
