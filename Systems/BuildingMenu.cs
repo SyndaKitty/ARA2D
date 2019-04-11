@@ -2,13 +2,10 @@
 using Nez;
 using Nez.UI;
 using System.Collections.Generic;
-using System.Runtime.Remoting.Messaging;
-using Microsoft.Xna.Framework;
-using IDrawable = Nez.UI.IDrawable;
 
 namespace ARA2D.Systems
 {
-    public class BuildingMenu : EntityProcessingSystem
+    public class BuildingMenu : ProcessingSystem
     {
         //List<Texture2D> buildingTextures;
         List<ImageButton> imageButtons;
@@ -17,7 +14,7 @@ namespace ARA2D.Systems
         IDrawable frame;
 
         // TODO: Pass list of building info
-        public BuildingMenu() : base(new Matcher().all(typeof(Camera)))
+        public BuildingMenu()
         {
             imageButtons = new List<ImageButton>();
         }
@@ -50,10 +47,8 @@ namespace ARA2D.Systems
             table.left().bottom();
         }
 
-        public override void process(Entity entity)
+        public override void process()
         {
-            // Move uiRoot to camera position to stop it from culling
-            uiRoot.position = entity.position;
         }
     }
 }

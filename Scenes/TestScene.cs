@@ -1,10 +1,12 @@
-﻿using ARA2D.Systems;
+﻿using ARA2D.Components;
+using ARA2D.Systems;
 using ARA2D.TileEntities;
 using ARA2D.WorldGenerators;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Nez;
-using Nez.UI;
+using static ARA2D.Renderers.ScreenSpaceRenderer;
+using ScreenSpaceRenderer = ARA2D.Renderers.ScreenSpaceRenderer;
 
 namespace ARA2D
 {
@@ -35,7 +37,12 @@ namespace ARA2D
         public override void initialize()
         {
             //Core.debugRenderEnabled = true;
-            addRenderer(new ScreenSpaceRenderer(100, Layers.ScreenSpace));
+            var uiCameraEntity = createEntity("UICamera");
+            var uiCamera = new Camera();
+            uiCameraEntity.addComponent(new ScreenSpace());
+            uiCameraEntity.addComponent(uiCamera);
+
+            addRenderer(new ScreenSpaceRenderer(uiCamera, 100, Layers.ScreenSpace));
             addRenderer(new RenderLayerExcludeRenderer(100, Layers.ScreenSpace));
 
             clearColor = Color.Black;
@@ -52,7 +59,7 @@ namespace ARA2D
 
         public void InitialGeneration()
         {
-            worldLoader.Enabled = true;
+            //worldLoader.Enabled = true;
             buildingMenu.Initialize(selectedBuildingFrameTexture, buildingFrameTexture);
         }
 

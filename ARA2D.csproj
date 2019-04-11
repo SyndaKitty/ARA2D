@@ -43,7 +43,9 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Components\ScreenSpace.cs" />
     <Compile Include="Layers.cs" />
+    <Compile Include="Renderers\ScreenSpaceRenderer.cs" />
     <Compile Include="Systems\BuildingMenu.cs" />
     <Compile Include="Systems\CameraController.cs" />
     <Compile Include="Systems\TileEntityPlacer.cs" />

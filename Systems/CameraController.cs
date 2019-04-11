@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using ARA2D.Components;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Nez;
 
@@ -8,7 +9,7 @@ namespace ARA2D.Systems
     {
         public float CameraSpeed = 600;
 
-        public CameraController(Camera camera) : base(new Matcher().all(typeof(Camera)))
+        public CameraController(Camera camera) : base(new Matcher().all(typeof(Camera)).exclude(typeof(ScreenSpace)))
         {
             camera.setPosition(new Vector2(-Screen.width * .5f, -Screen.height * .5f));
             camera.maximumZoom = 10f;
