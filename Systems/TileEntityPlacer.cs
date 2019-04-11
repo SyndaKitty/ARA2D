@@ -16,6 +16,7 @@ namespace ARA2D.Systems
         public TileEntityPlacer(TileEntitySystem tileEntitySystem) : base(new Matcher().all(typeof(UICollided)))
         {
             this.tileEntitySystem = tileEntitySystem;
+            Events.OnBuildMenuItemClick += SetTemplate;
         }
 
         public void SetTemplate(ITileEntity template)
@@ -32,16 +33,16 @@ namespace ARA2D.Systems
 
         public override void process(Entity entity)
         {
+            if (template?.Entity == null) return;
+            // Hide ghost entity if mouse is over UI element
             if (entity.getComponent<UICollided>().Collided)
             {
-                if (template?.Sprite != null)
+                if (template.Sprite != null)
                 {
                     template.Sprite.color = Color.Transparent;
                 }
                 return;
             }
-
-            if (template?.Entity == null) return;
 
             if (Input.isKeyPressed(Keys.Left)) template.Width -= 1;
             if (Input.isKeyPressed(Keys.Right)) template.Width += 1;
@@ -51,7 +52,7 @@ namespace ARA2D.Systems
 
             // Adjust tileEntityToPlace ghost position
             var mousePoint = scene.camera.screenToWorldPoint(Input.mousePosition);
-            var anchorPoint = mousePoint /= Tile.Size;
+            var anchorPoint = mousePoint / Tile.Size;
 
             anchorPoint.X = template.Width % 2 == 0
                 ? (float)Math.Round(anchorPoint.X)
