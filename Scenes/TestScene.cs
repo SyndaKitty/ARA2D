@@ -75,6 +75,7 @@ namespace ARA2D
 
         void CreateSystems()
         {
+            addEntityProcessor(new UICollisionDetector());
             addEntityProcessor(chunkMeshGenerator = new ChunkMeshGenerator(chunkTextures));
             addEntityProcessor(worldLoader = new WorldLoader(chunkMeshGenerator, 2, 2));
             addEntityProcessor(tileEntitySystem = new TileEntitySystem());

@@ -2,17 +2,18 @@
 using Microsoft.Xna.Framework.Input;
 using Nez;
 using System;
+using ARA2D.Components;
 
 namespace ARA2D.Systems
 {
-    public class TileEntityPlacer : ProcessingSystem
+    public class TileEntityPlacer : EntityProcessingSystem
     {
-        TileEntitySystem tileEntitySystem;
+        readonly TileEntitySystem tileEntitySystem;
         ITileEntity template;
-        Color validPlacementColor = new Color(255, 255, 255, 180);
-        Color invalidPlacementColor = new Color(255, 64, 64, 180);
+        readonly Color validPlacementColor = new Color(255, 255, 255, 180);
+        readonly Color invalidPlacementColor = new Color(255, 64, 64, 180);
 
-        public TileEntityPlacer(TileEntitySystem tileEntitySystem)
+        public TileEntityPlacer(TileEntitySystem tileEntitySystem) : base(new Matcher().all(typeof(UICollided)))
         {
             this.tileEntitySystem = tileEntitySystem;
         }
@@ -21,16 +22,25 @@ namespace ARA2D.Systems
         {
             if (template == null)
             {
-                if (this.template?.Entity != null) this.template.Entity.destroy();
-                this.template = template;
+                this.template?.Entity?.destroy();
+                this.template = null;
                 return;
             }
             this.template = template;
             template.CreateEntity(scene, 0, 0);
         }
 
-        public override void process()
+        public override void process(Entity entity)
         {
+            if (entity.getComponent<UICollided>().Collided)
+            {
+                if (template?.Sprite != null)
+                {
+                    template.Sprite.color = Color.Transparent;
+                }
+                return;
+            }
+
             if (template?.Entity == null) return;
 
             if (Input.isKeyPressed(Keys.Left)) template.Width -= 1;

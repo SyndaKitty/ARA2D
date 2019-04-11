@@ -43,12 +43,14 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Components\UICollided.cs" />
     <Compile Include="Components\ScreenSpace.cs" />
     <Compile Include="Layers.cs" />
     <Compile Include="Renderers\ScreenSpaceRenderer.cs" />
     <Compile Include="Systems\BuildingMenu.cs" />
     <Compile Include="Systems\CameraController.cs" />
     <Compile Include="Systems\TileEntityPlacer.cs" />
+    <Compile Include="Systems\UICollisionDetector.cs" />
     <Compile Include="TileChunk.cs" />
     <Compile Include="ChunkCoords.cs" />
     <Compile Include="Events.cs" />
