@@ -5,15 +5,17 @@ namespace ARA2D
 {
     public class IDTracker
     {
-        int currentID = 1;
+        public const int StartingID = 1;
+
+        int currentID = StartingID;
         readonly Queue<int> ReleasedIDs = new Queue<int>(128);
 
         public IDTracker(List<int> existingIDs = null)
         {
             if (existingIDs == null) return;
             existingIDs.Sort();
-            currentID = existingIDs.Last();
-            for (int i = 0, idsIndex = 0; i < currentID; i++)
+            currentID = existingIDs.Last() + 1;
+            for (int i = StartingID, idsIndex = 0; i < currentID; i++)
             {
                 if (existingIDs[idsIndex] == i)
                 {

@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ARA2D", "ARA2D.csproj", "{0
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nez", "..\Nez\Nez.Portable\Nez.csproj", "{8B90E065-141F-42E6-BC9C-F9A16E40ADEE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ARA2DTests", "..\ARA2DTests\ARA2DTests.csproj", "{BE04F12A-BD31-4270-9424-D7568D5ACF6F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{8B90E065-141F-42E6-BC9C-F9A16E40ADEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B90E065-141F-42E6-BC9C-F9A16E40ADEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B90E065-141F-42E6-BC9C-F9A16E40ADEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE04F12A-BD31-4270-9424-D7568D5ACF6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE04F12A-BD31-4270-9424-D7568D5ACF6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE04F12A-BD31-4270-9424-D7568D5ACF6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE04F12A-BD31-4270-9424-D7568D5ACF6F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
