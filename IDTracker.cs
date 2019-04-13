@@ -1,27 +1,44 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace ARA2D
 {
     public class IDTracker
     {
-        // TODO: Implement a way to load from file
-        int currentTileEntityID = 1;
-        readonly Queue<int> ReleasedTileEntityIDs = new Queue<int>(128);
+        int currentID = 1;
+        readonly Queue<int> ReleasedIDs = new Queue<int>(128);
+
+        public IDTracker(List<int> existingIDs = null)
+        {
+            if (existingIDs == null) return;
+            existingIDs.Sort();
+            currentID = existingIDs.Last();
+            for (int i = 0, idsIndex = 0; i < currentID; i++)
+            {
+                if (existingIDs[idsIndex] == i)
+                {
+                    idsIndex++;
+                }
+                else
+                {
+                    ReleasedIDs.Enqueue(i);
+                }
+            }
+        }
 
         public int GetNextID()
         {
-            if (ReleasedTileEntityIDs.Count > 0)
+            if (ReleasedIDs.Count > 0)
             {
-                return ReleasedTileEntityIDs.Dequeue();
+                return ReleasedIDs.Dequeue();
             }
 
-            return currentTileEntityID++;
+            return currentID++;
         }
 
         public void ReleaseID(int ID)
         {
-            ReleasedTileEntityIDs.Enqueue(ID);
+            ReleasedIDs.Enqueue(ID);
         }
     }
 }
