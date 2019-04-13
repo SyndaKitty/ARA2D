@@ -30,18 +30,18 @@ namespace ARA2D.Components
         public void RecalculateBounds()
         {
             topLeftVertPosition = new Vector2(float.MaxValue, float.MaxValue);
-            var max = new Vector2(float.MinValue, float.MinValue);
+            var (x, y) = new Vector2(float.MinValue, float.MinValue);
 
             for (var i = 0; i < vertices.Length; i++)
             {
                 topLeftVertPosition.X = MathHelper.Min(topLeftVertPosition.X, vertices[i].Position.X);
                 topLeftVertPosition.Y = MathHelper.Min(topLeftVertPosition.Y, vertices[i].Position.Y);
-                max.X = MathHelper.Max(max.X, vertices[i].Position.X);
-                max.Y = MathHelper.Max(max.Y, vertices[i].Position.Y);
+                x = MathHelper.Max(x, vertices[i].Position.X);
+                y = MathHelper.Max(y, vertices[i].Position.Y);
             }
 
-            _width = max.X - topLeftVertPosition.X;
-            _height = max.Y - topLeftVertPosition.Y;
+            _width = x - topLeftVertPosition.X;
+            _height = y - topLeftVertPosition.Y;
             _areBoundsDirty = true;
         }
 
