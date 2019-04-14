@@ -8,7 +8,7 @@ namespace ARA2D
         public const int StartingID = 1;
 
         int currentID = StartingID;
-        readonly Queue<int> ReleasedIDs = new Queue<int>(128);
+        readonly Queue<int> releasedIDs = new Queue<int>(128);
 
         public IDTracker(List<int> existingIDs = null)
         {
@@ -23,16 +23,16 @@ namespace ARA2D
                 }
                 else
                 {
-                    ReleasedIDs.Enqueue(i);
+                    releasedIDs.Enqueue(i);
                 }
             }
         }
 
         public int GetNextID()
         {
-            if (ReleasedIDs.Count > 0)
+            if (releasedIDs.Count > 0)
             {
-                return ReleasedIDs.Dequeue();
+                return releasedIDs.Dequeue();
             }
 
             return currentID++;
@@ -40,7 +40,7 @@ namespace ARA2D
 
         public void ReleaseID(int ID)
         {
-            ReleasedIDs.Enqueue(ID);
+            releasedIDs.Enqueue(ID);
         }
     }
 }
