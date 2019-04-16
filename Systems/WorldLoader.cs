@@ -7,6 +7,7 @@ namespace ARA2D.Systems
 {
     public class WorldLoader : EntityProcessingSystem
     {
+        // TODO: True ECS refactor
         public bool Enabled;
         public float Frames = 20;
 

@@ -5,6 +5,7 @@ namespace ARA2D.Systems
 {
     public class TileEntitySystem : ProcessingSystem
     {
+        // TODO: True ECS refactor
         readonly Dictionary<int, ITileEntity> tileEntities;
         readonly Dictionary<ChunkCoords, TileEntityChunk> loadedChunks;
 

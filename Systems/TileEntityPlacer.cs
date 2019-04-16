@@ -8,6 +8,7 @@ namespace ARA2D.Systems
 {
     public class TileEntityPlacer : EntityProcessingSystem
     {
+        // TODO: True ECS refactor
         readonly TileEntitySystem tileEntitySystem;
         ITileEntity template;
         readonly Color validPlacementColor = new Color(255, 255, 255, 180);

@@ -15,7 +15,7 @@ namespace ARA2D.Commands.Systems
 
         public override void process(Entity entity)
         {
-               
+
         }
     }
 }

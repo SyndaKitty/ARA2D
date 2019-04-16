@@ -14,6 +14,7 @@ namespace ARA2D.Systems
         // After Y frames of being in the queue, requests are cleared, as they are no longer considered relevant
         // public int HandlePerFrame = 5;
 
+        // TODO: True ECS refactor
         readonly Dictionary<ChunkCoords, Entity> loadedMeshes;
         readonly Texture2D chunkTextures;
 

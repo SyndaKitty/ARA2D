@@ -6,6 +6,7 @@ namespace ARA2D.Systems
 {
     public class World : ProcessingSystem
     {
+        // TODO: True ECS refactor
         readonly WorldGenerator generator;
         readonly Dictionary<ChunkCoords, TileChunk> loadedChunks;
 

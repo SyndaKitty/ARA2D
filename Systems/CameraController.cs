@@ -7,6 +7,7 @@ namespace ARA2D.Systems
 {
     public class CameraController : EntityProcessingSystem
     {
+        // TODO: True ECS refactor (maybe have a settings component for this, or make is constant)
         public float CameraSpeed = 600;
 
         public CameraController(Camera camera) : base(new Matcher().all(typeof(Camera)).exclude(typeof(ScreenSpace)))

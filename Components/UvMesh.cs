@@ -24,6 +24,8 @@ namespace ARA2D.Components
 
         #region configuration
 
+        // TODO: True ECS refactor: True components don't have logic.
+        // Some of these methods are fine since they are accessor methods, but we should probably trim some out
         /// <summary>
         /// recalculates the bounds
         /// </summary>

@@ -9,6 +9,7 @@ namespace ARA2D.Systems
 {
     public class BuildingMenu : ProcessingSystem
     {
+        // TODO: True ECS refactor
         //List<Texture2D> buildingTextures;
         List<ImageButton> imageButtons;
         List<ITileEntity> tileEntities;
