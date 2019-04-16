@@ -65,7 +65,7 @@ namespace ARA2D.Components
         }
 
         /// <summary>
-        /// helper that sets the color for all verticess
+        /// helper that sets the color for all vertices
         /// </summary>
         /// <param name="color">Color.</param>
         public void SetColorForAllVertices(Color color)
