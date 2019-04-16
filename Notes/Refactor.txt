@@ -1,0 +1,20 @@
+﻿Things that need to be refactored
+
+-File System-
+
+ARA2D should contain folders for each feature
+Each feature should contain a systems folder, a components folder and other miscellaneous classes the belong to the feature
+
+For example:
+	Commands\
+		Components\
+			RawCommandScript.cs
+			CommandScript.cs
+		Systems\
+			CommandParser.cs
+			CommandRunner.cs
+		Command.cs
+
+The command system is already setup like this, but we should change remaining files to reflect this structure
+In addition, once the file system is set up in this fashion, each feature should have a documentation file 
+that describes processes at play and how the systems and components work together to achieve it

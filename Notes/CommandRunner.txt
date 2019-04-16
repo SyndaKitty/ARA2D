@@ -20,3 +20,23 @@ Each command can optionally provide an isValid(args) function to tell the runner
 The purpose of this is to cut down on runtime errors and provide as much compile-time feedback as possible, so it would be very desirable to implement these functions()
 
 Commands themselves are defined in lua, and simply contain a run(args) function and optionally an isValid(args) function. 
+
+Things that need to happen
+	Robot has script
+	--Script needs checked for basic validity -Let's leave this for later
+	Script gets run
+	Script should be run one command at a time
+
+-Systems-
+ProgramParser
+	Parses script from RawScript component and add a Script component
+ProgramRunner
+	If running flag is set on Script component, run next command
+
+-Components-
+RawScript
+	Stores raw script to be run
+Script
+	Keeps track of commands and their arguments for each line
+	Keep track of current line in script being run
+	Running flag
