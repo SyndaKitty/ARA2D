@@ -45,7 +45,10 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Commands\CommandRunner.cs" />
+    <Compile Include="Commands\Components\CommandScript.cs" />
+    <Compile Include="Commands\Components\RawCommandScript.cs" />
+    <Compile Include="Commands\Systems\CommandParser.cs" />
+    <Compile Include="Commands\Systems\CommandScriptRunner.cs" />
     <Compile Include="Components\UICollided.cs" />
     <Compile Include="Components\ScreenSpace.cs" />
     <Compile Include="Layers.cs" />
@@ -147,6 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Notes\CommandRunner.txt" />
+    <Content Include="Notes\Refactor.txt" />
     <Content Include="Notes\TileEntities.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

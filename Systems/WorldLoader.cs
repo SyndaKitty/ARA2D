@@ -10,7 +10,7 @@ namespace ARA2D.Systems
         // TODO: True ECS refactor
         public bool Enabled;
         public float Frames = 20;
-
+        
         int maxX;
         public int MaxX
         {

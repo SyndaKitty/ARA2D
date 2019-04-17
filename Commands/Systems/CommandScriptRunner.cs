@@ -11,6 +11,17 @@ namespace ARA2D.Commands.Systems
 
         public override void process(Entity entity)
         {
+            var commandScript = entity.getComponent<CommandScript>();
+            if (!commandScript.Running) return;
+            if (commandScript.CommandCalls.Count <= commandScript.CurrentLine) return;
+
+            var nextCall = commandScript.CommandCalls[commandScript.CurrentLine];
+            RunCommand(nextCall);
+        }
+
+        public static void RunCommand(CommandCall command)
+        {
+
         }
     }
 }
