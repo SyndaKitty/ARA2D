@@ -2,12 +2,12 @@
 {
     public struct CommandCall
     {
-        public string CommandName;
+        public string Name;
         public string Arguments;
 
-        public CommandCall(string commandName, string arguments)
+        public CommandCall(string name, string arguments)
         {
-            CommandName = commandName;
+            Name = name;
             Arguments = arguments;
         }
     }

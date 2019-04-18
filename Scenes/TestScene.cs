@@ -1,11 +1,12 @@
-﻿using ARA2D.Components;
+﻿using ARA2D.Commands.Components;
+using ARA2D.ComponentProvider;
+using ARA2D.Components;
 using ARA2D.Systems;
 using ARA2D.TileEntities;
 using ARA2D.WorldGenerators;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Nez;
-using static ARA2D.Renderers.ScreenSpaceRenderer;
 using ScreenSpaceRenderer = ARA2D.Renderers.ScreenSpaceRenderer;
 
 namespace ARA2D
@@ -26,6 +27,9 @@ namespace ARA2D
         CameraController cameraController;
         TileEntityPlacer tileEntityPlacer;
         BuildingMenu buildingMenu;
+
+        // Components
+        GlobalComponentProvider componentProvider;
 
         // UI
         UICanvas canvas;
@@ -55,6 +59,7 @@ namespace ARA2D
             setDefaultDesignResolution(1920, 1080, SceneResolutionPolicy.ShowAllPixelPerfect);
 
             LoadContent();
+            LoadGlobalComponents();
             CreateSystems();
 
             worldLoader.Enabled = true;
@@ -71,6 +76,12 @@ namespace ARA2D
             testEntityTexture = content.Load<Texture2D>("images/TestEntity2");
             buildingFrameTexture = content.Load<Texture2D>("UI/BuildingFrame");
             selectedBuildingFrameTexture = content.Load<Texture2D>("UI/SelectedBuildingFrame");
+        }
+
+        void LoadGlobalComponents()
+        {
+            componentProvider = new GlobalComponentProvider();
+            componentProvider.CacheComponent(new CommandRepo());
         }
 
         void CreateSystems()
