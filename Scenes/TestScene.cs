@@ -8,6 +8,7 @@ using ARA2D.TileEntities;
 using ARA2D.WorldGenerators;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using Nez;
 using ScreenSpaceRenderer = ARA2D.Renderers.ScreenSpaceRenderer;
 
@@ -64,7 +65,12 @@ namespace ARA2D
             LoadGlobalComponents();
             CreateSystems();
 
-            worldLoader.Enabled = true;
+            //worldLoader.Enabled = true;
+
+            // TODO: Take this test code out
+            var script = "wait 5";
+            var rawScript = createEntity("RawScript");
+            rawScript.addComponent(new RawCommandScript(script));
         }
 
         public override void update()
@@ -86,7 +92,6 @@ namespace ARA2D
 
             componentProvider.CacheComponent(new CommandRepository());
             new BasicCommands(componentProvider);
-
         }
 
         void CreateSystems()

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Nez;
+using Coroutine = MoonSharp.Interpreter.Coroutine;
 
 namespace ARA2D.Commands.Components
 {
@@ -8,6 +9,7 @@ namespace ARA2D.Commands.Components
         public List<CommandCall> CommandCalls;
         public bool Running => Status == ScriptStatus.Running;
         public int CurrentLine;
+        public Coroutine Coroutine;
 
         public ScriptStatus Status;
         public string StatusDescription;
@@ -20,6 +22,7 @@ namespace ARA2D.Commands.Components
 
     public enum ScriptStatus
     {
+        //NotStarted,
         Running,
         CommandNotFound,
         Error,
