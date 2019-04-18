@@ -18,26 +18,23 @@ namespace ARA2D.Commands.Systems
         public override void process(Entity entity)
         {
             var commandScript = entity.getComponent<CommandScript>();
+            commandScript.ReceivedYield = false;
 
             // TODO: Take this test code out
             //commandScript.Status = ScriptStatus.Running;
 
-            if (!commandScript.Running) return;
-            if (commandScript.CommandCalls.Count <= commandScript.CurrentLine)
+            while (!commandScript.ReceivedYield && commandScript.Running)
             {
-                commandScript.Status = ScriptStatus.Done;
-            }
-
-            var nextCall = commandScript.CommandCalls[commandScript.CurrentLine];
-
-            if (commandScript.Coroutine == null)
-            {
-                CreateCoroutine(commandScript, nextCall);
-            }
-            RunCoroutine(commandScript);
-            if (commandScript.Coroutine == null && ++commandScript.CurrentLine >= commandScript.CommandCalls.Count)
-            {
-                commandScript.Status = ScriptStatus.Done;
+                var nextCall = commandScript.CommandCalls[commandScript.CurrentLine];
+                if (commandScript.Coroutine == null)
+                {
+                    CreateCoroutine(commandScript, nextCall);
+                }
+                RunCoroutine(commandScript);
+                if (commandScript.Coroutine == null && ++commandScript.CurrentLine >= commandScript.CommandCalls.Count)
+                {
+                    commandScript.Status = ScriptStatus.Done;
+                }
             }
         }
 
@@ -69,14 +66,15 @@ namespace ARA2D.Commands.Systems
         public void RunCoroutine(CommandScript script)
         {
             DynValue result = script.Coroutine.Resume();
-            if (result.Type == DataType.Void)
+            if (script.Coroutine.State == CoroutineState.Suspended)
             {
-                script.Coroutine = null;
-            }
-            else
-            {
+                script.ReceivedYield = true;
                 // TODO: Do something with yielded value
                 Console.WriteLine($"Yielded: {result.Number}");
+            }
+            else if (script.Coroutine.State == CoroutineState.Dead)
+            {
+                script.Coroutine = null;
             }
         }
     }
