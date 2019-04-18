@@ -84,7 +84,7 @@ namespace ARA2D
         {
             componentProvider = new GlobalComponentProvider();
 
-            componentProvider.CacheComponent(new CommandRepo());
+            componentProvider.CacheComponent(new CommandRepository());
             new BasicCommands(componentProvider);
 
         }

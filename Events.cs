@@ -8,7 +8,7 @@ namespace ARA2D
 
         public static void TriggerTileChunkGenerated(ChunkCoords coords, TileChunk chunk)
         {
-            Console.WriteLine($"TileChunkGenerated {coords.Cx},{coords.Cy}");
+            //Console.WriteLine($"TileChunkGenerated {coords.Cx},{coords.Cy}");
             OnTileChunkGenerated?.Invoke(coords, chunk);
         }
 
@@ -17,7 +17,7 @@ namespace ARA2D
         
         public static void TriggerTileChunkRemoved(ChunkCoords coords)
         {
-            Console.WriteLine($"TileChunkRemoved {coords.Cx},{coords.Cy}");
+            //Console.WriteLine($"TileChunkRemoved {coords.Cx},{coords.Cy}");
             OnTileChunkRemoved?.Invoke(coords);
         }
 
@@ -27,7 +27,7 @@ namespace ARA2D
 
         public static void TriggerPassiveTileChunkRequest(ChunkCoords coords)
         {
-            Console.WriteLine($"PassiveTileChunkRequest {coords.Cx},{coords.Cy}");
+            //Console.WriteLine($"PassiveTileChunkRequest {coords.Cx},{coords.Cy}");
             OnPassiveTileChunkRequest?.Invoke(coords);
         }
 
@@ -36,7 +36,7 @@ namespace ARA2D
 
         public static void TriggerBuildMenuItemClick(ITileEntity templateEntity)
         {
-            Console.WriteLine($"BuildMenuItemClick");
+            //Console.WriteLine($"BuildMenuItemClick");
             OnBuildMenuItemClick?.Invoke(templateEntity);
         }
     }

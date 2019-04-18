@@ -29,7 +29,7 @@ namespace ARA2D.Commands.Systems
 
         public void RunCommand(CommandScript script, CommandCall command)
         {
-            var repo = componentProvider.GetComponent<CommandRepo>();
+            var repo = componentProvider.GetComponent<CommandRepository>();
             // Check if the command exists
             if (!repo.Commands.ContainsKey(command.Name))
             {
@@ -39,6 +39,9 @@ namespace ARA2D.Commands.Systems
             }
 
             var args = DynValue.NewString(command.Arguments);
+            Script luaScript = new Script();
+            //luaScript.CreateCoroutine(repo.Commands[command.Name].GetD)
+
             repo.Commands[command.Name].Call(args);
         }
     }

@@ -1,4 +1,4 @@
-﻿using System.IO;
+﻿using System;
 using ARA2D.Commands.Components;
 using ARA2D.ComponentProvider;
 using MoonSharp.Interpreter;
@@ -9,10 +9,17 @@ namespace ARA2D.Commands
     {
         public BasicCommands(IComponentProvider componentProvider)
         {
-            var repo = componentProvider.GetComponent<CommandRepo>();
+            var repo = componentProvider.GetComponent<CommandRepository>();
 
             var defaultCommands =
-@"function move()
+@"function wait()
+    local args = args or 1
+    for i = 1,args do
+        coroutine.yield(-1)
+    end
+end
+
+function move()
     coroutine.yield(0)
 	return true
 end
@@ -32,13 +39,18 @@ function left()
 	return true
 end";
 
-            Script script = new Script();
-            script.DoString(defaultCommands);
+            repo.Script.DoString(defaultCommands);
+            foreach (var key in repo.Script.Globals.Keys)
+            {
+                if (!(repo.Script.Globals[key] is Closure)) continue;
+                repo.Commands.Add(key.String, (Closure)repo.Script.Globals[key]);
+            }
 
-            repo.Commands["move"] = script.Globals["move"] as Closure;
-            repo.Commands["back"] = script.Globals["back"] as Closure;
-            repo.Commands["right"] = script.Globals["right"] as Closure;
-            repo.Commands["left"] = script.Globals["left"] as Closure;
+            // TODO: Take this test code out
+            repo.Script.Globals["args"] = DynValue.NewNumber(4);
+            DynValue coroutine = repo.Script.CreateCoroutine(repo.Commands["wait"]);
+            DynValue returnValue = coroutine.Coroutine.Resume();
+            Console.WriteLine(returnValue.Number);
         }
     }
 }
