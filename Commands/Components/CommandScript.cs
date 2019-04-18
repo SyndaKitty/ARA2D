@@ -10,6 +10,7 @@ namespace ARA2D.Commands.Components
         public bool Running => Status == ScriptStatus.Running;
         public int CurrentLine;
         public Coroutine Coroutine;
+        public bool ReceivedYield;
 
         public ScriptStatus Status;
         public string StatusDescription;

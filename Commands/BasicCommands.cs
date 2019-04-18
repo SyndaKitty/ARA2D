@@ -22,25 +22,22 @@ end
 function move()
     print('lua: move()')
     coroutine.yield(0)
-	return true
+    return true
 end
 
 function back()
     print('lua: back()')
-	coroutine.yield(1)
-	return true
+    coroutine.yield(1)
 end
 
 function right()
     print('lua: right()')
-	coroutine.yield(2)
-	return true
+    coroutine.yield(2)
 end
 
 function left()
     print('lua: left()')
-	coroutine.yield(3)
-	return true
+    coroutine.yield(3)
 end";
 
             repo.Script.DoString(defaultCommands);

@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using ARA2D.Commands.Components;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using ARA2D.Commands.Components;
 using Nez;
 
 namespace ARA2D.Commands.Systems
