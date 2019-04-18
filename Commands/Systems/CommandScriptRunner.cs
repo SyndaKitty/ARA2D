@@ -39,7 +39,7 @@ namespace ARA2D.Commands.Systems
             }
 
             var args = DynValue.NewString(command.Arguments);
-            repo.Commands[command.Name].Function.Call(args);
+            repo.Commands[command.Name].Call(args);
         }
     }
 }

@@ -6,11 +6,11 @@ namespace ARA2D.Commands.Components
 {
     public class CommandRepo : Component
     {
-        public Dictionary<string, DynValue> Commands;
+        public Dictionary<string, Closure> Commands;
 
         public CommandRepo()
         {
-            Commands = new Dictionary<string, DynValue>();
+            Commands = new Dictionary<string, Closure>();
         }
     }
 }

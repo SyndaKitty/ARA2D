@@ -1,4 +1,6 @@
-﻿using ARA2D.Commands.Components;
+﻿using ARA2D.Commands;
+using ARA2D.Commands.Components;
+using ARA2D.Commands.Systems;
 using ARA2D.ComponentProvider;
 using ARA2D.Components;
 using ARA2D.Systems;
@@ -81,7 +83,10 @@ namespace ARA2D
         void LoadGlobalComponents()
         {
             componentProvider = new GlobalComponentProvider();
+
             componentProvider.CacheComponent(new CommandRepo());
+            new BasicCommands(componentProvider);
+
         }
 
         void CreateSystems()
@@ -94,6 +99,8 @@ namespace ARA2D
             addEntityProcessor(cameraController = new CameraController(camera));
             addEntityProcessor(tileEntityPlacer = new TileEntityPlacer(tileEntitySystem));
             addEntityProcessor(buildingMenu = new BuildingMenu(canvas, selectedBuildingFrameTexture, buildingFrameTexture));
+            addEntityProcessor(new CommandParser());
+            addEntityProcessor(new CommandScriptRunner(componentProvider));
         }
     }
 }
