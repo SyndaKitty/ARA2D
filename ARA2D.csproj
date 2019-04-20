@@ -148,15 +148,15 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Nez\Nez.Portable\Nez.csproj">
-      <Project>{8b90e065-141f-42e6-bc9c-f9a16e40adee}</Project>
-      <Name>Nez</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Notes\CommandRunner.txt" />
     <Content Include="Notes\Refactor.txt" />
     <Content Include="Notes\TileEntities.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="libs\Nez\Nez.Portable\Nez.csproj">
+      <Project>{373b5be7-13a5-4e09-a836-f9d5df121962}</Project>
+      <Name>Nez</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
