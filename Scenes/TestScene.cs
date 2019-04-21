@@ -91,7 +91,6 @@ namespace ARA2D
             componentProvider = new GlobalComponentProvider();
 
             componentProvider.CacheComponent(new CommandRepository());
-            new BasicCommands(componentProvider);
         }
 
         void CreateSystems()
@@ -104,7 +103,7 @@ namespace ARA2D
             addEntityProcessor(cameraController = new CameraController(camera));
             addEntityProcessor(tileEntityPlacer = new TileEntityPlacer(tileEntitySystem));
             addEntityProcessor(buildingMenu = new BuildingMenu(canvas, selectedBuildingFrameTexture, buildingFrameTexture));
-            addEntityProcessor(new CommandParser());
+            addEntityProcessor(new CommandParser(componentProvider));
             addEntityProcessor(new CommandScriptRunner(componentProvider));
         }
     }

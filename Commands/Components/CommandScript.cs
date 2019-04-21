@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using ARA2D.Commands.Systems;
+using MoonSharp.Interpreter;
 using Nez;
 using Coroutine = MoonSharp.Interpreter.Coroutine;
 
@@ -12,12 +14,14 @@ namespace ARA2D.Commands.Components
         public Coroutine Coroutine;
         public bool ReceivedYield;
 
+        public Script Lua;
         public ScriptStatus Status;
         public string StatusDescription;
 
-        public CommandScript(List<CommandCall> commandCalls)
+        public CommandScript(Script lua, List<CommandCall> commandCalls)
         {
             CommandCalls = commandCalls;
+            Lua = lua;
         }
     }
 

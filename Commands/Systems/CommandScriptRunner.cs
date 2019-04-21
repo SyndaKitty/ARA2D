@@ -59,8 +59,8 @@ namespace ARA2D.Commands.Systems
             {
                 args = DynValue.NewString(command.Arguments);
             }
-            repo.Script.Globals["args"] = args;
-            script.Coroutine = repo.Script.CreateCoroutine(repo.Commands[command.Name]).Coroutine;
+            script.Lua.Globals["args"] = args;
+            script.Coroutine = script.Lua.CreateCoroutine(repo.Commands[command.Name]).Coroutine;
         }
 
         public void RunCoroutine(CommandScript script)

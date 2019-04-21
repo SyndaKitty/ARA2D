@@ -1,6 +1,9 @@
 ﻿using ARA2D.Commands.Components;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text.RegularExpressions;
+using ARA2D.ComponentProvider;
+using MoonSharp.Interpreter;
 using Nez;
 
 namespace ARA2D.Commands.Systems
@@ -11,8 +14,11 @@ namespace ARA2D.Commands.Systems
     /// </summary>
     public class CommandParser : EntityProcessingSystem
     {
-        public CommandParser() : base(new Matcher().all(typeof(RawCommandScript)).exclude(typeof(CommandScript)))
+        IComponentProvider componentProvider;
+
+        public CommandParser(IComponentProvider componentProvider) : base(new Matcher().all(typeof(RawCommandScript)).exclude(typeof(CommandScript)))
         {
+            this.componentProvider = componentProvider;
         }
 
         public override void process(Entity entity)
@@ -43,7 +49,52 @@ namespace ARA2D.Commands.Systems
                 commandCalls.Add(new CommandCall(command, args));
             }
 
-            entity.addComponent(new CommandScript(commandCalls));
+            entity.addComponent(new CommandScript(InitializeScript(), commandCalls));
+        }
+
+        // TODO: Should probably find a better home for this code. Doesn't make sense for the parse to have to initialize a lua script
+        public Script InitializeScript()
+        {
+            var repo = componentProvider.GetComponent<CommandRepository>();
+            var defaultCommands =
+                @"function wait()
+    local args = args or 1
+    for i = 1,args do
+        print('lua: wait()')
+        coroutine.yield(-1)
+    end
+end
+
+function move()
+    print('lua: move()')
+    coroutine.yield(0)
+    return true
+end
+
+function back()
+    print('lua: back()')
+    coroutine.yield(1)
+end
+
+function right()
+    print('lua: right()')
+    coroutine.yield(2)
+end
+
+function left()
+    print('lua: left()')
+    coroutine.yield(3)
+end";
+            var script = new Script();
+
+            script.DoString(defaultCommands);
+            foreach (var key in script.Globals.Keys)
+            {
+                if (!(script.Globals[key] is Closure)) continue;
+                repo.Commands.Add(key.String, (Closure)script.Globals[key]);
+            }
+
+            return script;
         }
     }
 }

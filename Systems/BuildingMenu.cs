@@ -49,7 +49,6 @@ namespace ARA2D.Systems
 
         void ImageButton_onClicked(Button obj)
         {
-            // TODO: Use a better way to find the corresponding button. Dictionary? Maybe I shouldn't prematurely optimize..
             for (int i = 0; i < imageButtons.Count; i++)
             {
                 if (imageButtons[i] == obj) { Events.TriggerBuildMenuItemClick(tileEntities[i]); } 
