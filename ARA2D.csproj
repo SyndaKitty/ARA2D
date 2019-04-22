@@ -61,6 +61,8 @@
     <Compile Include="Systems\CameraController.cs" />
     <Compile Include="Systems\TileEntityPlacer.cs" />
     <Compile Include="Systems\UICollisionDetector.cs" />
+    <Compile Include="Ticks\Components\TickInfo.cs" />
+    <Compile Include="Ticks\Systems\TickProcessor.cs" />
     <Compile Include="TileChunk.cs" />
     <Compile Include="ChunkCoords.cs" />
     <Compile Include="Events.cs" />

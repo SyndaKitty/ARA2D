@@ -4,11 +4,12 @@ using ARA2D.Commands.Systems;
 using ARA2D.ComponentProvider;
 using ARA2D.Components;
 using ARA2D.Systems;
+using ARA2D.Ticks.Components;
+using ARA2D.Ticks.Systems;
 using ARA2D.TileEntities;
 using ARA2D.WorldGenerators;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using Nez;
 using ScreenSpaceRenderer = ARA2D.Renderers.ScreenSpaceRenderer;
 
@@ -91,10 +92,12 @@ namespace ARA2D
             componentProvider = new GlobalComponentProvider();
 
             componentProvider.CacheComponent(new CommandRepository());
+            componentProvider.CacheComponent(new TickInfo());
         }
 
         void CreateSystems()
         {
+            addEntityProcessor(new TickProcessor(componentProvider));
             addEntityProcessor(new UICollisionDetector());
             addEntityProcessor(chunkMeshGenerator = new ChunkMeshGenerator(chunkTextures));
             addEntityProcessor(worldLoader = new WorldLoader(chunkMeshGenerator, 2, 2));
