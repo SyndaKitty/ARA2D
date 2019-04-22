@@ -2,7 +2,7 @@
 using MoonSharp.Interpreter;
 using Nez;
 
-namespace ARA2D.Commands.Components
+namespace ARA2D.Commands
 {
     public class CommandRepository : Component
     {

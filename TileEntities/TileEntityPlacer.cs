@@ -2,9 +2,11 @@
 using Microsoft.Xna.Framework.Input;
 using Nez;
 using System;
-using ARA2D.Components;
+using ARA2D.Core;
+using ARA2D.Systems;
+using ARA2D.UI;
 
-namespace ARA2D.Systems
+namespace ARA2D.TileEntities
 {
     public class TileEntityPlacer : EntityProcessingSystem
     {

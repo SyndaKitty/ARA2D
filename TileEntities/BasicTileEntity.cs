@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Nez;
 using Nez.Sprites;
 using System;
+using ARA2D.Chunks;
 
 namespace ARA2D.TileEntities
 {

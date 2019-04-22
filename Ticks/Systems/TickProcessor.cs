@@ -1,8 +1,7 @@
-﻿using ARA2D.ComponentProvider;
-using ARA2D.Ticks.Components;
+﻿using ARA2D.Core;
 using Nez;
 
-namespace ARA2D.Ticks.Systems
+namespace ARA2D.Ticks
 {
     public class TickProcessor : ProcessingSystem
     {

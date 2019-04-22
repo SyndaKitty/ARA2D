@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace ARA2D
+namespace ARA2D.Core
 {
     public class IDTracker
     {

@@ -1,10 +1,9 @@
 ﻿using System;
-using ARA2D.Commands.Components;
-using ARA2D.ComponentProvider;
+using ARA2D.Core;
 using MoonSharp.Interpreter;
 using Nez;
 
-namespace ARA2D.Commands.Systems
+namespace ARA2D.Commands
 {
     public class CommandScriptRunner : EntityProcessingSystem
     {

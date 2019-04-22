@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
 
-namespace ARA2D
+namespace ARA2D.Chunks
 {
     public class ChunkCoords : IEquatable<ChunkCoords>
     {

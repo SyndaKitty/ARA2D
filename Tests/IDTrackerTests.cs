@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using ARA2D;
+using ARA2D.Core;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ARA2DTests

@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
-using ARA2D.WorldGenerators;
+using ARA2D.Chunks;
+using ARA2D.Core;
+using ARA2D.WorldGeneration;
 using Nez;
 
 namespace ARA2D.Systems

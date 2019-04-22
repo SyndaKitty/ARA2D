@@ -1,17 +1,14 @@
 ﻿using ARA2D.Commands;
-using ARA2D.Commands.Components;
-using ARA2D.Commands.Systems;
-using ARA2D.ComponentProvider;
-using ARA2D.Components;
+using ARA2D.Core;
 using ARA2D.Systems;
-using ARA2D.Ticks.Components;
-using ARA2D.Ticks.Systems;
+using ARA2D.Ticks;
 using ARA2D.TileEntities;
-using ARA2D.WorldGenerators;
+using ARA2D.UI;
+using ARA2D.WorldGeneration;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Nez;
-using ScreenSpaceRenderer = ARA2D.Renderers.ScreenSpaceRenderer;
+using ScreenSpaceRenderer = ARA2D.Rendering.ScreenSpaceRenderer;
 
 namespace ARA2D
 {

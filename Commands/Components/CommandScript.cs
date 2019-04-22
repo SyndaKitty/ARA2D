@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
-using ARA2D.Commands.Systems;
 using MoonSharp.Interpreter;
 using Nez;
 using Coroutine = MoonSharp.Interpreter.Coroutine;
 
-namespace ARA2D.Commands.Components
+namespace ARA2D.Commands
 {
     public class CommandScript : Component
     {

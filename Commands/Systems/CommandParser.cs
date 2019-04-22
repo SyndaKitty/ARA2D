@@ -1,12 +1,10 @@
-﻿using ARA2D.Commands.Components;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using ARA2D.ComponentProvider;
+using ARA2D.Core;
 using MoonSharp.Interpreter;
 using Nez;
 
-namespace ARA2D.Commands.Systems
+namespace ARA2D.Commands
 {
     /// <summary>
     /// Processes entities with RawCommandScript and parses raw script in parsed CommandScript component.

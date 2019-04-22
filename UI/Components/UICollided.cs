@@ -1,6 +1,6 @@
 ﻿using Nez;
 
-namespace ARA2D.Components
+namespace ARA2D.UI
 {
     public class UICollided : Component
     {

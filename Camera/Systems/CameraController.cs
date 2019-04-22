@@ -1,4 +1,4 @@
-﻿using ARA2D.Components;
+﻿using ARA2D.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Nez;

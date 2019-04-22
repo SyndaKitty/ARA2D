@@ -1,4 +1,6 @@
-﻿namespace ARA2D.WorldGenerators
+﻿using ARA2D.Chunks;
+
+namespace ARA2D.WorldGeneration
 {
     public class SandboxGenerator : WorldGenerator
     {

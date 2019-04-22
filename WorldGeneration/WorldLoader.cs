@@ -2,6 +2,8 @@
 using Nez;
 using System;
 using System.Collections.Generic;
+using ARA2D.Chunks;
+using ARA2D.Core;
 
 namespace ARA2D.Systems
 {

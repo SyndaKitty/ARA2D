@@ -1,6 +1,6 @@
 ﻿using Nez;
 
-namespace ARA2D.ComponentProvider
+namespace ARA2D.Core
 {
     public interface IComponentProvider
     {

@@ -1,6 +1,6 @@
 ﻿using Nez;
 
-namespace ARA2D.Ticks.Components
+namespace ARA2D.Ticks
 {
     public class TickInfo : Component
     {

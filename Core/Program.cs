@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ARA2D
+namespace ARA2D.Core
 {
     /// <summary>
     /// The main class.

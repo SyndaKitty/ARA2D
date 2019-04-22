@@ -1,4 +1,6 @@
-﻿namespace ARA2D
+﻿using ARA2D.Chunks;
+
+namespace ARA2D
 {
     public class TileEntityChunk
     {

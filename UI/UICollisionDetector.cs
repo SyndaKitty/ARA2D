@@ -1,4 +1,4 @@
-﻿using ARA2D.Components;
+﻿using ARA2D.UI;
 using Nez;
 
 namespace ARA2D.Systems

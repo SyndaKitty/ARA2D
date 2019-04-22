@@ -2,10 +2,11 @@
 using Nez;
 using Nez.UI;
 using System.Collections.Generic;
+using ARA2D.Core;
 using ARA2D.TileEntities;
 using IDrawable = Nez.UI.IDrawable;
 
-namespace ARA2D.Systems
+namespace ARA2D.UI
 {
     public class BuildingMenu : ProcessingSystem
     {
@@ -19,7 +20,7 @@ namespace ARA2D.Systems
         public BuildingMenu(UICanvas canvas, Texture2D selectedBuildingFrame, Texture2D buildingFrame)
         {
             // TODO: Pass list of building info
-            var texture = Core.content.Load<Texture2D>("images/TestEntity2");
+            var texture = Nez.Core.content.Load<Texture2D>("images/TestEntity2");
             tileEntities = new List<ITileEntity>();
             for (int i = 0; i < 5; i++)
             {

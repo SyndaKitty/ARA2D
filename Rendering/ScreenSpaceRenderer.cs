@@ -1,7 +1,7 @@
 ﻿using System;
 using Nez;
 
-namespace ARA2D.Renderers
+namespace ARA2D.Rendering
 {
     /// <summary>
     /// A lot of this code was ripped straight from Nez, but since I wanted more control over the camera.
@@ -34,7 +34,7 @@ namespace ARA2D.Renderers
                 }
             }
 
-            if (shouldDebugRender && Core.debugRenderEnabled)
+            if (shouldDebugRender && Nez.Core.debugRenderEnabled)
                 debugRender(scene, camera);
 
             endRender();

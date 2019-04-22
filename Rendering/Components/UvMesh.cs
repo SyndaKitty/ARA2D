@@ -187,7 +187,7 @@ namespace ARA2D.Components
             basicEffect.World = entity.transform.localToWorldTransform;
             basicEffect.CurrentTechnique.Passes[0].Apply();
 
-            Core.graphicsDevice.DrawUserIndexedPrimitives(PrimitiveType.TriangleList, 
+            Nez.Core.graphicsDevice.DrawUserIndexedPrimitives(PrimitiveType.TriangleList, 
                 vertices, 0, vertices.Length, 
                 indices, 0, primitiveCount);
         }
