@@ -1,5 +1,7 @@
 ﻿using ARA2D.Commands;
 using ARA2D.Core;
+using ARA2D.Movement;
+using ARA2D.Movement.Systems;
 using ARA2D.Systems;
 using ARA2D.Ticks;
 using ARA2D.TileEntities;
@@ -90,10 +92,13 @@ namespace ARA2D
 
             componentProvider.CacheComponent(new CommandRepository());
             componentProvider.CacheComponent(new TickInfo());
+            componentProvider.CacheComponent(new MovementRequests());
         }
 
         void CreateSystems()
         {
+            MoveRequester moveRequester = new MoveRequester(componentProvider);
+
             addEntityProcessor(new TickProcessor(componentProvider));
             addEntityProcessor(new UICollisionDetector());
             addEntityProcessor(chunkMeshGenerator = new ChunkMeshGenerator(chunkTextures));
@@ -104,7 +109,8 @@ namespace ARA2D
             addEntityProcessor(tileEntityPlacer = new TileEntityPlacer(tileEntitySystem));
             addEntityProcessor(buildingMenu = new BuildingMenu(canvas, selectedBuildingFrameTexture, buildingFrameTexture));
             addEntityProcessor(new CommandParser(componentProvider));
-            addEntityProcessor(new CommandScriptRunner(componentProvider));
+            addEntityProcessor(new CommandScriptRunner(componentProvider, moveRequester));
+            addEntityProcessor(new MovementEvaluator(componentProvider));
         }
     }
 }

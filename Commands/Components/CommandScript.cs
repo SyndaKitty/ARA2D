@@ -12,6 +12,7 @@ namespace ARA2D.Commands
         public int CurrentLine;
         public Coroutine Coroutine;
         public bool ReceivedYield;
+        public int MoveResultIndex = -1;
 
         public Script Lua;
         public ScriptStatus Status;

@@ -18,12 +18,12 @@ namespace ARA2D.Movement
             int dx = direction == Direction.Right ? 1 : (direction == Direction.Left ? -1 : 0);
             int dy = direction == Direction.Up ? 1 : (direction == Direction.Down ? -1 : 0);
 
-            var request = new MovementRequest(originX + dx, originY + dy, direction, data.Requests.Count);
-            data.Requests.Add(request);
-
             var behind = new TileCoords(originX, originY);
             var destination = new TileCoords(originX + dx, originY + dy);
             var after = new TileCoords(originX + dx * 2, originY + dy * 2);
+
+            var request = new MovementRequest(destination, direction, data.Requests.Count);
+            data.Requests.Add(request);
 
             // Check for moves directly behind this one
             if (data.Directional[(int) direction].TryGetValue(behind, out int index))

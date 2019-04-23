@@ -54,6 +54,11 @@
     <Compile Include="Commands\Systems\CommandScriptRunner.cs" />
     <Compile Include="Core\GlobalComponentProvider.cs" />
     <Compile Include="Core\IComponentProvider.cs" />
+    <Compile Include="Movement\MovementRequest.cs" />
+    <Compile Include="Movement\Components\MovementRequests.cs" />
+    <Compile Include="Movement\Direction.cs" />
+    <Compile Include="Movement\MoveRequester.cs" />
+    <Compile Include="Movement\Systems\MovementEvaluator.cs" />
     <Compile Include="UI\Components\UICollided.cs" />
     <Compile Include="UI\Components\ScreenSpace.cs" />
     <Compile Include="Core\Layers.cs" />

@@ -1,5 +1,6 @@
 ﻿using System;
 using ARA2D.Core;
+using ARA2D.Movement;
 using MoonSharp.Interpreter;
 using Nez;
 
@@ -9,9 +10,11 @@ namespace ARA2D.Commands
     {
         readonly IComponentProvider componentProvider;
 
-        public CommandScriptRunner(IComponentProvider componentProvider) : base(new Matcher().all(typeof(CommandScript)))
+        readonly MoveRequester moveRequester;
+        public CommandScriptRunner(IComponentProvider componentProvider, MoveRequester moveRequester) : base(new Matcher().all(typeof(CommandScript)))
         {
             this.componentProvider = componentProvider;
+            this.moveRequester = moveRequester;
         }
 
         public override void process(Entity entity)
