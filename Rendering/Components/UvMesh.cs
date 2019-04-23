@@ -2,7 +2,7 @@
 using Nez;
 using Microsoft.Xna.Framework;
 
-namespace ARA2D.Components
+namespace ARA2D.Rendering
 {
     /// <summary>
     /// Class used to create meshes with control over the texture coordinates
@@ -177,7 +177,7 @@ namespace ARA2D.Components
             basicEffect = null;
         }
 
-        public override void render(Graphics graphics, Camera camera)
+        public override void render(Graphics graphics, Nez.Camera camera)
         {
             if (vertices == null)
                 return;

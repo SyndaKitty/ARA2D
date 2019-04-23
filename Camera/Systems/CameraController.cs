@@ -3,14 +3,14 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Nez;
 
-namespace ARA2D.Systems
+namespace ARA2D.Camera
 {
     public class CameraController : EntityProcessingSystem
     {
         // TODO: True ECS refactor (maybe have a settings component for this, or make is constant)
         public float CameraSpeed = 600;
 
-        public CameraController(Camera camera) : base(new Matcher().all(typeof(Camera)).exclude(typeof(ScreenSpace)))
+        public CameraController(Nez.Camera camera) : base(new Matcher().all(typeof(Nez.Camera)).exclude(typeof(ScreenSpace)))
         {
             camera.setPosition(new Vector2(-Screen.width * .5f, -Screen.height * .5f));
             camera.maximumZoom = 10f;
@@ -20,7 +20,7 @@ namespace ARA2D.Systems
 
         public override void process(Entity entity)
         {
-            var camera = entity.getComponent<Camera>();
+            var camera = entity.getComponent<Nez.Camera>();
 
             float xInput = (Input.isKeyDown(Keys.A) ? -1 : 0) + (Input.isKeyDown(Keys.D) ? 1 : 0);
             float yInput = (Input.isKeyDown(Keys.W) ? -1 : 0) + (Input.isKeyDown(Keys.S) ? 1 : 0);

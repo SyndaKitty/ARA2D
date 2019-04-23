@@ -1,12 +1,11 @@
 ﻿using Nez;
-using ARA2D.Components;
 using System.Collections.Generic;
 using ARA2D.Chunks;
 using ARA2D.Core;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace ARA2D.Systems
+namespace ARA2D.Rendering
 {
     public class ChunkMeshGenerator : ProcessingSystem
     {

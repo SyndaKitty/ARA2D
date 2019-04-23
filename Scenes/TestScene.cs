@@ -1,7 +1,9 @@
-﻿using ARA2D.Commands;
+﻿using ARA2D.Camera;
+using ARA2D.Commands;
 using ARA2D.Core;
 using ARA2D.Movement;
 using ARA2D.Movement.Systems;
+using ARA2D.Rendering;
 using ARA2D.Systems;
 using ARA2D.Ticks;
 using ARA2D.TileEntities;
@@ -47,7 +49,7 @@ namespace ARA2D
             //Core.debugRenderEnabled = true;
 
             var uiCameraEntity = createEntity("UICamera");
-            var uiCamera = new Camera();
+            var uiCamera = new Nez.Camera();
             uiCameraEntity.addComponent(new ScreenSpace());
             uiCameraEntity.addComponent(uiCamera);
 

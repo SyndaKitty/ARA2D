@@ -55,7 +55,7 @@ namespace ARA2D.Commands
         {
             var repo = componentProvider.GetComponent<CommandRepository>();
             var defaultCommands =
-                @"function wait()
+@"function wait()
     local args = args or 1
     for i = 1,args do
         print('lua: wait()')

@@ -46,12 +46,18 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Chunks\Components\Chunks.cs" />
+    <Compile Include="Commands\CommandAction.cs" />
     <Compile Include="Commands\CommandCall.cs" />
+    <Compile Include="Commands\Components\CommandActions.cs" />
     <Compile Include="Commands\Components\CommandScript.cs" />
     <Compile Include="Commands\Components\RawCommandScript.cs" />
+    <Compile Include="Commands\MoveAction.cs" />
+    <Compile Include="Commands\Systems\CommandActionRunner.cs" />
     <Compile Include="Commands\Systems\CommandParser.cs" />
     <Compile Include="Commands\Components\CommandRepository.cs" />
     <Compile Include="Commands\Systems\CommandScriptRunner.cs" />
+    <Compile Include="Commands\TurnAction.cs" />
+    <Compile Include="Commands\WaitAction.cs" />
     <Compile Include="Core\GlobalComponentProvider.cs" />
     <Compile Include="Core\IComponentProvider.cs" />
     <Compile Include="Movement\MovementRequest.cs" />

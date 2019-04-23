@@ -10,7 +10,7 @@ namespace ARA2D.Rendering
     {
         public int[] renderLayers;
 
-        public ScreenSpaceRenderer(Camera camera, int renderOrder, params int[] renderLayers) : base(renderOrder, camera)
+        public ScreenSpaceRenderer(Nez.Camera camera, int renderOrder, params int[] renderLayers) : base(renderOrder, camera)
         {
             this.camera = camera;
             Array.Sort(renderLayers);
@@ -40,7 +40,7 @@ namespace ARA2D.Rendering
             endRender();
         }
 
-        protected override void debugRender(Scene scene, Camera cam)
+        protected override void debugRender(Scene scene, Nez.Camera cam)
         {
             Graphics.instance.batcher.end();
             Graphics.instance.batcher.begin(cam.transformMatrix);

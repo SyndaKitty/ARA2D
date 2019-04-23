@@ -4,8 +4,9 @@ using System;
 using System.Collections.Generic;
 using ARA2D.Chunks;
 using ARA2D.Core;
+using ARA2D.Rendering;
 
-namespace ARA2D.Systems
+namespace ARA2D.WorldGeneration
 {
     public class WorldLoader : EntityProcessingSystem
     {
@@ -42,7 +43,7 @@ namespace ARA2D.Systems
         float frameNumber;
 
         public WorldLoader(ChunkMeshGenerator chunkMeshGenerator, int maxX, int maxY) : base(
-            new Matcher().all(typeof(Camera)))
+            new Matcher().all(typeof(Nez.Camera)))
         {
             this.chunkMeshGenerator = chunkMeshGenerator;
 
@@ -55,7 +56,7 @@ namespace ARA2D.Systems
         {
             if (!Enabled || frameNumber++ < Frames) return;
             frameNumber = 0;
-            var cam = entity.getComponent<Camera>();
+            var cam = entity.getComponent<Nez.Camera>();
             var screenCenter =
                 cam.screenToWorldPoint(new Point((int) (Screen.width * .5f), (int) (Screen.height * .5f)));
             var coords = ChunkCoords.FromWorldSpace(screenCenter.X, screenCenter.Y);

@@ -11,7 +11,9 @@ namespace ARA2D.Commands
         readonly IComponentProvider componentProvider;
 
         readonly MoveRequester moveRequester;
-        public CommandScriptRunner(IComponentProvider componentProvider, MoveRequester moveRequester) : base(new Matcher().all(typeof(CommandScript)))
+
+        public CommandScriptRunner(IComponentProvider componentProvider, MoveRequester moveRequester) : base(
+            new Matcher().all(typeof(CommandScript)))
         {
             this.componentProvider = componentProvider;
             this.moveRequester = moveRequester;
@@ -22,9 +24,6 @@ namespace ARA2D.Commands
             var commandScript = entity.getComponent<CommandScript>();
             commandScript.ReceivedYield = false;
 
-            // TODO: Take this test code out
-            //commandScript.Status = ScriptStatus.Running;
-
             while (!commandScript.ReceivedYield && commandScript.Running)
             {
                 var nextCall = commandScript.CommandCalls[commandScript.CurrentLine];
@@ -32,6 +31,7 @@ namespace ARA2D.Commands
                 {
                     CreateCoroutine(commandScript, nextCall);
                 }
+
                 RunCoroutine(commandScript);
                 if (commandScript.Coroutine == null && ++commandScript.CurrentLine >= commandScript.CommandCalls.Count)
                 {
@@ -61,23 +61,36 @@ namespace ARA2D.Commands
             {
                 args = DynValue.NewString(command.Arguments);
             }
+
             script.Lua.Globals["args"] = args;
             script.Coroutine = script.Lua.CreateCoroutine(repo.Commands[command.Name]).Coroutine;
         }
 
         public void RunCoroutine(CommandScript script)
         {
+            var commandActions = componentProvider.GetComponent<CommandActions>();
+
+            // Get result from last frame's command action
+            if (script.CommandActionIndex >= 0)
+            {
+                bool actionResult = commandActions[script.CommandActionIndex].GetResult(componentProvider);
+                Console.WriteLine(actionResult);
+                script.Lua.Globals["res"] = actionResult;
+            }
+            script.CommandActionIndex = -1;
+
+            // Continue lua script
             DynValue result = script.Coroutine.Resume();
             if (script.Coroutine.State == CoroutineState.Suspended)
             {
                 script.ReceivedYield = true;
-                // TODO: Do something with yielded value
-                Console.WriteLine($"Yielded: {result.Number}");
+                script.CommandActionIndex = commandActions.Add((CommandActionType)result.Number);
             }
             else if (script.Coroutine.State == CoroutineState.Dead)
             {
                 script.Coroutine = null;
             }
         }
+
     }
 }
