@@ -52,7 +52,8 @@
     <Compile Include="Commands\Components\CommandScript.cs" />
     <Compile Include="Commands\Components\RawCommandScript.cs" />
     <Compile Include="Commands\MoveAction.cs" />
-    <Compile Include="Commands\Systems\CommandActionRunner.cs" />
+    <Compile Include="Commands\Systems\ActionResultsWriter.cs" />
+    <Compile Include="Commands\Systems\ActionRunner.cs" />
     <Compile Include="Commands\Systems\CommandParser.cs" />
     <Compile Include="Commands\Components\CommandRepository.cs" />
     <Compile Include="Commands\Systems\CommandScriptRunner.cs" />

@@ -13,8 +13,6 @@ namespace ARA2D.Commands
         public Coroutine Coroutine;
         public bool ReceivedYield;
 
-        public int CommandActionIndex;
-
         public Script Lua;
         public ScriptStatus Status;
         public string StatusDescription;

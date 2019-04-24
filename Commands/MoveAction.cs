@@ -1,15 +1,24 @@
 ﻿using ARA2D.Core;
+using ARA2D.Movement;
+using MoonSharp.Interpreter;
 
 namespace ARA2D.Commands
 {
     public class MoveAction : CommandAction
     {
-        public void Start(IComponentProvider componentProvider)
+        MoveRequester moveRequester;
+
+        public MoveAction(Script script, MoveRequester moveRequester) : base(script)
+        {
+            this.moveRequester = moveRequester;
+        }
+
+        public override void Start(IComponentProvider componentProvider)
         {
             // TODO
         }
 
-        public bool GetResult(IComponentProvider componentProvider)
+        public override bool GetResult(IComponentProvider componentProvider)
         {
             // TODO
             return true;

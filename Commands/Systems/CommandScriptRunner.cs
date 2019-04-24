@@ -1,6 +1,7 @@
 ﻿using System;
 using ARA2D.Core;
 using ARA2D.Movement;
+using ARA2D.Ticks;
 using MoonSharp.Interpreter;
 using Nez;
 
@@ -21,6 +22,8 @@ namespace ARA2D.Commands
 
         public override void process(Entity entity)
         {
+            if (!componentProvider.GetComponent<TickInfo>().Ticking) return;
+
             var commandScript = entity.getComponent<CommandScript>();
             commandScript.ReceivedYield = false;
 
@@ -70,21 +73,12 @@ namespace ARA2D.Commands
         {
             var commandActions = componentProvider.GetComponent<CommandActions>();
 
-            // Get result from last frame's command action
-            if (script.CommandActionIndex >= 0)
-            {
-                bool actionResult = commandActions[script.CommandActionIndex].GetResult(componentProvider);
-                Console.WriteLine(actionResult);
-                script.Lua.Globals["res"] = actionResult;
-            }
-            script.CommandActionIndex = -1;
-
             // Continue lua script
             DynValue result = script.Coroutine.Resume();
             if (script.Coroutine.State == CoroutineState.Suspended)
             {
                 script.ReceivedYield = true;
-                script.CommandActionIndex = commandActions.Add((CommandActionType)result.Number);
+                commandActions.Add(script.Lua, (CommandActionType)result.Number, moveRequester);
             }
             else if (script.Coroutine.State == CoroutineState.Dead)
             {

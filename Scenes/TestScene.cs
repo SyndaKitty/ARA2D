@@ -1,5 +1,6 @@
 ﻿using ARA2D.Camera;
 using ARA2D.Commands;
+using ARA2D.Commands.Systems;
 using ARA2D.Core;
 using ARA2D.Movement;
 using ARA2D.Movement.Systems;
@@ -95,6 +96,7 @@ namespace ARA2D
             componentProvider.CacheComponent(new CommandRepository());
             componentProvider.CacheComponent(new TickInfo());
             componentProvider.CacheComponent(new MovementRequests());
+            componentProvider.CacheComponent(new CommandActions());
         }
 
         void CreateSystems()
@@ -110,8 +112,10 @@ namespace ARA2D
             addEntityProcessor(cameraController = new CameraController(camera));
             addEntityProcessor(tileEntityPlacer = new TileEntityPlacer(tileEntitySystem));
             addEntityProcessor(buildingMenu = new BuildingMenu(canvas, selectedBuildingFrameTexture, buildingFrameTexture));
+            addEntityProcessor(new ActionResultsWriter(componentProvider));
             addEntityProcessor(new CommandParser(componentProvider));
             addEntityProcessor(new CommandScriptRunner(componentProvider, moveRequester));
+            addEntityProcessor(new ActionRunner(componentProvider));
             addEntityProcessor(new MovementEvaluator(componentProvider));
         }
     }

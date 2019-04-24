@@ -1,10 +1,18 @@
 ﻿using ARA2D.Core;
+using MoonSharp.Interpreter;
 
 namespace ARA2D.Commands
 {
-    public interface CommandAction
+    public abstract class CommandAction
     {
-        void Start(IComponentProvider componentProvider);
-        bool GetResult(IComponentProvider componentProvider);
+        public Script Script { get; }
+
+        protected CommandAction(Script script)
+        {
+            Script = script;
+        }
+
+        public abstract void Start(IComponentProvider componentProvider);
+        public abstract bool GetResult(IComponentProvider componentProvider);
     }
 }
