@@ -12,7 +12,7 @@ namespace ARA2D.TileEntities
     {
         // TODO: True ECS refactor
         readonly TileEntitySystem tileEntitySystem;
-        ITileEntity template;
+        TileEntity template;
         readonly Color validPlacementColor = new Color(255, 255, 255, 180);
         readonly Color invalidPlacementColor = new Color(255, 64, 64, 180);
 
@@ -22,7 +22,7 @@ namespace ARA2D.TileEntities
             Events.OnBuildMenuItemClick += SetTemplate;
         }
 
-        public void SetTemplate(ITileEntity template)
+        public void SetTemplate(TileEntity template)
         {
             if (template == null)
             {
