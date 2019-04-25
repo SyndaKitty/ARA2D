@@ -32,14 +32,5 @@ namespace ARA2D.Core
             Console.WriteLine($"PassiveTileChunkRequest {coords.Cx},{coords.Cy}");
             OnPassiveTileChunkRequest?.Invoke(coords);
         }
-
-        public delegate void BuildMenuItemClick(TileEntity templateEntity);
-        public static event BuildMenuItemClick OnBuildMenuItemClick;
-
-        public static void TriggerBuildMenuItemClick(TileEntity templateEntity)
-        {
-            Console.WriteLine($"BuildMenuItemClick");
-            OnBuildMenuItemClick?.Invoke(templateEntity);
-        }
     }
 }

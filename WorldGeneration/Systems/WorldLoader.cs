@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using ARA2D.Chunks;
 using ARA2D.Core;
-using ARA2D.Rendering;
+using ARA2D.WorldGeneration.Components;
 
 namespace ARA2D.WorldGeneration
 {
@@ -38,15 +38,13 @@ namespace ARA2D.WorldGeneration
             }
         }
 
+        readonly IComponentProvider componentProvider;
         List<OffsetPoint> offsetPoints;
-        readonly ChunkMeshGenerator chunkMeshGenerator;
         float frameNumber;
 
-        public WorldLoader(ChunkMeshGenerator chunkMeshGenerator, int maxX, int maxY) : base(
-            new Matcher().all(typeof(Nez.Camera)))
+        public WorldLoader(IComponentProvider componentProvider, int maxX, int maxY) : base(new Matcher().all(typeof(Nez.Camera)))
         {
-            this.chunkMeshGenerator = chunkMeshGenerator;
-
+            this.componentProvider = componentProvider;
             this.maxX = maxX;
             this.maxY = maxY;
             CalcOffsetPoints();
@@ -60,22 +58,12 @@ namespace ARA2D.WorldGeneration
             var screenCenter =
                 cam.screenToWorldPoint(new Point((int) (Screen.width * .5f), (int) (Screen.height * .5f)));
             var coords = ChunkCoords.FromWorldSpace(screenCenter.X, screenCenter.Y);
-            CheckCoords(coords);
 
             foreach (var offsetPoint in offsetPoints)
             {
-                CheckCoords(new ChunkCoords(coords.Cx + offsetPoint.Ox, coords.Cy + offsetPoint.Oy));
+                var offsetCoords = new ChunkCoords(coords.Cx + offsetPoint.Ox, coords.Cy + offsetPoint.Oy);
+                scene.createEntity("ChunkGenerationRequest").addComponent(new ChunkGenerationRequest(offsetCoords));
             }
-        }
-
-        void CheckCoords(ChunkCoords coords)
-        {
-            // TODO: Keep track of the chunks requested over the past X frames and don't check/request those
-            // Or maybe that's on the world to ignore requests?
-            // Maybe we should even implement a RequestManager to handle this kind of stuff
-
-            if (chunkMeshGenerator.ChunkLoaded(coords)) return;
-            Events.TriggerPassiveTileChunkRequest(coords);
         }
 
         void CalcOffsetPoints()

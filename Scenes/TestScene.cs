@@ -12,6 +12,7 @@ using ARA2D.TileEntities;
 using ARA2D.TileEntities.Systems;
 using ARA2D.UI;
 using ARA2D.WorldGeneration;
+using ARA2D.WorldGeneration.Components;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Nez;
@@ -30,7 +31,6 @@ namespace ARA2D
         // Systems
         WorldLoader worldLoader;
         ChunkMeshGenerator chunkMeshGenerator;
-        World world;
         CameraController cameraController;
         TileEntityPlacer tileEntityPlacer;
         BuildingMenu buildingMenu;
@@ -69,7 +69,7 @@ namespace ARA2D
             CreateSystems();
 
             buildingMenu.Initialize();
-            //worldLoader.Enabled = true;
+            worldLoader.Enabled = true;
 
             // TODO: Take this test code out
             var script = "wait 5";
@@ -106,10 +106,10 @@ namespace ARA2D
             MoveRequester moveRequester = new MoveRequester(componentProvider);
 
             addEntityProcessor(new TickProcessor(componentProvider));
+            addEntityProcessor(new SandboxGenerator(componentProvider));
             addEntityProcessor(new UICollisionDetector());
             addEntityProcessor(chunkMeshGenerator = new ChunkMeshGenerator(chunkTextures));
-            addEntityProcessor(worldLoader = new WorldLoader(chunkMeshGenerator, 2, 2));
-            addEntityProcessor(world = new World(new SandboxGenerator()));
+            addEntityProcessor(worldLoader = new WorldLoader(componentProvider, 2, 2));
             addEntityProcessor(cameraController = new CameraController(camera));
             addEntityProcessor(buildingMenu = new BuildingMenu(canvas, selectedBuildingFrameTexture, buildingFrameTexture));
             addEntityProcessor(new TemplatePlacementSystem());

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Xml.Serialization;
 using Microsoft.Xna.Framework;
 
 namespace ARA2D.Core
@@ -41,6 +40,11 @@ namespace ARA2D.Core
         {
             x = X;
             y = Y;
+        }
+
+        public override string ToString()
+        {
+            return $"{X},{Y}";
         }
     }
 }

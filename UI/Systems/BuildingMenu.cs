@@ -59,7 +59,7 @@ namespace ARA2D.UI
             // TODO: Replace this with more ECS centric code. We should just be creating entities and components here, no caching.
             var tet = scene.createEntity("TileEntityTemplate");
 
-            tet.addComponent(template = templates[0]);
+            tet.addComponent(template = new TileEntityTemplate(templates[0].Texture, templates[0].Size));
             tet.addComponent(templateSprite = new Sprite(template.Texture));
             templateSprite.origin = Vector2.Zero;
         }

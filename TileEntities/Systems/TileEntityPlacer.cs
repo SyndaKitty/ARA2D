@@ -43,7 +43,7 @@ namespace ARA2D.TileEntities
                             return;
                         }
 
-                        var (lx, ly) = TileCoords.FromWorldSpace(x, y);
+                        var (lx, ly) = TileCoords.ToLocalSpace(x, y);
                         // If space is already occupied
                         if (chunk.TileEntityIDs[lx, ly] > 0)
                         {

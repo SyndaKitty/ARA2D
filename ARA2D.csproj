@@ -59,9 +59,11 @@
     <Compile Include="Commands\Systems\CommandScriptRunner.cs" />
     <Compile Include="Commands\TurnAction.cs" />
     <Compile Include="Commands\WaitAction.cs" />
+    <Compile Include="Core\Components\ComponentRemoval.cs" />
     <Compile Include="Core\GlobalComponentProvider.cs" />
     <Compile Include="Core\IComponentProvider.cs" />
     <Compile Include="Core\IntVector2.cs" />
+    <Compile Include="Core\Systems\ComponentRemover.cs" />
     <Compile Include="Core\Vector2Extensions.cs" />
     <Compile Include="Movement\MovementRequest.cs" />
     <Compile Include="Movement\Components\MovementRequests.cs" />
@@ -92,13 +94,12 @@
     <Compile Include="Rendering\Systems\ChunkMeshGenerator.cs" />
     <Compile Include="Chunks\TileCoords.cs" />
     <Compile Include="Chunks\TileEntityChunk.cs" />
-    <Compile Include="WorldGeneration\SandboxGenerator.cs" />
-    <Compile Include="WorldGeneration\WorldLoader.cs" />
+    <Compile Include="WorldGeneration\Components\ChunkGenerationRequest.cs" />
+    <Compile Include="WorldGeneration\Systems\SandboxGenerator.cs" />
+    <Compile Include="WorldGeneration\Systems\WorldLoader.cs" />
     <Compile Include="Chunks\Tile.cs" />
     <Compile Include="TileEntities\Components\TileEntity.cs" />
     <Compile Include="Rendering\Components\UvMesh.cs" />
-    <Compile Include="Systems\World.cs" />
-    <Compile Include="WorldGeneration\WorldGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

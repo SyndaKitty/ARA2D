@@ -34,13 +34,13 @@ namespace ARA2D.TileEntities.Systems
                 ? (float)Math.Round(anchorPoint.X)
                 : (float)Math.Round(anchorPoint.X + .5f) - .5f;
             anchorPoint.Y = height % 2 == 0
-                ? (long)Math.Round(anchorPoint.Y)
-                : (long)(Math.Round(anchorPoint.Y + .5f) - .5f);
+                ? (float)Math.Round(anchorPoint.Y)
+                : (float)Math.Round(anchorPoint.Y + .5f) - .5f;
             anchorPoint.X -= width * .5f;
             anchorPoint.Y -= height * .5f;
 
             entity.position = anchorPoint * Tile.Size;
-            placement.Anchor = (anchorPoint * Tile.Size).Round();
+            placement.Anchor = anchorPoint.Round();
             placement.Size = template.Size;
 
             // Change color depending on placement results
