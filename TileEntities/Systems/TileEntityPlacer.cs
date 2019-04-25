@@ -1,4 +1,5 @@
-﻿using ARA2D.Chunks;
+﻿using System;
+using ARA2D.Chunks;
 using Nez;
 using ARA2D.Core;
 using ARA2D.TileEntities.Components;
@@ -7,13 +8,9 @@ namespace ARA2D.TileEntities
 {
     public class TileEntityPlacer : EntityProcessingSystem
     {
-        // TODO: True ECS refactor
-        //readonly Color validPlacementColor = new Color(255, 255, 255, 180);
-        //readonly Color invalidPlacementColor = new Color(255, 64, 64, 180);
-
         readonly IComponentProvider componentProvider;
 
-        public TileEntityPlacer(IComponentProvider componentProvider) : base(new Matcher().all(typeof(TileEntityPlacement)))
+        public TileEntityPlacer(IComponentProvider componentProvider) : base(new Matcher().all(typeof(TileEntityPlacement), typeof(TileEntityTemplate)))
         {
             this.componentProvider = componentProvider;
         }
@@ -58,6 +55,15 @@ namespace ARA2D.TileEntities
                 }
                 
                 placement.Result = true;
+            }
+
+            if (placement.Type == TileEntityPlacement.PlacementType.Place)
+            {
+                Console.WriteLine("Creation at " + placement.Anchor);
+                var template = entity.getComponent<TileEntityTemplate>();
+                scene.createEntity("TileEntityCreation")
+                    .addComponent(template)
+                    .addComponent(new TileEntityCreation(placement.Anchor));
             }
         }
     }

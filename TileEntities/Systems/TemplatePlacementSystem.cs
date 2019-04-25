@@ -34,7 +34,7 @@ namespace ARA2D.TileEntities.Systems
                 ? (float)Math.Round(anchorPoint.X)
                 : (float)Math.Round(anchorPoint.X + .5f) - .5f;
             anchorPoint.Y = height % 2 == 0
-                ? (float)Math.Round(anchorPoint.Y)
+                ? (float)Math.Round(anchorPoint.Y) 
                 : (float)Math.Round(anchorPoint.Y + .5f) - .5f;
             anchorPoint.X -= width * .5f;
             anchorPoint.Y -= height * .5f;
@@ -42,6 +42,11 @@ namespace ARA2D.TileEntities.Systems
             entity.position = anchorPoint * Tile.Size;
             placement.Anchor = anchorPoint.Round();
             placement.Size = template.Size;
+            
+            placement.Type = Input.leftMouseButtonDown
+                ? TileEntityPlacement.PlacementType.Place
+                : TileEntityPlacement.PlacementType.Check;
+            placement.TileEntityID = 1; // TODO: Figure out a way to get this from creation system
 
             // Change color depending on placement results
             sprite.color = (placement.Result == true) ? ValidPlacementColor : InvalidPlacementColor;

@@ -42,7 +42,7 @@ namespace ARA2D.UI
             var texture = Nez.Core.content.Load<Texture2D>("images/TestEntity2");
             for (int i = 0; i < 5; i++)
             {
-                templates.Add(new TileEntityTemplate(texture, new IntVector2(i+1, i+1)));
+                templates.Add(new TileEntityTemplate(texture, new IntVector2(i+1, i+1), new Vector2(i + 1, i + 1)));
                 var imageButton = new ImageButton(frame, frame, selectedFrame);
                 imageButton.onClicked += ImageButton_onClicked;
                 container.addElement(imageButton);
@@ -59,7 +59,7 @@ namespace ARA2D.UI
             // TODO: Replace this with more ECS centric code. We should just be creating entities and components here, no caching.
             var tet = scene.createEntity("TileEntityTemplate");
 
-            tet.addComponent(template = new TileEntityTemplate(templates[0].Texture, templates[0].Size));
+            tet.addComponent(template = new TileEntityTemplate(templates[0].Texture, templates[0].Size, templates[0].Size.ToVector2()));
             tet.addComponent(templateSprite = new Sprite(template.Texture));
             templateSprite.origin = Vector2.Zero;
         }
@@ -73,6 +73,7 @@ namespace ARA2D.UI
                 {
                     template.Texture = templates[i].Texture;
                     template.Size = templates[i].Size;
+                    template.Scale = templates[i].Scale;
                 }
                 else
                 {

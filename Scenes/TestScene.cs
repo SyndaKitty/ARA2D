@@ -9,6 +9,7 @@ using ARA2D.Rendering;
 using ARA2D.Systems;
 using ARA2D.Ticks;
 using ARA2D.TileEntities;
+using ARA2D.TileEntities.Components;
 using ARA2D.TileEntities.Systems;
 using ARA2D.UI;
 using ARA2D.WorldGeneration;
@@ -94,6 +95,7 @@ namespace ARA2D
         {
             componentProvider = new GlobalComponentProvider();
 
+            componentProvider.CacheComponent(new ExistingIDs());
             componentProvider.CacheComponent(new Grid());
             componentProvider.CacheComponent(new CommandRepository());
             componentProvider.CacheComponent(new TickInfo());
@@ -114,6 +116,7 @@ namespace ARA2D
             addEntityProcessor(buildingMenu = new BuildingMenu(canvas, selectedBuildingFrameTexture, buildingFrameTexture));
             addEntityProcessor(new TemplatePlacementSystem());
             addEntityProcessor(tileEntityPlacer = new TileEntityPlacer(componentProvider));
+            addEntityProcessor(new TileEntityCreator(componentProvider));
             addEntityProcessor(new ActionResultsWriter(componentProvider));
             addEntityProcessor(new CommandParser(componentProvider));
             addEntityProcessor(new CommandScriptRunner(componentProvider, moveRequester));

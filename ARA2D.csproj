@@ -70,9 +70,12 @@
     <Compile Include="Movement\Direction.cs" />
     <Compile Include="Movement\MoveRequester.cs" />
     <Compile Include="Movement\Systems\MovementEvaluator.cs" />
+    <Compile Include="TileEntities\Components\ExistingIDs.cs" />
+    <Compile Include="TileEntities\Components\TileEntityCreation.cs" />
     <Compile Include="TileEntities\Components\TileEntityPlacement.cs" />
     <Compile Include="TileEntities\Components\TileEntityTemplate.cs" />
     <Compile Include="TileEntities\Systems\TemplatePlacementSystem.cs" />
+    <Compile Include="TileEntities\Systems\TileEntityCreator.cs" />
     <Compile Include="UI\Components\UICollided.cs" />
     <Compile Include="UI\Components\ScreenSpace.cs" />
     <Compile Include="Core\Layers.cs" />
