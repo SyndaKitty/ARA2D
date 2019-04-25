@@ -1,4 +1,5 @@
 ﻿using ARA2D.Camera;
+using ARA2D.Chunks;
 using ARA2D.Commands;
 using ARA2D.Commands.Systems;
 using ARA2D.Core;
@@ -8,6 +9,7 @@ using ARA2D.Rendering;
 using ARA2D.Systems;
 using ARA2D.Ticks;
 using ARA2D.TileEntities;
+using ARA2D.TileEntities.Systems;
 using ARA2D.UI;
 using ARA2D.WorldGeneration;
 using Microsoft.Xna.Framework;
@@ -29,7 +31,6 @@ namespace ARA2D
         WorldLoader worldLoader;
         ChunkMeshGenerator chunkMeshGenerator;
         World world;
-        TileEntitySystem tileEntitySystem;
         CameraController cameraController;
         TileEntityPlacer tileEntityPlacer;
         BuildingMenu buildingMenu;
@@ -42,7 +43,6 @@ namespace ARA2D
 
         public TestScene()
         {
-            tileEntityPlacer.SetTemplate(new BasicTileEntity(testEntityTexture, 1, 1, Vector2.One));
         }
 
         public override void initialize()
@@ -68,6 +68,7 @@ namespace ARA2D
             LoadGlobalComponents();
             CreateSystems();
 
+            buildingMenu.Initialize();
             //worldLoader.Enabled = true;
 
             // TODO: Take this test code out
@@ -93,6 +94,7 @@ namespace ARA2D
         {
             componentProvider = new GlobalComponentProvider();
 
+            componentProvider.CacheComponent(new Grid());
             componentProvider.CacheComponent(new CommandRepository());
             componentProvider.CacheComponent(new TickInfo());
             componentProvider.CacheComponent(new MovementRequests());
@@ -107,11 +109,11 @@ namespace ARA2D
             addEntityProcessor(new UICollisionDetector());
             addEntityProcessor(chunkMeshGenerator = new ChunkMeshGenerator(chunkTextures));
             addEntityProcessor(worldLoader = new WorldLoader(chunkMeshGenerator, 2, 2));
-            addEntityProcessor(tileEntitySystem = new TileEntitySystem());
             addEntityProcessor(world = new World(new SandboxGenerator()));
             addEntityProcessor(cameraController = new CameraController(camera));
-            addEntityProcessor(tileEntityPlacer = new TileEntityPlacer(tileEntitySystem));
             addEntityProcessor(buildingMenu = new BuildingMenu(canvas, selectedBuildingFrameTexture, buildingFrameTexture));
+            addEntityProcessor(new TemplatePlacementSystem());
+            addEntityProcessor(tileEntityPlacer = new TileEntityPlacer(componentProvider));
             addEntityProcessor(new ActionResultsWriter(componentProvider));
             addEntityProcessor(new CommandParser(componentProvider));
             addEntityProcessor(new CommandScriptRunner(componentProvider, moveRequester));

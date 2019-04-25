@@ -1,14 +1,22 @@
 ﻿Components
+	TileEntity
+		
 	GhostTileEntity
 		- Tag -
 	TileEntityPlacement
 		PlacementType Type (enum for Check or Place)
 		IntVector2 Anchor
 		IntVector2 Size
+	Collider
+		TODO
+	DetectClick
+		- Tag -
+	Clicked
+		- Tag -
 Systems
 	BuildingMenu
 		Creates UI and responds to clicks on UI by creating/updating selected entity, designated with GhostTileEntity
-		Also creates TileEntityPlacement components when player clicks
 	TileEntityPlacer (TileEntityPlacement)
 		Places or checks placement for tileEntities
-		
+	ClickDetector
+		TODO

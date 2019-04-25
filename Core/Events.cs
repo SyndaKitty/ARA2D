@@ -33,10 +33,10 @@ namespace ARA2D.Core
             OnPassiveTileChunkRequest?.Invoke(coords);
         }
 
-        public delegate void BuildMenuItemClick(ITileEntity templateEntity);
+        public delegate void BuildMenuItemClick(TileEntity templateEntity);
         public static event BuildMenuItemClick OnBuildMenuItemClick;
 
-        public static void TriggerBuildMenuItemClick(ITileEntity templateEntity)
+        public static void TriggerBuildMenuItemClick(TileEntity templateEntity)
         {
             Console.WriteLine($"BuildMenuItemClick");
             OnBuildMenuItemClick?.Invoke(templateEntity);

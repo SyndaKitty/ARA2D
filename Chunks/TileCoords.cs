@@ -1,45 +1,23 @@
 ﻿using System;
-using Microsoft.Xna.Framework;
-
+using ARA2D.Chunks;
+using ARA2D.Core;
 namespace ARA2D
 {
-    public class TileCoords : IEquatable<TileCoords>
+    public static class TileCoords
     {
-        public static Vector2 FromWorldSpace(float x, float y)
+        public static IntVector2 FromWorldSpace(float x, float y)
         {
-            return new Vector2(x / Tile.Size, y / Tile.Size);
+            return new IntVector2((long)(x / Tile.Size), (long)(y / Tile.Size));
         }
 
-        public static Vector2 ToWorldSpace (float tx, float ty)
+        public static IntVector2 ToWorldSpace(long tx, long ty)
         {
-            return new Vector2(tx * Tile.Size, ty * Tile.Size);
+            return new IntVector2(tx * Tile.Size, ty * Tile.Size);
         }
 
-        public long X;
-        public long Y;
-
-        public TileCoords(long x, long y)
+        public static IntVector2 ToLocalSpace(long tx, long ty)
         {
-            X = x;
-            Y = y;
-        }
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                return (X.GetHashCode() * 397) ^ Y.GetHashCode();
-            }
-        }
-
-        public bool Equals(TileCoords other)
-        {
-            return X == other.X && Y == other.Y;
-        }
-
-        public override string ToString()
-        {
-            return $"Tile{X},{Y}";
+            return new IntVector2(tx & TileChunk.LocalBitMask, ty & TileChunk.LocalBitMask);
         }
     }
 }

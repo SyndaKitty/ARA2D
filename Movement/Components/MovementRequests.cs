@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using ARA2D.Core;
 using Nez;
 
 namespace ARA2D.Movement
@@ -6,14 +7,14 @@ namespace ARA2D.Movement
     public class MovementRequests : Component
     {
         public List<MovementRequest> Requests;
-        public Dictionary<TileCoords, int>[] Directional;
+        public Dictionary<IntVector2, int>[] Directional;
 
         public MovementRequests()
         {
             Requests = new List<MovementRequest>();
-            Directional = new Dictionary<TileCoords, int>[4];
+            Directional = new Dictionary<IntVector2, int>[4];
             for (int i = 0; i < Directional.Length; i++)
-                Directional[i] = new Dictionary<TileCoords, int>();
+                Directional[i] = new Dictionary<IntVector2, int>();
         }
 
         public void Clear()

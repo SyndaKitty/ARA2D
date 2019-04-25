@@ -22,8 +22,8 @@ namespace ARA2D.Movement.Systems
             var requestComponent = componentProvider.GetComponent<MovementRequests>();
             var requests = requestComponent.Requests;
 
-            Dictionary<TileCoords, int> validRequests = new Dictionary<TileCoords, int>();
-            HashSet<TileCoords> invalidRequests = new HashSet<TileCoords>();
+            Dictionary<IntVector2, int> validRequests = new Dictionary<IntVector2, int>();
+            HashSet<IntVector2> invalidRequests = new HashSet<IntVector2>();
 
             foreach (var request in requests)
             {
