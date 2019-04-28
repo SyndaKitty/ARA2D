@@ -53,22 +53,22 @@
       <HintPath>..\Libs\Entitas\Editor\Plugins\Entitas.CodeGeneration.Plugins.dll</HintPath>
     </Reference>
     <Reference Include="GenEntitas.Core.Common">
-      <HintPath>..\Libs\GenEntitas\Generated\bin\Debug\GenEntitas.Core.Common.dll</HintPath>
+      <HintPath>..\Libs\GenEntitas\GenEntitas.Core.Common.dll</HintPath>
     </Reference>
     <Reference Include="GenEntitas.Core.Components">
-      <HintPath>..\Libs\GenEntitas\Generated\bin\Debug\GenEntitas.Core.Components.dll</HintPath>
+      <HintPath>..\Libs\GenEntitas\GenEntitas.Core.Components.dll</HintPath>
     </Reference>
     <Reference Include="GenEntitas.Core.Settings.Components">
-      <HintPath>..\Libs\GenEntitas\Generated\bin\Debug\GenEntitas.Core.Settings.Components.dll</HintPath>
+      <HintPath>..\Libs\GenEntitas\GenEntitas.Core.Settings.Components.dll</HintPath>
     </Reference>
     <Reference Include="GenEntitas.DataProvider.GenEntitasLang.Components">
-      <HintPath>..\Libs\GenEntitas\Generated\bin\Debug\GenEntitas.DataProvider.GenEntitasLang.Components.dll</HintPath>
+      <HintPath>..\Libs\GenEntitas\GenEntitas.DataProvider.GenEntitasLang.Components.dll</HintPath>
     </Reference>
     <Reference Include="GenEntitas.DataProvider.Reflection.Components">
-      <HintPath>..\Libs\GenEntitas\Generated\bin\Debug\GenEntitas.DataProvider.Reflection.Components.dll</HintPath>
+      <HintPath>..\Libs\GenEntitas\GenEntitas.DataProvider.Reflection.Components.dll</HintPath>
     </Reference>
     <Reference Include="GenEntitas.DataProvider.Roslyn.Components">
-      <HintPath>..\Libs\GenEntitas\Generated\bin\Debug\GenEntitas.DataProvider.Roslyn.Components.dll</HintPath>
+      <HintPath>..\Libs\GenEntitas\GenEntitas.DataProvider.Roslyn.Components.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CodeAnalysis, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeAnalysis.Common.3.0.0\lib\netstandard2.0\Microsoft.CodeAnalysis.dll</HintPath>
