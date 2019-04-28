@@ -9,11 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonoGame", "MonoGame\MonoGa
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{5E31A141-A0B7-434F-B868-565A161C9BBF}"
-	ProjectSection(ProjectDependencies) = postProject
-		{1E517FBC-1F12-4FD9-9CDA-CA08C4F2B5E9} = {1E517FBC-1F12-4FD9-9CDA-CA08C4F2B5E9}
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenEntitas.Runner.Console", "Libs\GenEntitas\GenEntitas.Runner.Console\GenEntitas.Runner.Console.csproj", "{1E517FBC-1F12-4FD9-9CDA-CA08C4F2B5E9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +24,6 @@ Global
 		{5E31A141-A0B7-434F-B868-565A161C9BBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5E31A141-A0B7-434F-B868-565A161C9BBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5E31A141-A0B7-434F-B868-565A161C9BBF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1E517FBC-1F12-4FD9-9CDA-CA08C4F2B5E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1E517FBC-1F12-4FD9-9CDA-CA08C4F2B5E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1E517FBC-1F12-4FD9-9CDA-CA08C4F2B5E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1E517FBC-1F12-4FD9-9CDA-CA08C4F2B5E9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
