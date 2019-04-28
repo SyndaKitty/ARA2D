@@ -1,0 +1,42 @@
+﻿The CommandRunner is in charge of consuming a script and translating it into actions for the runner to make.
+Depending on the running environment, commands can do different things or even be invalid
+The CommandRunner should allow a configuration module to be passed in the constructor for it to gain contextual information from.
+
+For example, the CommandRunner should be injected with a MovementModule if the running environment is able to move (A robot for example)
+The MovementModule should contain information pertaining to location and orientation of the runner.
+Then when the CommandRunner is running commands, if the command is movement related, it makes calls to the MovementModule to figure out where it is in the world
+so it can call the MovementRequest system to try to move.
+If the MovementModule inject was null, this means that movement commands cannot be run, resulting in an error.
+
+Other modules could include information about inventory, or other periphals that a robot/computer could contain.
+
+The CommandRunner should be able to up-front checking that the script is correct. It can do this by doing a pass through all the commands to check for validity.
+A command is not valid if it is not recognized, or if the command requires a module that the running environment does not have set.
+
+Commands can also be invalid if the command is passed arguments that it is not defined to take, however because arguments to commands can be any string,
+they cannot be checked by the CommandRunner. 
+For example "place loop 50" could be a valid command, or could not. There is no way for the CommandRunner to know because arguments are not type checked.
+Each command can optionally provide an isValid(args) function to tell the runner if it is correct.
+The purpose of this is to cut down on runtime errors and provide as much compile-time feedback as possible, so it would be very desirable to implement these functions()
+
+Commands themselves are defined in lua, and simply contain a run(args) function and optionally an isValid(args) function. 
+
+Things that need to happen
+	Robot has script
+	--Script needs checked for basic validity -Let's leave this for later
+	Script gets run
+	Script should be run one command at a time
+
+-Systems-
+ProgramParser
+	Parses script from RawScript component and add a Script component
+ProgramRunner
+	If running flag is set on Script component, run next command
+
+-Components-
+RawScript
+	Stores raw script to be run
+Script
+	Keeps track of commands and their arguments for each line
+	Keep track of current line in script being run
+	Running flag

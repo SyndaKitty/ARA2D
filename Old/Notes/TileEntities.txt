@@ -1,0 +1,26 @@
+﻿TileEntities exist unaffiliated to chunks.
+The World or some other central system should track TileEntities separate from chunks.
+
+Chunks do influence Tile Entities in some sense. When a chunk is loaded, any tile entities living in the chunk should be renderered
+When the chunk is unloaded, the rendering entity should be destroyed
+In order to accomplish this, either the chunks should track what tile entities are contained within them, or the tile entity system can track what 
+ChunkCoords each TileEntity is at, then when the world loads a chunk it can tell the TileEntitySystem to generate renderables for those Coordinates
+For TileEntities that exist at the border of a Chunk, we might just want to record where the "anchor" of that TileEntity is and ignore overlap.
+
+TileEntities do take up space, and there should be some way to prevent them from colliding or overlapping. 
+In one approach, chunks will also track a separate layer. An int array would store what tile entity is at each tile location.
+This takes a lot of unnecessary memory.
+A more simplistic approach might be to, whenever we need to check for a collision, 
+aggregate the TileEntities that exist in the Chunk in question, and the 8 surrounding chunks.
+Then loops through those TileEntities and check for collisions with the tiles in question.
+This might take more processing than necessary, but is probably enough for now.
+
+Another approach might to be instead of keeping track of the tile entities layer in Chunks, just have a new type of chunk: TileEntityChunk
+This Chunk has the int array that keeps track of the IDs of the tile entities for each tile. This makes lookups really quick when wanting to check collisions, 
+or even just looking at what entity exists at that location. 
+These chunks could be calculated by the TileEntitySystem that keeps track of all existing TileEntities and their bounds.
+This approach has the advantage of it being decoupled from the chunks system. Normal chunks have different requirements. Namely all chunks around the camera
+should remain loaded, and chunks far away from the camera shouldn't be. TileEntityChunks have different requirements on loading. 
+Why calculate and keep in memory the TileEntity contents for chunks around the camera if there aren't any existing TileEntities?
+It's better to dynamically calculate and store that information for Chunks where it has been requested.
+Better yet, empty Chunks don't have to calculate the int array, they can just return false for any collision checks

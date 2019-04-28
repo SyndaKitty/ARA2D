@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="Entitas">
+      <HintPath>..\Libs\Entitas\Entitas.dll</HintPath>
+    </Reference>
+    <Reference Include="Entitas.CodeGeneration.Attributes">
+      <HintPath>..\Libs\Entitas\Entitas.CodeGeneration.Attributes.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
