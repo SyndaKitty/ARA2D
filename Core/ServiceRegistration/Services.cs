@@ -4,9 +4,9 @@
     {
         public readonly ICreateViewService CreateView;
 
-        public Services()
+        public Services(ICreateViewService createView)
         {
-
+            CreateView = createView;
         }
     }
 }

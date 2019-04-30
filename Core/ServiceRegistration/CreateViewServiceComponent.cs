@@ -1,11 +1,12 @@
-﻿using Entitas;
-using Entitas.CodeGeneration.Attributes;
-
-namespace Core.ServiceRegistration
+﻿namespace Core.ServiceRegistration
 {
-
-    [Unique]
-    public class CreateViewServiceComponent : IComponent
+    public struct CreateViewServiceComponent
     {
+        public ICreateViewService Instance;
+
+        public CreateViewServiceComponent(ICreateViewService instance)
+        {
+            Instance = instance;
+        }
     }
 }

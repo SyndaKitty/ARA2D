@@ -1,12 +1,12 @@
-﻿using GenEntitas;
+﻿using DefaultEcs;
 
 namespace Core.ServiceRegistration
 {
-    public class ServiceRegistrationSystems : Feature
+    public class ServiceRegistrationSystems : InitializeSystems
     {
-        public ServiceRegistrationSystems(GenEntitas.Contexts contexts, Services services)
+        public ServiceRegistrationSystems(World world, Services services)
         {
-            Add(new RegisterCreateViewService(contexts, services.CreateView));
+            Add(new RegisterCreateViewService(world, services.CreateView));
         }
     }
 }

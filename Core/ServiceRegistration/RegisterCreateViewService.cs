@@ -1,22 +1,22 @@
-﻿using Core.Contexts;
-using Entitas;
+﻿using DefaultEcs;
 
 namespace Core.ServiceRegistration
 {
     public class RegisterCreateViewService : IInitializeSystem
     {
-        readonly MetaContext metaContext;
         readonly ICreateViewService createViewService;
+        readonly World world;
 
-        public RegisterCreateViewService(GenEntitas.Contexts contexts, ICreateViewService createViewService)
+        public RegisterCreateViewService(World world, ICreateViewService createViewService)
         {
-            //metaContext = contexts.meta;
+            this.world = world;
             this.createViewService = createViewService;
         }
 
         public void Initialize()
         {
-            
+            world.SetMaximumComponentCount<CreateViewServiceComponent>(1);
+            world.CreateEntity().Set(new CreateViewServiceComponent(createViewService));
         }
     }
 }
