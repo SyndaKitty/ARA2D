@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
+using Core;
+using Core.Plugins;
+using DefaultEcs.System;
 
 namespace MonoGame
 {
@@ -11,11 +13,13 @@ namespace MonoGame
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        
+        Engine engine;
+
         public ARA2D()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            IsMouseVisible = true;
         }
 
         /// <summary>
@@ -26,7 +30,10 @@ namespace MonoGame
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            Plugins plugins = new Plugins(new RenderSystem(spriteBatch, Content.Load<Texture2D>("Sprites/Test")), new TimeService());
+            engine = new Engine(plugins);
 
             base.Initialize();
         }
@@ -37,10 +44,7 @@ namespace MonoGame
         /// </summary>
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
         }
 
         /// <summary>
@@ -59,11 +63,6 @@ namespace MonoGame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-
-            // TODO: Add your update logic here
-
             base.Update(gameTime);
         }
 
@@ -73,11 +72,8 @@ namespace MonoGame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            // TODO: Add your drawing code here
-
-            base.Draw(gameTime);
+            GraphicsDevice.Clear(Color.Black);
+            engine.Update();
         }
     }
 }

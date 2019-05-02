@@ -86,7 +86,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ParallelSystems.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="Plugins\ITimeService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
