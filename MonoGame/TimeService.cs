@@ -4,10 +4,10 @@ namespace MonoGame
 {
     public class TimeService : ITimeService
     {
-        public TickInfo GetTickInfo()
-        {
-            // TODO: Implement
-            return new TickInfo(1, 1);
-        }
+        public float DeltaTime { get; set; }
+
+        public TickMode TickMode => TickMode.Automatic;
+
+        public bool ForceTick => false;
     }
 }

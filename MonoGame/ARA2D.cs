@@ -14,6 +14,7 @@ namespace MonoGame
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Engine engine;
+        TimeService time;
 
         public ARA2D()
         {
@@ -31,8 +32,9 @@ namespace MonoGame
         protected override void Initialize()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            time = new TimeService();
 
-            Plugins plugins = new Plugins(new RenderSystem(spriteBatch, Content.Load<Texture2D>("Sprites/Test")), new TimeService());
+            EnginePlugins plugins = new EnginePlugins(new RenderSystem(spriteBatch, Content.Load<Texture2D>("Sprites/Test")), time);
             engine = new Engine(plugins);
 
             base.Initialize();
@@ -64,6 +66,9 @@ namespace MonoGame
         protected override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+
+            time.DeltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            engine.Update();
         }
 
         /// <summary>
@@ -73,7 +78,7 @@ namespace MonoGame
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-            engine.Update();
+            engine.Render();
         }
     }
 }

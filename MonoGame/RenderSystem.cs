@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MonoGame
 {
-    public class RenderSystem : AEntitySystem<TimeInfo>
+    public class RenderSystem : AEntitySystem<RenderContext>
     {
         SpriteBatch spriteBatch;
 
@@ -20,13 +20,12 @@ namespace MonoGame
             texture = defaultSprite;
         }
 
-        protected override void PreUpdate(TimeInfo state)
+        protected override void PreUpdate(RenderContext state)
         {
-         
             spriteBatch.Begin();
         }
 
-        protected override void Update(TimeInfo state, ReadOnlySpan<Entity> entities)
+        protected override void Update(RenderContext state, ReadOnlySpan<Entity> entities)
         {
             foreach (var entity in entities)
             {
@@ -37,7 +36,7 @@ namespace MonoGame
             }
         }
 
-        protected override void PostUpdate(TimeInfo state)
+        protected override void PostUpdate(RenderContext state)
         {
             spriteBatch.End();
         }
