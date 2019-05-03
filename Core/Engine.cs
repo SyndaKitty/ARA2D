@@ -1,4 +1,5 @@
-﻿using Core.PluginSystems;
+﻿using Core.Plugins;
+using Core.PluginSystems;
 using DefaultEcs;
 using DefaultEcs.System;
 
@@ -7,28 +8,39 @@ namespace Core
     public class Engine
     {
 		public readonly static World World = new World();
+		public const float TickLength = .3f;
 
-		// Systems that need to run every frame
-		readonly SequentialSystem<TimeInfo> frameSystems;
-		
-		// Systems that need to run once per tick
-		readonly SequentialSystem<TimeInfo> tickSystems;
+		readonly ISystem<RenderContext> render;
+		readonly ISystem<LogicContext> logic;
 
 		readonly ITimeService timeService;
 
-        public Engine(Plugins.Plugins plugins)
+		readonly RenderContext renderContext = new RenderContext();
+		readonly LogicContext logicContext = new LogicContext();
+
+		float accumulatedTime;
+
+        public Engine(EnginePlugins plugins)
         {
-			frameSystems = new SequentialSystem<TimeInfo>
-				(
-					plugins.Render
-				);
-
-			tickSystems = new SequentialSystem<TimeInfo>();
-
+			render = plugins.Render;
+			// SequentialSystem handles null systems
+			logic = new SequentialSystem<LogicContext>(plugins.PreLogic, new GameLogic(World), plugins.PostLogic);
+			
 			timeService = plugins.Time;
 
 			Initialize();
         }
+
+		public void Render()
+		{
+			render.Update(renderContext);
+		}
+
+		public void Update()
+		{
+			UpdateLogicContext();	
+			logic.Update(logicContext);
+		}
 
 		void Initialize()
 		{
@@ -36,20 +48,17 @@ namespace Core
 			entity.Set(new GridTransform(1, 2, 3, 4));
 		}
 
-		public void Update()
+		void UpdateLogicContext()
 		{
-			TickInfo tick = timeService.GetTickInfo();
-
-			// TODO: Perhaps we could batch together per-frame and per-tick systems?
-			TimeInfo frameTime = new TimeInfo(false, tick.PercentProgress);
-			frameSystems.Update(frameTime);
-
-			// TODO: Change this to spread tick logic over several frames, instead of ticking frame
-			// We would need to keep track of systems that have been run already
-			TimeInfo tickTime = new TimeInfo(true, 0);
-			for (int i = 0; i < tick.TicksPassed; i++)
+			if (timeService.TickMode == TickMode.Automatic)
 			{
-				tickSystems.Update(tickTime);
+				accumulatedTime += timeService.DeltaTime;
+				logicContext.TicksPassed = (int)(accumulatedTime / TickLength);
+				accumulatedTime -= TickLength * logicContext.TicksPassed;
+			}
+			else if (timeService.TickMode == TickMode.Manual)
+			{
+				logicContext.TicksPassed = timeService.ForceTick ? 1 : 0;
 			}
 		}
     }

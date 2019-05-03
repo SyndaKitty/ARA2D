@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>7.2</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -31,6 +32,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>7.2</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DefaultEcs, Version=0.10.0.0, Culture=neutral, PublicKeyToken=0ab8f459261ccb3c, processorArchitecture=MSIL">
@@ -59,6 +61,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsoleCommand.cs" />
+    <Compile Include="ConsoleCommandRunner.cs" />
     <Compile Include="ConsoleTimeService.cs" />
     <Compile Include="ConsoleRenderSystem.cs" />
     <Compile Include="Program.cs" />
