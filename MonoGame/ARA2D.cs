@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Core;
 using Core.Plugins;
+using MonoGame.ContentLoading;
 using DefaultEcs.System;
 
 namespace MonoGame
@@ -15,6 +16,7 @@ namespace MonoGame
         SpriteBatch spriteBatch;
         Engine engine;
         TimeService time;
+        SpriteLoader spriteLoader;
 
         public ARA2D()
         {
@@ -31,10 +33,18 @@ namespace MonoGame
         /// </summary>
         protected override void Initialize()
         {
+            spriteLoader = new SpriteLoader(Content);
+
             spriteBatch = new SpriteBatch(GraphicsDevice);
             time = new TimeService();
 
-            EnginePlugins plugins = new EnginePlugins(new RenderSystem(spriteBatch, Content.Load<Texture2D>("Sprites/Test")), time);
+            ISystem<RenderContext> rendering = new SequentialSystem<RenderContext>
+            (
+                new SpriteLoader(Content),
+                new RenderSystem(spriteBatch)
+            );
+
+            EnginePlugins plugins = new EnginePlugins(rendering, time);
             engine = new Engine(plugins);
 
             base.Initialize();

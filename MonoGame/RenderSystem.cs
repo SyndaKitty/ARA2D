@@ -1,5 +1,6 @@
 ﻿using System;
 using Core;
+using Core.Rendering;
 using DefaultEcs;
 using DefaultEcs.System;
 using Microsoft.Xna.Framework;
@@ -11,13 +12,9 @@ namespace MonoGame
     {
         SpriteBatch spriteBatch;
 
-        // TODO: Reference sprite component to draw
-        Texture2D texture;
-
-        public RenderSystem(SpriteBatch spriteBatch, Texture2D defaultSprite) : base(Engine.World.GetEntities().With<GridTransform>().Build())
+        public RenderSystem(SpriteBatch spriteBatch) : base(Engine.World.GetEntities().With<GridTransform>().With<Sprite>().Build())
         {
             this.spriteBatch = spriteBatch;
-            texture = defaultSprite;
         }
 
         protected override void PreUpdate(RenderContext state)
@@ -30,9 +27,13 @@ namespace MonoGame
             foreach (var entity in entities)
             {
                 GridTransform grid = entity.Get<GridTransform>();
+                Sprite sprite = entity.Get<Sprite>();
+
+                // TODO: Manage scale/transformation with camera matrix
+                // Scale up rectangle
                 Rectangle rect = new Rectangle(grid.X * 16, grid.Y * 16, grid.Width * 16, grid.Height * 16);
 
-                spriteBatch.Draw(texture, rect, Color.White);
+                spriteBatch.Draw(sprite.Texture, rect, Color.White);
             }
         }
 

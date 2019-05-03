@@ -1,5 +1,6 @@
 ﻿using Core.Plugins;
 using Core.PluginSystems;
+using Core.Rendering;
 using DefaultEcs;
 using DefaultEcs.System;
 
@@ -46,6 +47,7 @@ namespace Core
 		{
 			var entity = World.CreateEntity();
 			entity.Set(new GridTransform(1, 2, 3, 4));
+            entity.Set(new SpriteLoad("Sprites/Test"));
 		}
 
 		void UpdateLogicContext()
