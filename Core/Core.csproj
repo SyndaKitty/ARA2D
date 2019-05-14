@@ -94,12 +94,15 @@
     <Compile Include="LogicContext.cs" />
     <Compile Include="MoveSystem.cs" />
     <Compile Include="Plugins\ITimeService.cs" />
+    <Compile Include="Position\GridTransformUpdate.cs" />
+    <Compile Include="Position\TileCoords.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Plugins\EnginePlugins.cs" />
-    <Compile Include="GridTransform.cs" />
+    <Compile Include="Position\GridTransform.cs" />
     <Compile Include="RenderContext.cs" />
     <Compile Include="Rendering\Sprite.cs" />
     <Compile Include="Rendering\SpriteLoad.cs" />
+    <Compile Include="Position\Transform.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">

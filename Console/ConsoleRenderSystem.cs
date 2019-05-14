@@ -25,9 +25,9 @@ namespace Console
 			foreach (var entity in entities)
 			{
 				GridTransform grid = entity.Get<GridTransform>();
-				for (int y = grid.Y; y < grid.Y + grid.Height; y++)
+				for (int y = grid.Coords.LocalY; y < grid.Coords.LocalY + grid.Height; y++)
 				{
-					for (int x = grid.X; x < grid.X + grid.Width; x++)
+					for (int x = grid.Coords.LocalX; x < grid.Coords.LocalX + grid.Width; x++)
 					{
 						GridSet.Add(new Tuple<int, int>(x, y));
 					}

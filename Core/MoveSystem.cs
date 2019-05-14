@@ -11,7 +11,7 @@ namespace Core
 
 		protected override void Update(LogicContext state, ref GridTransform component)
 		{
-			component.X++;
+			component.Coords.LocalX++;
 		}
 	}
 }

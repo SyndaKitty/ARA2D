@@ -4,6 +4,7 @@ using Core;
 using Core.Plugins;
 using MonoGame.ContentLoading;
 using DefaultEcs.System;
+using MonoGame.Rendering;
 
 namespace MonoGame
 {
@@ -41,7 +42,9 @@ namespace MonoGame
             ISystem<RenderContext> rendering = new SequentialSystem<RenderContext>
             (
                 new SpriteLoader(Content),
-                new RenderSystem(spriteBatch)
+                new RenderBegin(spriteBatch),
+                new BasicSpriteRender(spriteBatch),
+                new RenderEnd(spriteBatch)
             );
 
             EnginePlugins plugins = new EnginePlugins(rendering, time);

@@ -1,5 +1,6 @@
 ﻿using Core.Plugins;
 using Core.PluginSystems;
+using Core.Position;
 using Core.Rendering;
 using DefaultEcs;
 using DefaultEcs.System;
@@ -46,7 +47,8 @@ namespace Core
 		void Initialize()
 		{
 			var entity = World.CreateEntity();
-			entity.Set(new GridTransform(1, 2, 3, 3));
+            TileCoords coords = new TileCoords(0, 1, 0, 2);
+			entity.Set(new GridTransform(coords, 3, 3));
             entity.Set(new SpriteLoad("Sprites/Test"));
 		}
 
