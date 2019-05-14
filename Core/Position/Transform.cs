@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Numerics;
 
 namespace Core
 {
@@ -9,7 +9,7 @@ namespace Core
         Vector2 scale;
 
         public bool Dirty;
-        public Matrix Matrix; // Calculated
+        public Matrix4x4 Matrix; // Calculated
         #endregion
 
         #region Properties

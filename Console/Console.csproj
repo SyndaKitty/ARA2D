@@ -35,8 +35,8 @@
     <LangVersion>7.2</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DefaultEcs, Version=0.10.0.0, Culture=neutral, PublicKeyToken=0ab8f459261ccb3c, processorArchitecture=MSIL">
-      <HintPath>..\packages\DefaultEcs.0.10.0\lib\netstandard2.0\DefaultEcs.dll</HintPath>
+    <Reference Include="DefaultEcs, Version=0.10.1.0, Culture=neutral, PublicKeyToken=0ab8f459261ccb3c, processorArchitecture=MSIL">
+      <HintPath>..\packages\DefaultEcs.0.10.1\lib\netstandard2.0\DefaultEcs.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
