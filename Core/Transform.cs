@@ -10,6 +10,8 @@ namespace Core
         public float ScaleX { get; private set; }
         public float ScaleY { get; private set; }
         
+        public Vector2 Position => new Vector2(X, Y);
+
         public bool Dirty;
         public Matrix Matrix;
 
