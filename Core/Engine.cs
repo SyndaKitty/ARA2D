@@ -46,7 +46,7 @@ namespace Core
 		void Initialize()
 		{
 			var entity = World.CreateEntity();
-			entity.Set(new GridTransform(1, 2, 3, 4));
+			entity.Set(new GridTransform(1, 2, 3, 3));
             entity.Set(new SpriteLoad("Sprites/Test"));
 		}
 
