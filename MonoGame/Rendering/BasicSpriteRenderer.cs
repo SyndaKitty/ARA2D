@@ -8,11 +8,11 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MonoGame.Rendering
 {
-    public class BasicSpriteRender : AEntitySystem<RenderContext>
+    public class BasicSpriteRenderer : AEntitySystem<RenderContext>
     {
         readonly SpriteBatch spriteBatch;
 
-        public BasicSpriteRender(SpriteBatch spriteBatch) : base(Engine.World.GetEntities().With(typeof(Sprite), typeof(Transform)).Build())
+        public BasicSpriteRenderer(SpriteBatch spriteBatch) : base(Engine.World.GetEntities().With(typeof(Sprite), typeof(Transform)).Build())
         {
             this.spriteBatch = spriteBatch;
         }

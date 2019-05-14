@@ -1,4 +1,5 @@
-﻿using DefaultEcs;
+﻿using Core.Position;
+using DefaultEcs;
 using DefaultEcs.System;
 
 namespace Core
@@ -12,7 +13,8 @@ namespace Core
 			wrappedSystems = new SequentialSystem<LogicContext>
 			(
 				// TODO: Game logic systems go here	
-				new MoveSystem(world)
+				new MoveSystem(world),
+                new GridTransformUpdate()
 			);
 		}
 

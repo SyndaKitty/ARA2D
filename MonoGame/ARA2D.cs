@@ -43,7 +43,8 @@ namespace MonoGame
             (
                 new SpriteLoader(Content),
                 new RenderBegin(spriteBatch),
-                new BasicSpriteRender(spriteBatch),
+                new BasicSpriteRenderer(spriteBatch),
+                new GridRenderer(spriteBatch),
                 new RenderEnd(spriteBatch)
             );
 
