@@ -4,6 +4,7 @@ using DefaultEcs;
 using DefaultEcs.System;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Rendering;
 
 namespace MonoGame.ContentLoading
 {

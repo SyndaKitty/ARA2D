@@ -19,13 +19,14 @@ namespace MonoGame.Rendering
 
         protected override void Update(RenderContext state, ReadOnlySpan<Entity> entities)
         {
+            Vector2 position;
             foreach (var entity in entities)
             {
                 GridTransform transform = entity.Get<GridTransform>();
                 Sprite sprite = entity.Get<Sprite>();
 
-                Vector2 position;
-                transform.Matrix.Translation.Deconstruct(out position.X, out position.Y, out _);
+                position.X = transform.Matrix.Translation.X;
+                position.Y = transform.Matrix.Translation.Y;
                 spriteBatch.Draw(sprite.Texture, position, Color.White);
             }
         }

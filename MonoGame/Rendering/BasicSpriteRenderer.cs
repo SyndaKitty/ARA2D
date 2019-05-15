@@ -1,6 +1,5 @@
 ﻿using System;
 using Core;
-using Core.Rendering;
 using DefaultEcs;
 using DefaultEcs.System;
 using Microsoft.Xna.Framework;
@@ -19,12 +18,14 @@ namespace MonoGame.Rendering
 
         protected override void Update(RenderContext state, ReadOnlySpan<Entity> entities)
         {
+            Vector2 position;
             foreach (var entity in entities)
             {
                 var transform = entity.Get<Transform>();
                 var sprite = entity.Get<Sprite>();
-
-                spriteBatch.Draw(sprite.Texture, transform.Position, Color.White);
+                position.X = transform.X;
+                position.Y = transform.Y;
+                spriteBatch.Draw(sprite.Texture, position, Color.White);
             }
         }
     }

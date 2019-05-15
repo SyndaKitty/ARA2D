@@ -70,6 +70,7 @@
     <Compile Include="Rendering\GridRenderer.cs" />
     <Compile Include="Rendering\RenderBegin.cs" />
     <Compile Include="Rendering\RenderEnd.cs" />
+    <Compile Include="Rendering\Sprite.cs" />
     <Compile Include="TimeService.cs" />
   </ItemGroup>
   <ItemGroup>
