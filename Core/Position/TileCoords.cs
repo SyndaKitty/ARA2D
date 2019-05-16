@@ -1,10 +1,9 @@
-﻿namespace Core.Position
+﻿using Core.Tiles;
+
+namespace Core.Position
 {
     public class TileCoords
     {
-        const int ChunkPower = 5;
-        public const int ChunkSize = 1 << ChunkPower;
-
         // The coords of the chunk
         long chunkX;
         long chunkY;
@@ -70,13 +69,13 @@
         {
             while (LocalX < 0)
             {
-                LocalX += ChunkSize;
+                LocalX += Chunk.Size;
                 ChunkX--;
             }
 
-            while (LocalX > ChunkSize)
+            while (LocalX > Chunk.Size)
             {
-                LocalX -= ChunkSize;
+                LocalX -= Chunk.Size;
                 ChunkX++;
             }
         }
@@ -85,13 +84,13 @@
         {
             while (LocalY < 0)
             {
-                LocalY += ChunkSize;
+                LocalY += Chunk.Size;
                 ChunkY--;
             }
 
-            while (LocalY > ChunkSize)
+            while (LocalY > Chunk.Size)
             {
-                LocalY -= ChunkSize;
+                LocalY -= Chunk.Size;
                 ChunkY++;
             }
         }

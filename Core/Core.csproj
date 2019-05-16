@@ -48,6 +48,7 @@
     <Compile Include="RenderContext.cs" />
     <Compile Include="Rendering\SpriteLoad.cs" />
     <Compile Include="Position\Transform.cs" />
+    <Compile Include="Tiles\Chunk.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">

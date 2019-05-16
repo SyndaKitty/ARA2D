@@ -67,6 +67,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rendering\BasicSpriteRenderer.cs" />
+    <Compile Include="Rendering\ChunkMesh.cs" />
+    <Compile Include="Rendering\ChunkMeshGenerator.cs" />
+    <Compile Include="Rendering\ChunkMeshRenderer.cs" />
     <Compile Include="Rendering\GridRenderer.cs" />
     <Compile Include="Rendering\RenderBegin.cs" />
     <Compile Include="Rendering\RenderEnd.cs" />

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Numerics;
+using Core.Tiles;
 using DefaultEcs.System;
 
 namespace Core.Position
@@ -17,8 +18,8 @@ namespace Core.Position
                 if (!transform.Coords.Dirty) continue;
 
                 // Recalculate matrix
-                float globalX = transform.Coords.ChunkX * TileCoords.ChunkSize + transform.Coords.LocalX;
-                float globalY = transform.Coords.ChunkY * TileCoords.ChunkSize + transform.Coords.LocalY;
+                float globalX = transform.Coords.ChunkX * Chunk.Size + transform.Coords.LocalX;
+                float globalY = transform.Coords.ChunkY * Chunk.Size + transform.Coords.LocalY;
                 transform.Matrix = Matrix4x4.CreateTranslation(globalX, globalY, 0);
             }
         }
