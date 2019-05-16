@@ -46,10 +46,10 @@ namespace MonoGame.Rendering
                         textureCoords.Y = (tileIndex / TileTextureMapWidth);
                         textureCoords *= TileTextureMapInverse;
 
-                        vertices[i++] = new VertexPositionColorTexture(new Vector3(x + 0, y + 0, 0), Color.White, textureCoords + new Vector2(0, 0) * TileTextureMapWidth);
-                        vertices[i++] = new VertexPositionColorTexture(new Vector3(x + 1, y + 0, 0), Color.White, textureCoords + new Vector2(1, 0) * TileTextureMapWidth);
-                        vertices[i++] = new VertexPositionColorTexture(new Vector3(x + 0, y + 1, 0), Color.White, textureCoords + new Vector2(0, 1) * TileTextureMapWidth);
-                        vertices[i++] = new VertexPositionColorTexture(new Vector3(x + 1, y + 1, 0), Color.White, textureCoords + new Vector2(1, 1) * TileTextureMapWidth);
+                        vertices[i++] = new VertexPositionColorTexture(new Vector3(x + 0, y + 0, 0), Color.White, textureCoords + new Vector2(0, 0) * TileTextureMapInverse);
+                        vertices[i++] = new VertexPositionColorTexture(new Vector3(x + 1, y + 0, 0), Color.White, textureCoords + new Vector2(1, 0) * TileTextureMapInverse);
+                        vertices[i++] = new VertexPositionColorTexture(new Vector3(x + 0, y + 1, 0), Color.White, textureCoords + new Vector2(0, 1) * TileTextureMapInverse);
+                        vertices[i++] = new VertexPositionColorTexture(new Vector3(x + 1, y + 1, 0), Color.White, textureCoords + new Vector2(1, 1) * TileTextureMapInverse);
                     }
                 }
 
@@ -73,6 +73,7 @@ namespace MonoGame.Rendering
                 // Assign calculated arrays
                 mesh.Vertices = vertices;
                 mesh.Indices = indices;
+                chunk.TilesChanged = false;
             }
         }
     }

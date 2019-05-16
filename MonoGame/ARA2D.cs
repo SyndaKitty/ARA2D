@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using Core;
 using Core.Plugins;
+using Core.Position;
+using Core.Tiles;
 using MonoGame.ContentLoading;
 using DefaultEcs.System;
 using MonoGame.Rendering;
@@ -46,11 +48,30 @@ namespace MonoGame
                 new ChunkMeshGenerator(),
                 new BasicSpriteRenderer(spriteBatch),
                 new GridRenderer(spriteBatch),
+                new ChunkMeshRenderer(GraphicsDevice, Content.Load<Texture2D>("Sprites/TestGrid")),
                 new RenderEnd(spriteBatch)
             );
 
             EnginePlugins plugins = new EnginePlugins(rendering, time);
             engine = new Engine(plugins);
+
+            var entity = Engine.World.CreateEntity();
+            var chunk = new Chunk();
+            // TODO: Replace this with world generator
+            chunk.Tiles = new short[Chunk.Size * Chunk.Size];
+            for (int i = 0; i < chunk.Tiles.Length; i++)
+            {
+                chunk.Tiles[i] = (short)(i % 10);
+            }
+
+            chunk.New = false;
+            chunk.TilesChanged = true;
+
+            var chunkMesh = new ChunkMesh();
+
+            entity.Set(chunk);
+            entity.Set(chunkMesh);
+            entity.Set(new GridTransform(new TileCoords(0, 0, 0, 0), 64, 64));
 
             base.Initialize();
         }

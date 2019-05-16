@@ -1,4 +1,5 @@
 ﻿using Core.Position;
+using Core.Showcase;
 using DefaultEcs;
 using DefaultEcs.System;
 
@@ -14,7 +15,8 @@ namespace Core
 			(
 				// TODO: Game logic systems go here	
 				new MoveSystem(world),
-                new GridTransformUpdate()
+                new GridTransformUpdate(),
+                new TileRandomizer()
 			);
 		}
 

@@ -1,7 +1,5 @@
 ﻿using Core.Plugins;
 using Core.PluginSystems;
-using Core.Position;
-using Core.Rendering;
 using DefaultEcs;
 using DefaultEcs.System;
 
@@ -10,7 +8,7 @@ namespace Core
     public class Engine
     {
 		public readonly static World World = new World();
-		public const float TickLength = .3f;
+		public const float TickLength = .02f;
 
 		readonly ISystem<RenderContext> render;
 		readonly ISystem<LogicContext> logic;
@@ -46,10 +44,10 @@ namespace Core
 
 		void Initialize()
 		{
-			var entity = World.CreateEntity();
-            TileCoords coords = new TileCoords(0, 1, 0, 2);
-			entity.Set(new GridTransform(coords, 3, 3));
-            entity.Set(new SpriteLoad("Sprites/TestGrid"));
+			//var entity = World.CreateEntity();
+   //         TileCoords coords = new TileCoords(0, 1, 0, 2);
+			//entity.Set(new GridTransform(coords, 3, 3));
+   //         entity.Set(new SpriteLoad("Sprites/TestGrid"));
 		}
 
 		void UpdateLogicContext()
