@@ -6,66 +6,66 @@ using System.Threading;
 
 namespace Console
 {
-	public class Program
-	{
-		static void Main(string[] args)
-		{
-			ConsoleRenderSystem render = new ConsoleRenderSystem(Engine.World);
-			ConsoleTimeService time = new ConsoleTimeService();
+    public class Program
+    {
+        static void Main(string[] args)
+        {
+            ConsoleRenderSystem render = new ConsoleRenderSystem(Engine.World);
+            ConsoleTimeService time = new ConsoleTimeService();
 
-			EnginePlugins plugins = new EnginePlugins(render, time);
-			Engine engine = new Engine(plugins);
+            EnginePlugins plugins = new EnginePlugins(render, time);
+            Engine engine = new Engine(plugins);
 
-			ConsoleCommandRunner commandRunner = new ConsoleCommandRunner(time);
-			LogicContext fakeContext = new LogicContext();
+            ConsoleCommandRunner commandRunner = new ConsoleCommandRunner(time);
+            LogicContext fakeContext = new LogicContext();
 
-			while (true)
-			{
-				// Because the command runner should effect the LogicContext via the time service ..
-				// we have to run this outside of the normal loop.
-				commandRunner.Update(fakeContext);
+            while (true)
+            {
+                // Because the command runner should effect the LogicContext via the time service ..
+                // we have to run this outside of the normal loop.
+                commandRunner.Update(fakeContext);
 
-				engine.Render();
-				engine.Update();
+                engine.Render();
+                engine.Update();
 
-				time.ForceTick = false;
+                time.ForceTick = false;
 
-				ReadInput();
-				WriteInput();
-				Thread.Sleep((int)(time.DeltaTime * 1000));
-			}
-		}
+                ReadInput();
+                WriteInput();
+                Thread.Sleep((int)(time.DeltaTime * 1000));
+            }
+        }
 
-		static StringBuilder inputBuffer = new StringBuilder();
-		static void ReadInput()
-		{
-			if (System.Console.KeyAvailable)
-			{
-				var keyChar = System.Console.ReadKey().KeyChar;
+        static StringBuilder inputBuffer = new StringBuilder();
+        static void ReadInput()
+        {
+            if (System.Console.KeyAvailable)
+            {
+                var keyChar = System.Console.ReadKey().KeyChar;
 
-				if (keyChar == '\r')
-				{
-					var commandEntity = Engine.World.CreateEntity();
-					commandEntity.Set(new ConsoleCommand(inputBuffer.ToString()));
-					inputBuffer.Clear();
-				}
-				else if (keyChar == 8) // Backspace
-				{
-					inputBuffer.Length = Math.Max(0, inputBuffer.Length - 1);
-				}
-				else
-				{
-					inputBuffer.Append(keyChar);
-				}
-			}
-		}
+                if (keyChar == '\r')
+                {
+                    var commandEntity = Engine.World.CreateEntity();
+                    commandEntity.Set(new ConsoleCommand(inputBuffer.ToString()));
+                    inputBuffer.Clear();
+                }
+                else if (keyChar == 8) // Backspace
+                {
+                    inputBuffer.Length = Math.Max(0, inputBuffer.Length - 1);
+                }
+                else
+                {
+                    inputBuffer.Append(keyChar);
+                }
+            }
+        }
 
-		static void WriteInput()
-		{
-			// Clear previous values
-			System.Console.SetCursorPosition(0, ConsoleRenderSystem.Height);
-			System.Console.Write(new string(' ', System.Console.WindowWidth - 1) + "\r");
-			System.Console.Write(inputBuffer.ToString());
-		}
-	}
+        static void WriteInput()
+        {
+            // Clear previous values
+            System.Console.SetCursorPosition(0, ConsoleRenderSystem.Height);
+            System.Console.Write(new string(' ', System.Console.WindowWidth - 1) + "\r");
+            System.Console.Write(inputBuffer.ToString());
+        }
+    }
 }
