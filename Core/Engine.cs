@@ -49,7 +49,7 @@ namespace Core
 			var entity = World.CreateEntity();
             TileCoords coords = new TileCoords(0, 1, 0, 2);
 			entity.Set(new GridTransform(coords, 3, 3));
-            entity.Set(new SpriteLoad("Sprites/Test"));
+            entity.Set(new SpriteLoad("Sprites/TestGrid"));
 		}
 
 		void UpdateLogicContext()
