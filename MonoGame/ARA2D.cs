@@ -48,11 +48,13 @@ namespace MonoGame
                 new ChunkMeshGenerator(),
                 new BasicSpriteRenderer(spriteBatch),
                 new GridRenderer(spriteBatch),
-                new ChunkMeshRenderer(GraphicsDevice, Content.Load<Texture2D>("Sprites/TestGrid")),
+                new ChunkMeshRenderer(GraphicsDevice, Content.Load<Texture2D>("Sprites/TestGrid2")),
                 new RenderEnd(spriteBatch)
             );
 
-            EnginePlugins plugins = new EnginePlugins(rendering, time, new FactoryPlugin());
+            FactoryPlugin factoryPlugin = new FactoryPlugin(Content.Load<Texture2D>("Sprites/TestBuilding"));
+
+            EnginePlugins plugins = new EnginePlugins(rendering, time, factoryPlugin);
             engine = new Engine(plugins);
 
             base.Initialize();

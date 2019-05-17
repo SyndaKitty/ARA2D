@@ -1,6 +1,5 @@
 ﻿using System;
 using Core;
-using Core.Rendering;
 using DefaultEcs;
 using DefaultEcs.System;
 using Microsoft.Xna.Framework;
@@ -19,14 +18,17 @@ namespace MonoGame.Rendering
 
         protected override void Update(RenderContext state, ReadOnlySpan<Entity> entities)
         {
+            // TODO: Get from camera
+            Matrix viewMatrix = Matrix.CreateScale(16);
+
             Vector2 position;
             foreach (var entity in entities)
             {
                 GridTransform transform = entity.Get<GridTransform>();
                 Sprite sprite = entity.Get<Sprite>();
 
-                position.X = transform.Matrix.Translation.X;
-                position.Y = transform.Matrix.Translation.Y;
+                position.X = (transform.Matrix * viewMatrix).Translation.X;
+                position.Y = (transform.Matrix * viewMatrix).Translation.Y;
                 spriteBatch.Draw(sprite.Texture, position, Color.White);
             }
         }

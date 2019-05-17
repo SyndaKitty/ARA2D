@@ -1,5 +1,5 @@
 ﻿using Core.Position;
-using System.Numerics;
+using Microsoft.Xna.Framework;
 
 namespace Core
 {
@@ -7,7 +7,7 @@ namespace Core
     {
         public TileCoords Coords;
         
-        public Matrix4x4 Matrix; // Calculated
+        public Matrix Matrix; // Calculated
 
         public GridTransform(TileCoords coords)
         {

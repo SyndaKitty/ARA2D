@@ -48,7 +48,8 @@ namespace Core
 		void Initialize()
 		{
             factory.CreateChunk(0, 0);
-		}
+            factory.CreateBuilding(0, 6, 0, 6);
+        }
 
         void UpdateLogicContext()
         {

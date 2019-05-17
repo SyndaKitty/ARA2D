@@ -2,7 +2,7 @@
 {
     public class Chunk
     {
-        const int Power = 3;
+        const int Power = 4;
         public const int Size = 1 << Power;
 
         public short[] Tiles;

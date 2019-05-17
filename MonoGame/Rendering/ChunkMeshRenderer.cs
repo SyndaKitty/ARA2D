@@ -1,6 +1,5 @@
 ﻿using System;
 using Core;
-using Core.Tiles;
 using DefaultEcs;
 using DefaultEcs.System;
 using Microsoft.Xna.Framework;
@@ -28,7 +27,7 @@ namespace MonoGame.Rendering
             effect.TextureEnabled = true;
             effect.Texture = tileMapTexture;
             effect.Projection = Matrix.CreateOrthographicOffCenter(0, graphicsDevice.Viewport.Width, graphicsDevice.Viewport.Height, 0, 0, 1);
-            effect.View = Matrix.CreateScale(32);
+            effect.View = Matrix.CreateScale(16);
 
             foreach (var entity in entities)
             {

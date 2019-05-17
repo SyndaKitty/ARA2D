@@ -1,4 +1,5 @@
-﻿using Core.Plugins;
+﻿using Core.LifeCycle;
+using Core.Plugins;
 using Core.Position;
 using Core.Tiles;
 
@@ -19,17 +20,22 @@ namespace Core.Archetypes
             var chunk = new Chunk();
             // TODO: Replace this with world generator
             chunk.Tiles = new short[Chunk.Size * Chunk.Size];
-            for (int i = 0; i < chunk.Tiles.Length; i++)
-            {
-                chunk.Tiles[i] = (short)(i % 10);
-            }
             chunk.New = false;
             chunk.TilesChanged = true;
 
             entity.Set(chunk);
             entity.Set(new GridTransform(new TileCoords(chunkX, 0, chunkY, 0)));
+            entity.Set(new New());
 
             plugin?.Chunk(entity);
+        }
+
+        public void CreateBuilding(long chunkX, int localX, long chunkY, int localY)
+        {
+            var entity = Engine.World.CreateEntity();
+            entity.Set(new GridTransform(new TileCoords(chunkX, localX, chunkY, localY)));
+            
+            plugin?.Building(entity);
         }
     }
 }

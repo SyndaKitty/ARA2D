@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Numerics;
 using Core.Tiles;
 using DefaultEcs.System;
+using Microsoft.Xna.Framework;
 
 namespace Core.Position
 {
@@ -20,7 +20,7 @@ namespace Core.Position
                 // Recalculate matrix
                 float globalX = transform.Coords.ChunkX * Chunk.Size + transform.Coords.LocalX;
                 float globalY = transform.Coords.ChunkY * Chunk.Size + transform.Coords.LocalY;
-                transform.Matrix = Matrix4x4.CreateTranslation(globalX, globalY, 0);
+                transform.Matrix = Matrix.CreateTranslation(globalX, globalY, 0);
             }
         }
     }

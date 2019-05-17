@@ -14,9 +14,9 @@ namespace Core
             wrappedSystems = new SequentialSystem<LogicContext>
             (
                 // TODO: Game logic systems go here	
-                new MoveSystem(world),
-                new GridTransformUpdate(),
-                new TileRandomizer()
+                new GridTransformUpdate()
+                //new MoveSystem(world),
+                //new TileRandomizer()
             );
         }
 
