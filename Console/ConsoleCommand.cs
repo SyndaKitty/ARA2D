@@ -1,12 +1,12 @@
 ﻿namespace Console
 {
-	public class ConsoleCommand
-	{
-		public string Text;
+    public class ConsoleCommand
+    {
+        public string Text;
 
-		public ConsoleCommand(string text)
-		{
-			Text = text;
-		}
-	}
+        public ConsoleCommand(string text)
+        {
+            Text = text;
+        }
+    }
 }
