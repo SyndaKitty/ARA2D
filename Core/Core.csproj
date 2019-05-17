@@ -36,9 +36,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Engine.cs" />
+    <Compile Include="Archetypes\Factory.cs" />
     <Compile Include="GameLogic.cs" />
     <Compile Include="LifeCycle\New.cs" />
     <Compile Include="LogicContext.cs" />
+    <Compile Include="Plugins\IFactoryPlugin.cs" />
     <Compile Include="Showcase\MoveSystem.cs" />
     <Compile Include="Plugins\ITimeService.cs" />
     <Compile Include="Position\GridTransformUpdate.cs" />

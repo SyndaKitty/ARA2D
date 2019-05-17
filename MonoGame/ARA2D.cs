@@ -52,26 +52,8 @@ namespace MonoGame
                 new RenderEnd(spriteBatch)
             );
 
-            EnginePlugins plugins = new EnginePlugins(rendering, time);
+            EnginePlugins plugins = new EnginePlugins(rendering, time, new FactoryPlugin());
             engine = new Engine(plugins);
-
-            var entity = Engine.World.CreateEntity();
-            var chunk = new Chunk();
-            // TODO: Replace this with world generator
-            chunk.Tiles = new short[Chunk.Size * Chunk.Size];
-            for (int i = 0; i < chunk.Tiles.Length; i++)
-            {
-                chunk.Tiles[i] = (short)(i % 10);
-            }
-
-            chunk.New = false;
-            chunk.TilesChanged = true;
-
-            var chunkMesh = new ChunkMesh();
-
-            entity.Set(chunk);
-            entity.Set(chunkMesh);
-            entity.Set(new GridTransform(new TileCoords(0, 0, 0, 0), 64, 64));
 
             base.Initialize();
         }

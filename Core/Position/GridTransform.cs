@@ -6,18 +6,12 @@ namespace Core
     public class GridTransform
     {
         public TileCoords Coords;
-
-        public int Width { get; }
-        public int Height { get; }
         
         public Matrix4x4 Matrix; // Calculated
 
-        public GridTransform(TileCoords coords, int width, int height)
+        public GridTransform(TileCoords coords)
         {
             Coords = coords;
-
-            Width = width;
-            Height = height;
         }
     }
 }

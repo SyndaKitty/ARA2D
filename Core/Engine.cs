@@ -1,4 +1,5 @@
-﻿using Core.Plugins;
+﻿using Core.Archetypes;
+using Core.Plugins;
 using Core.PluginSystems;
 using DefaultEcs;
 using DefaultEcs.System;
@@ -7,8 +8,8 @@ namespace Core
 {
     public class Engine
     {
-		public readonly static World World = new World();
-		public const float TickLength = .02f;
+		public static readonly World World = new World();
+		public const float TickLength = .3f;
 
 		readonly ISystem<RenderContext> render;
 		readonly ISystem<LogicContext> logic;
@@ -17,6 +18,8 @@ namespace Core
 
 		readonly RenderContext renderContext = new RenderContext();
 		readonly LogicContext logicContext = new LogicContext();
+
+        readonly Factory factory;
 
 		float accumulatedTime;
 
@@ -27,6 +30,7 @@ namespace Core
 			logic = new SequentialSystem<LogicContext>(plugins.PreLogic, new GameLogic(World), plugins.PostLogic);
 			
 			timeService = plugins.Time;
+            factory = new Factory(plugins.Factory);
 
 			Initialize();
         }
@@ -44,10 +48,7 @@ namespace Core
 
 		void Initialize()
 		{
-			//var entity = World.CreateEntity();
-   //         TileCoords coords = new TileCoords(0, 1, 0, 2);
-			//entity.Set(new GridTransform(coords, 3, 3));
-   //         entity.Set(new SpriteLoad("Sprites/TestGrid"));
+            factory.CreateChunk(0, 0);
 		}
 
 		void UpdateLogicContext()

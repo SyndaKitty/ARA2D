@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="ARA2D.cs" />
     <Compile Include="ContentLoading\SpriteLoader.cs" />
+    <Compile Include="FactoryPlugin.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rendering\BasicSpriteRenderer.cs" />

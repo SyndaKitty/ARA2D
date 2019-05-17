@@ -9,13 +9,15 @@ namespace Core.Plugins
 		public readonly ISystem<LogicContext> PreLogic;
 		public readonly ISystem<LogicContext> PostLogic;
 		public readonly ITimeService Time;
+        public readonly IFactoryPlugin Factory;
 
-        public EnginePlugins(ISystem<RenderContext> render, ITimeService time, ISystem<LogicContext> preLogic = null, ISystem<LogicContext> postLogic = null)
+        public EnginePlugins(ISystem<RenderContext> render, ITimeService time, IFactoryPlugin factory = null, ISystem<LogicContext> preLogic = null, ISystem<LogicContext> postLogic = null)
         {
 			Render = render;
 			PreLogic = preLogic;
 			PostLogic = postLogic;
 			Time = time;
+            Factory = factory;
         }
     }
 }
