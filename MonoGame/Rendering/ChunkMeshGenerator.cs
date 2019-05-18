@@ -14,9 +14,25 @@ namespace MonoGame.Rendering
         public const int TileTextureMapHeight = 4;
 
         public static Vector2 TileTextureMapInverse = new Vector2(1f / TileTextureMapWidth, 1f / TileTextureMapHeight);
+        public Vector2[] UVs;
 
         public ChunkMeshGenerator() : base(Engine.World.GetEntities().With(typeof(ChunkMesh), typeof(Chunk)).Build())
         {
+            // Initialize and cache UV coordinates
+            UVs = new Vector2[TileTextureMapWidth * TileTextureMapHeight * 4];
+
+            int i = 0;
+            Vector2 textureCoords = new Vector2();
+            for (int tileIndex = 0; tileIndex < TileTextureMapWidth * TileTextureMapHeight; tileIndex++)
+            {
+                textureCoords.X = tileIndex % TileTextureMapWidth;
+                textureCoords.Y = tileIndex / TileTextureMapWidth;
+
+                UVs[i++] = (textureCoords + new Vector2(0, 0)) * TileTextureMapInverse;
+                UVs[i++] = (textureCoords + new Vector2(1, 0)) * TileTextureMapInverse;
+                UVs[i++] = (textureCoords + new Vector2(0, 1)) * TileTextureMapInverse;
+                UVs[i++] = (textureCoords + new Vector2(1, 1)) * TileTextureMapInverse;
+            }
         }
 
         protected override void Update(RenderContext state, ReadOnlySpan<Entity> entities)
@@ -42,14 +58,11 @@ namespace MonoGame.Rendering
                     for (int x = 0; x < Chunk.Size; x++)
                     {
                         tileIndex = chunk.Tiles[y * Chunk.Size + x];
-                        textureCoords.X = (tileIndex % TileTextureMapWidth);
-                        textureCoords.Y = (tileIndex / TileTextureMapWidth);
-                        textureCoords *= TileTextureMapInverse;
 
-                        vertices[i++] = new VertexPositionColorTexture(new Vector3(x + 0, y + 0, 0), Color.White, textureCoords + new Vector2(0, 0) * TileTextureMapInverse);
-                        vertices[i++] = new VertexPositionColorTexture(new Vector3(x + 1, y + 0, 0), Color.White, textureCoords + new Vector2(1, 0) * TileTextureMapInverse);
-                        vertices[i++] = new VertexPositionColorTexture(new Vector3(x + 0, y + 1, 0), Color.White, textureCoords + new Vector2(0, 1) * TileTextureMapInverse);
-                        vertices[i++] = new VertexPositionColorTexture(new Vector3(x + 1, y + 1, 0), Color.White, textureCoords + new Vector2(1, 1) * TileTextureMapInverse);
+                        vertices[i++] = new VertexPositionColorTexture(new Vector3(x + 0, y + 0, 0), Color.White, UVs[tileIndex * 4 + 0]);
+                        vertices[i++] = new VertexPositionColorTexture(new Vector3(x + 1, y + 0, 0), Color.White, UVs[tileIndex * 4 + 1]);
+                        vertices[i++] = new VertexPositionColorTexture(new Vector3(x + 0, y + 1, 0), Color.White, UVs[tileIndex * 4 + 2]);
+                        vertices[i++] = new VertexPositionColorTexture(new Vector3(x + 1, y + 1, 0), Color.White, UVs[tileIndex * 4 + 3]);
                     }
                 }
 

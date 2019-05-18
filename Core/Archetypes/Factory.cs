@@ -1,5 +1,4 @@
-﻿using Core.LifeCycle;
-using Core.Plugins;
+﻿using Core.Plugins;
 using Core.Position;
 using Core.Tiles;
 
@@ -25,7 +24,6 @@ namespace Core.Archetypes
 
             entity.Set(chunk);
             entity.Set(new GridTransform(new TileCoords(chunkX, 0, chunkY, 0)));
-            entity.Set(new New());
 
             plugin?.Chunk(entity);
         }
