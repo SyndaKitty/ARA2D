@@ -16,10 +16,10 @@ namespace Core
 
         readonly ITimeService timeService;
 
-        readonly RenderContext renderContext = new RenderContext();
-        readonly LogicContext logicContext = new LogicContext();
+        RenderContext renderContext;
+        LogicContext logicContext;
         readonly Factory factory;
-
+        
 		float accumulatedTime;
 
         public Engine(EnginePlugins plugins)
@@ -46,9 +46,13 @@ namespace Core
         }
 
 		void Initialize()
-		{
+        {
+            var globalEntity = factory.CreateGlobal();
             factory.CreateChunk(0, 0);
             factory.CreateBuilding(0, 6, 0, 6);
+
+            renderContext = new RenderContext(globalEntity);
+            logicContext = new LogicContext(globalEntity);
         }
 
         void UpdateLogicContext()

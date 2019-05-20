@@ -64,7 +64,6 @@
     <Compile Include="ConsoleCommand.cs" />
     <Compile Include="ConsoleCommandRunner.cs" />
     <Compile Include="ConsoleTimeService.cs" />
-    <Compile Include="ConsoleRenderSystem.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

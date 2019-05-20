@@ -6,5 +6,6 @@ namespace Core.Plugins
     {
         void Chunk(Entity entity);
         void Building(Entity entity);
+        void Global(Entity entity);
     }
 }

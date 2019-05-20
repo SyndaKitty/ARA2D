@@ -23,5 +23,9 @@ namespace MonoGame
         {
             entity.Set(new Sprite(buildingTexture));
         }
+
+        public void Global(Entity entity)
+        {
+        }
     }
 }

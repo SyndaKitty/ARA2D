@@ -3,6 +3,7 @@ using Core.Plugins;
 using System;
 using System.Text;
 using System.Threading;
+using DefaultEcs;
 
 namespace Console
 {
@@ -10,20 +11,18 @@ namespace Console
     {
         static void Main(string[] args)
         {
-            ConsoleRenderSystem render = new ConsoleRenderSystem(Engine.World);
             ConsoleTimeService time = new ConsoleTimeService();
 
-            EnginePlugins plugins = new EnginePlugins(render, time);
+            EnginePlugins plugins = new EnginePlugins(null, time);
             Engine engine = new Engine(plugins);
 
             ConsoleCommandRunner commandRunner = new ConsoleCommandRunner(time);
-            LogicContext fakeContext = new LogicContext();
 
             while (true)
             {
                 // Because the command runner should effect the LogicContext via the time service ..
                 // we have to run this outside of the normal loop.
-                commandRunner.Update(fakeContext);
+                //commandRunner.Update(Engine);
 
                 engine.Render();
                 engine.Update();
@@ -63,7 +62,7 @@ namespace Console
         static void WriteInput()
         {
             // Clear previous values
-            System.Console.SetCursorPosition(0, ConsoleRenderSystem.Height);
+            //System.Console.SetCursorPosition(0, ConsoleRenderSystem.Height);
             System.Console.Write(new string(' ', System.Console.WindowWidth - 1) + "\r");
             System.Console.Write(inputBuffer.ToString());
         }

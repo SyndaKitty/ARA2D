@@ -36,10 +36,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Engine.cs" />
-    <Compile Include="Archetypes\Factory.cs" />
+    <Compile Include="EntityCreation\Factory.cs" />
     <Compile Include="GameLogic.cs" />
+    <Compile Include="Global.cs" />
     <Compile Include="LogicContext.cs" />
     <Compile Include="Plugins\IFactoryPlugin.cs" />
+    <Compile Include="Rendering\Camera.cs" />
     <Compile Include="Showcase\MoveSystem.cs" />
     <Compile Include="Plugins\ITimeService.cs" />
     <Compile Include="Position\GridTransformUpdate.cs" />
@@ -52,6 +54,10 @@
     <Compile Include="Position\Transform.cs" />
     <Compile Include="Showcase\TileRandomizer.cs" />
     <Compile Include="Tiles\Chunk.cs" />
+    <Compile Include="WorldGeneration\CameraDistanceLoader.cs" />
+    <Compile Include="WorldGeneration\ChunkCache.cs" />
+    <Compile Include="WorldGeneration\ChunkLoadRequests.cs" />
+    <Compile Include="WorldGeneration\LoadRequestProcessor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">
@@ -78,9 +84,7 @@
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="WorldGeneration\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>

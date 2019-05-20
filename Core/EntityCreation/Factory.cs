@@ -1,6 +1,8 @@
 ﻿using Core.Plugins;
 using Core.Position;
 using Core.Tiles;
+using Core.WorldGeneration;
+using DefaultEcs;
 
 namespace Core.Archetypes
 {
@@ -13,7 +15,7 @@ namespace Core.Archetypes
             this.plugin = plugin;
         }
 
-        public void CreateChunk(long chunkX, long chunkY)
+        public Entity CreateChunk(long chunkX, long chunkY)
         {
             var entity = Engine.World.CreateEntity();
             var chunk = new Chunk();
@@ -26,14 +28,30 @@ namespace Core.Archetypes
             entity.Set(new GridTransform(new TileCoords(chunkX, 0, chunkY, 0)));
 
             plugin?.Chunk(entity);
+
+            return entity;
         }
 
-        public void CreateBuilding(long chunkX, int localX, long chunkY, int localY)
+        public Entity CreateBuilding(long chunkX, int localX, long chunkY, int localY)
         {
             var entity = Engine.World.CreateEntity();
             entity.Set(new GridTransform(new TileCoords(chunkX, localX, chunkY, localY)));
             
             plugin?.Building(entity);
+
+            return entity;
+        }
+
+        public Entity CreateGlobal()
+        {
+            var entity = Engine.World.CreateEntity();
+            entity.Set(new ChunkCache());
+            entity.Set(new ChunkLoadRequests());
+            entity.Set(new Global());
+
+            plugin?.Global(entity);
+
+            return entity;
         }
     }
 }
