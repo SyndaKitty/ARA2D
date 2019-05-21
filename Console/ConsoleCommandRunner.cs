@@ -4,7 +4,7 @@ using DefaultEcs.System;
 
 namespace Console
 {
-    public class ConsoleCommandRunner : AEntitySystem<LogicContext>
+    public class ConsoleCommandRunner : AEntitySystem<TickContext>
     {
         ConsoleTimeService time;
 
@@ -13,7 +13,7 @@ namespace Console
             this.time = time;
         }
 
-        protected override void Update(LogicContext state, in Entity entity)
+        protected override void Update(TickContext state, in Entity entity)
         {
             var command = entity.Get<ConsoleCommand>();
             entity.Remove<ConsoleCommand>();

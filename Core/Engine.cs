@@ -11,22 +11,22 @@ namespace Core
 		public static readonly World World = new World();
 		public const float TickLength = .3f;
 
-        readonly ISystem<RenderContext> render;
-        readonly ISystem<LogicContext> logic;
+        readonly ISystem<FrameContext> frameSystems;
+        readonly ISystem<TickContext> tickSystems;
 
         readonly ITimeService timeService;
-
-        RenderContext renderContext;
-        LogicContext logicContext;
         readonly Factory factory;
+
+        FrameContext frameContext;
+        TickContext tickContext;
         
 		float accumulatedTime;
 
         public Engine(EnginePlugins plugins)
         {
-			render = plugins.Render;
 			// SequentialSystem handles null systems
-			logic = new SequentialSystem<LogicContext>(plugins.PreLogic, new GameLogic(World), plugins.PostLogic);
+			frameSystems = new SequentialSystem<FrameContext>(new FrameLogic(), plugins.Render);
+			tickSystems = new SequentialSystem<TickContext>(new TickLogic());
 			
 			timeService = plugins.Time;
             factory = new Factory(plugins.Factory);
@@ -36,13 +36,13 @@ namespace Core
 
         public void Render()
         {
-            render.Update(renderContext);
+            frameSystems.Update(frameContext);
         }
 
         public void Update()
         {
             UpdateLogicContext();	
-            logic.Update(logicContext);
+            tickSystems.Update(tickContext);
         }
 
 		void Initialize()
@@ -51,8 +51,8 @@ namespace Core
             factory.CreateChunk(0, 0);
             factory.CreateBuilding(0, 6, 0, 6);
 
-            renderContext = new RenderContext(globalEntity);
-            logicContext = new LogicContext(globalEntity);
+            frameContext = new FrameContext(globalEntity);
+            tickContext = new TickContext(globalEntity);
         }
 
         void UpdateLogicContext()
@@ -60,12 +60,12 @@ namespace Core
             if (timeService.TickMode == TickMode.Automatic)
             {
                 accumulatedTime += timeService.DeltaTime;
-                logicContext.TicksPassed = (int)(accumulatedTime / TickLength);
-                accumulatedTime -= TickLength * logicContext.TicksPassed;
+                tickContext.TicksPassed = (int)(accumulatedTime / TickLength);
+                accumulatedTime -= TickLength * tickContext.TicksPassed;
             }
             else if (timeService.TickMode == TickMode.Manual)
             {
-                logicContext.TicksPassed = timeService.ForceTick ? 1 : 0;
+                tickContext.TicksPassed = timeService.ForceTick ? 1 : 0;
             }
         }
     }

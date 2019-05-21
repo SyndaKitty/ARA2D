@@ -2,11 +2,11 @@
 
 namespace Core
 {
-    public class RenderContext
+    public class FrameContext
     {
         public readonly Entity GlobalEntity;
 
-        public RenderContext(Entity globalEntity)
+        public FrameContext(Entity globalEntity)
         {
             GlobalEntity = globalEntity;
         }

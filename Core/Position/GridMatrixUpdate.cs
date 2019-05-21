@@ -1,17 +1,17 @@
 ﻿using System;
 using Core.Tiles;
 using DefaultEcs.System;
-using Microsoft.Xna.Framework;
+using System.Numerics;
 
 namespace Core.Position
 {
-    public class GridTransformUpdate : AComponentSystem<LogicContext, GridTransform>
+    public class GridMatrixUpdate : AComponentSystem<TickContext, GridTransform>
     {
-        public GridTransformUpdate() : base(Engine.World, new SystemRunner<LogicContext>(Environment.ProcessorCount))
+        public GridMatrixUpdate() : base(Engine.World, new SystemRunner<TickContext>(Environment.ProcessorCount))
         {
         }
 
-        protected override void Update(LogicContext state, Span<GridTransform> components)
+        protected override void Update(TickContext state, Span<GridTransform> components)
         {
             foreach (GridTransform transform in components)
             {
@@ -20,7 +20,7 @@ namespace Core.Position
                 // Recalculate matrix
                 float globalX = transform.Coords.ChunkX * Chunk.Size + transform.Coords.LocalX;
                 float globalY = transform.Coords.ChunkY * Chunk.Size + transform.Coords.LocalY;
-                transform.Matrix = Matrix.CreateTranslation(globalX, globalY, 0);
+                transform.Matrix = Matrix4x4.CreateTranslation(globalX, globalY, 0);
             }
         }
     }

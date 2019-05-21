@@ -142,8 +142,6 @@ namespace Core.Position
                 {
                     var hashCode = obj.chunkX.GetHashCode();
                     hashCode = (hashCode * 397) ^ obj.chunkY.GetHashCode();
-                    hashCode = (hashCode * 397) ^ obj.localX;
-                    hashCode = (hashCode * 397) ^ obj.localY;
                     return hashCode;
                 }
             }

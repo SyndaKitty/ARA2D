@@ -1,8 +1,10 @@
 ﻿using Core.Plugins;
 using Core.Position;
+using Core.Rendering;
 using Core.Tiles;
 using Core.WorldGeneration;
 using DefaultEcs;
+using System.Numerics;
 
 namespace Core.Archetypes
 {
@@ -50,6 +52,17 @@ namespace Core.Archetypes
             entity.Set(new Global());
 
             plugin?.Global(entity);
+
+            return entity;
+        }
+
+        public Entity CreateCamera(Vector2 position)
+        {
+            var entity = Engine.World.CreateEntity();
+            entity.Set(new Camera());
+            entity.Set(new Transform(position));
+
+            plugin?.Camera(entity);
 
             return entity;
         }

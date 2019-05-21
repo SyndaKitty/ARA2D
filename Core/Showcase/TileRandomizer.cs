@@ -4,7 +4,7 @@ using DefaultEcs.System;
 
 namespace Core.Showcase
 {
-    public class TileRandomizer : AComponentSystem<LogicContext, Chunk>
+    public class TileRandomizer : AComponentSystem<TickContext, Chunk>
     {
         Random random;
 
@@ -13,7 +13,7 @@ namespace Core.Showcase
             random = new Random((int)TimeSpan.FromDays((DateTime.Now - DateTime.MinValue).Days).TotalMilliseconds);
         }
 
-        protected override void Update(LogicContext state, Span<Chunk> components)
+        protected override void Update(TickContext state, Span<Chunk> components)
         {
             //if (random.NextDouble() > 1f / 60) return;
             foreach (var chunk in components)

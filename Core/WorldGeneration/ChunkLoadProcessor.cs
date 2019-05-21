@@ -5,13 +5,13 @@ using DefaultEcs.System;
 
 namespace Core.WorldGeneration
 {
-    public class LoadRequestProcessor : AEntitySystem<LogicContext>
+    public class ChunkLoadProcessor : AEntitySystem<TickContext>
     {
-        public LoadRequestProcessor() : base(Engine.World.GetEntities().With<Global>().Build())
+        public ChunkLoadProcessor() : base(Engine.World.GetEntities().With<Global>().Build())
         {
         }
 
-        protected override void Update(LogicContext state, ReadOnlySpan<Entity> entities)
+        protected override void Update(TickContext state, ReadOnlySpan<Entity> entities)
         {
             var global = entities[0];
             var requests = global.Get<ChunkLoadRequests>();

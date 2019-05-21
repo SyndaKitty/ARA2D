@@ -1,26 +1,24 @@
 ﻿using Core.Position;
-using Core.Showcase;
-using DefaultEcs;
 using DefaultEcs.System;
 
 namespace Core
 {
-    public class GameLogic : AEntitySystem<LogicContext>
+    public class TickLogic : AEntitySystem<TickContext>
     {
-        readonly ISystem<LogicContext> wrappedSystems;
+        readonly ISystem<TickContext> wrappedSystems;
 
-        public GameLogic(World world) : base(world)
+        public TickLogic() : base(Engine.World)
         {
-            wrappedSystems = new SequentialSystem<LogicContext>
+            wrappedSystems = new SequentialSystem<TickContext>
             (
                 // TODO: Game logic systems go here	
-                new GridTransformUpdate()
+                new GridMatrixUpdate()
                 //new MoveSystem(world),
                 //new TileRandomizer()
             );
         }
 
-        protected override void PreUpdate(LogicContext state)
+        protected override void PreUpdate(TickContext state)
         {
             // TODO: Be a little bit smarter about this. 
             // We could spread tick logic throughout several frames instead.
@@ -30,7 +28,7 @@ namespace Core
             }
         }
 
-        protected override void PostUpdate(LogicContext state)
+        protected override void PostUpdate(TickContext state)
         {
             state.TicksPassed = 0;
         }

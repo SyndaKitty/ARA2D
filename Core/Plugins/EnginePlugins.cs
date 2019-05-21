@@ -5,17 +5,13 @@ namespace Core.Plugins
 {
     public class EnginePlugins
     {
-		public readonly ISystem<RenderContext> Render;
-		public readonly ISystem<LogicContext> PreLogic;
-		public readonly ISystem<LogicContext> PostLogic;
+		public readonly ISystem<FrameContext> Render;
 		public readonly ITimeService Time;
         public readonly IFactoryPlugin Factory;
 
-        public EnginePlugins(ISystem<RenderContext> render, ITimeService time, IFactoryPlugin factory = null, ISystem<LogicContext> preLogic = null, ISystem<LogicContext> postLogic = null)
+        public EnginePlugins(ISystem<FrameContext> render, ITimeService time, IFactoryPlugin factory = null)
         {
 			Render = render;
-			PreLogic = preLogic;
-			PostLogic = postLogic;
 			Time = time;
             Factory = factory;
         }
