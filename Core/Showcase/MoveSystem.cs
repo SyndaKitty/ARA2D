@@ -3,15 +3,15 @@ using DefaultEcs.System;
 
 namespace Core
 {
-    public class MoveSystem : AComponentSystem<TickContext, GridTransform>
+    public class MoveSystem : AComponentSystem<TickContext, Transform>
     {
-        public MoveSystem(World world) : base(world)
+        public MoveSystem() : base(Engine.World)
         {
         }
 
-        protected override void Update(TickContext state, ref GridTransform component)
+        protected override void Update(TickContext state, ref Transform component)
         {
-            component.Coords.LocalX++;
+            component.X++;
         }
     }
 }

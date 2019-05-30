@@ -19,11 +19,14 @@ namespace Core.WorldGeneration
             var global = entities[0];
             var requests = global.Get<ChunkLoadRequests>().Requests;
             var cache = global.Get<ChunkCache>();
+
             foreach (TileCoords requestCoords in requests)
             {
                 if (cache.ChunkLookup.ContainsKey(requestCoords)) continue;
                 var chunk = worldGenerator.GenerateChunk(requestCoords);
                 state.Factory.CreateChunk(requestCoords, chunk);
+
+                cache.ChunkLookup[requestCoords] = chunk;
             }
             requests.Clear();
         }

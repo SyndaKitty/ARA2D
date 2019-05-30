@@ -7,7 +7,14 @@ namespace Core.WorldGeneration
     {
         public Chunk GenerateChunk(TileCoords chunkCoords)
         {
-            return new Chunk();
+            var chunk = new Chunk();
+
+            for (int i = 0; i < Chunk.Size * Chunk.Size; i++)
+            {
+                chunk.Tiles[i] = (short)((i + i / Chunk.Size) % 2);
+            }
+
+            return chunk;
         }
     }
 }

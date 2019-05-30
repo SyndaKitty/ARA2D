@@ -25,6 +25,7 @@ namespace Core.WorldGeneration
 
         public CameraDistanceLoader() : base(Engine.World.GetEntities().With(typeof(Camera), typeof(Transform)).Build())
         {
+            Distance = 3;
         }
 
         public void CalculateOffsetPoints()
@@ -51,8 +52,8 @@ namespace Core.WorldGeneration
                 var transform = entity.Get<Transform>();
 
                 // Calculate chunk coords of camera
-                long chunkX = (long) transform.X << Chunk.Bits;
-                long chunkY = (long) transform.Y << Chunk.Bits;
+                long chunkX = (long) transform.X >> Chunk.Bits;
+                long chunkY = (long) transform.Y >> Chunk.Bits;
 
                 foreach (var offsetPoint in offsetPoints)
                 {

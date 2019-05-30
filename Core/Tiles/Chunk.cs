@@ -2,12 +2,11 @@
 {
     public class Chunk
     {
-        public const int Bits = 3;
+        public const int Bits = 4;
         public const int Size = 1 << Bits;
 
-        public short[] Tiles;
+        public short[] Tiles = new short[Size * Size];
 
-        public bool New = true;
         public bool TilesChanged;
     }
 }

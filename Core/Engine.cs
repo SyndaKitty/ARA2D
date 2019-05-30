@@ -1,4 +1,5 @@
-﻿using Core.Archetypes;
+﻿using System.Numerics;
+using Core.Archetypes;
 using Core.Plugins;
 using Core.PluginSystems;
 using Core.Position;
@@ -49,11 +50,17 @@ namespace Core
 
 		void Initialize()
         {
+            // Building
             var globalEntity = factory.CreateGlobal();
             factory.CreateBuilding(0, 6, 0, 6);
+
+            // Chunk
             var coords = new TileCoords(0, 0, 0, 0);
             var worldGenerator = new WorldGenerator();
             factory.CreateChunk(coords, worldGenerator.GenerateChunk(coords));
+
+            // Camera
+            factory.CreateCamera(Vector2.Zero);
 
             frameContext = new FrameContext(factory, globalEntity);
             tickContext = new TickContext(factory, globalEntity);

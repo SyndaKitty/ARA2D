@@ -20,8 +20,6 @@ namespace Core.Archetypes
         public Entity CreateChunk(TileCoords coords, Chunk chunk)
         {
             var entity = Engine.World.CreateEntity();
-            chunk.Tiles = new short[Chunk.Size * Chunk.Size];
-            chunk.New = false;
             chunk.TilesChanged = true;
 
             entity.Set(chunk);
