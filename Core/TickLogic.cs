@@ -1,4 +1,4 @@
-﻿using Core.Position;
+﻿using Core.WorldGeneration;
 using DefaultEcs.System;
 
 namespace Core
@@ -11,8 +11,8 @@ namespace Core
         {
             wrappedSystems = new SequentialSystem<TickContext>
             (
-                // TODO: Game logic systems go here	
-                new GridMatrixUpdate()
+                new CameraDistanceLoader(),
+                new ChunkLoadProcessor()
                 //new MoveSystem(world),
                 //new TileRandomizer()
             );

@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MonoGame.Rendering
 {
-    public class ChunkMeshRenderer : AEntitySystem<RenderContext>
+    public class ChunkMeshRenderer : AEntitySystem<FrameContext>
     {
         readonly GraphicsDevice graphicsDevice;
         readonly Texture2D tileMapTexture;
@@ -18,7 +18,7 @@ namespace MonoGame.Rendering
             this.tileMapTexture = tileMapTexture;
         }
 
-        protected override void Update(RenderContext state, ReadOnlySpan<Entity> entities)
+        protected override void Update(FrameContext state, ReadOnlySpan<Entity> entities)
         {
             GridTransform transform;
             ChunkMesh mesh;
@@ -27,6 +27,7 @@ namespace MonoGame.Rendering
             effect.TextureEnabled = true;
             effect.Texture = tileMapTexture;
             effect.Projection = Matrix.CreateOrthographicOffCenter(0, graphicsDevice.Viewport.Width, graphicsDevice.Viewport.Height, 0, 0, 1);
+            // TODO: Get from camera
             effect.View = Matrix.CreateScale(16);
 
             foreach (var entity in entities)

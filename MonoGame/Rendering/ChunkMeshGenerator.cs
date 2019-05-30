@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MonoGame.Rendering
 {
-    public class ChunkMeshGenerator : AEntitySystem<RenderContext>
+    public class ChunkMeshGenerator : AEntitySystem<FrameContext>
     {
         public const int TileTextureMapWidth = 4;
         public const int TileTextureMapHeight = 4;
@@ -35,14 +35,14 @@ namespace MonoGame.Rendering
             }
         }
 
-        protected override void Update(RenderContext state, ReadOnlySpan<Entity> entities)
+        protected override void Update(FrameContext state, ReadOnlySpan<Entity> entities)
         {
             ChunkMesh mesh;
-            Chunk chunk;
+            Chunk Chunk;
             foreach (var entity in entities)
             {
-                chunk = entity.Get<Chunk>();
-                if (!chunk.TilesChanged) continue;
+                Chunk = entity.Get<Chunk>();
+                if (!Chunk.TilesChanged) continue;
 
                 mesh = entity.Get<ChunkMesh>();
                 int numberOfTiles = Chunk.Size * Chunk.Size;
@@ -57,7 +57,7 @@ namespace MonoGame.Rendering
                 {
                     for (int x = 0; x < Chunk.Size; x++)
                     {
-                        tileIndex = chunk.Tiles[y * Chunk.Size + x];
+                        tileIndex = Chunk.Tiles[y * Chunk.Size + x];
 
                         vertices[i++] = new VertexPositionColorTexture(new Vector3(x + 0, y + 0, 0), Color.White, UVs[tileIndex * 4 + 0]);
                         vertices[i++] = new VertexPositionColorTexture(new Vector3(x + 1, y + 0, 0), Color.White, UVs[tileIndex * 4 + 1]);
@@ -86,7 +86,7 @@ namespace MonoGame.Rendering
                 // Assign calculated arrays
                 mesh.Vertices = vertices;
                 mesh.Indices = indices;
-                chunk.TilesChanged = false;
+                Chunk.TilesChanged = false;
             }
         }
     }

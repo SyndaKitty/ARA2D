@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using Core.Position;
 using Core.Rendering;
+using Core.Tiles;
+using DefaultEcs;
 using DefaultEcs.System;
 
 namespace Core.WorldGeneration
 {
-    public class CameraDistanceLoader : AComponentSystem<FrameContext, Camera>
+    public class CameraDistanceLoader : AEntitySystem<TickContext>
     {
         int distance;
         public int Distance
@@ -18,17 +21,16 @@ namespace Core.WorldGeneration
             }
         }
 
-        List<OffsetPoint> offsetPoints = new List<OffsetPoint>();
+        readonly List<OffsetPoint> offsetPoints = new List<OffsetPoint>();
 
-        public CameraDistanceLoader() : base(Engine.World)
+        public CameraDistanceLoader() : base(Engine.World.GetEntities().With(typeof(Camera), typeof(Transform)).Build())
         {
-            
         }
 
         public void CalculateOffsetPoints()
         {
             offsetPoints.Clear();
-            for (int y = -Distance; y <= Distance y++)
+            for (int y = -Distance; y <= Distance; y++)
             {
                 for (int x = -Distance; x <= Distance; x++)
                 {
@@ -37,16 +39,26 @@ namespace Core.WorldGeneration
             }
             offsetPoints.Sort();
         }
-
-        protected override void Update(FrameContext state, Span<Camera> components)
+        
+        protected override void Update(TickContext state, ReadOnlySpan<Entity> entities)
         {
-            var updates = state.GlobalEntity.Get<ChunkLoadRequests>();
+            var requests = state.GlobalEntity.Get<ChunkLoadRequests>().Requests;
             var cache = state.GlobalEntity.Get<ChunkCache>();
-            foreach (var camera in components)
+
+            foreach (var entity in entities)
             {
+                var camera = entity.Get<Camera>();
+                var transform = entity.Get<Transform>();
+
+                // Calculate chunk coords of camera
+                long chunkX = (long) transform.X << Chunk.Bits;
+                long chunkY = (long) transform.Y << Chunk.Bits;
+
                 foreach (var offsetPoint in offsetPoints)
                 {
-                    
+                    TileCoords offsetCoords = new TileCoords(chunkX + offsetPoint.Ox, 0, chunkY + offsetPoint.Oy, 0);
+                    if (cache.ChunkLookup.ContainsKey(offsetCoords)) continue;
+                    requests.Add(offsetCoords);
                 }
             }
         }

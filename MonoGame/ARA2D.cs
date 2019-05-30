@@ -4,7 +4,6 @@ using Core;
 using Core.Plugins;
 using Core.Position;
 using Core.Tiles;
-using MonoGame.ContentLoading;
 using DefaultEcs.System;
 using MonoGame.Rendering;
 
@@ -19,7 +18,6 @@ namespace MonoGame
         SpriteBatch spriteBatch;
         Engine engine;
         TimeService time;
-        SpriteLoader spriteLoader;
 
         public ARA2D()
         {
@@ -36,14 +34,11 @@ namespace MonoGame
         /// </summary>
         protected override void Initialize()
         {
-            spriteLoader = new SpriteLoader(Content);
-
             spriteBatch = new SpriteBatch(GraphicsDevice);
             time = new TimeService();
 
-            ISystem<RenderContext> rendering = new SequentialSystem<RenderContext>
+            ISystem<FrameContext> rendering = new SequentialSystem<FrameContext>
             (
-                new SpriteLoader(Content),
                 new RenderBegin(spriteBatch),
                 new ChunkMeshGenerator(),
                 new BasicSpriteRenderer(spriteBatch),

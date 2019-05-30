@@ -5,13 +5,13 @@ using System.Numerics;
 
 namespace Core.Position
 {
-    public class GridMatrixUpdate : AComponentSystem<TickContext, GridTransform>
+    public class GridMatrixUpdate : AComponentSystem<FrameContext, GridTransform>
     {
-        public GridMatrixUpdate() : base(Engine.World, new SystemRunner<TickContext>(Environment.ProcessorCount))
+        public GridMatrixUpdate() : base(Engine.World, new SystemRunner<FrameContext>(Environment.ProcessorCount))
         {
         }
 
-        protected override void Update(TickContext state, Span<GridTransform> components)
+        protected override void Update(FrameContext state, Span<GridTransform> components)
         {
             foreach (GridTransform transform in components)
             {

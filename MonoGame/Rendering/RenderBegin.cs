@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MonoGame.Rendering
 {
-    public class RenderBegin : ISystem<RenderContext>
+    public class RenderBegin : ISystem<FrameContext>
     {
         readonly SpriteBatch spriteBatch;
 
@@ -17,7 +17,7 @@ namespace MonoGame.Rendering
         {
         }
 
-        public void Update(RenderContext state)
+        public void Update(FrameContext state)
         {
             spriteBatch.Begin();
         }

@@ -17,17 +17,15 @@ namespace Core.Archetypes
             this.plugin = plugin;
         }
 
-        public Entity CreateChunk(long chunkX, long chunkY)
+        public Entity CreateChunk(TileCoords coords, Chunk chunk)
         {
             var entity = Engine.World.CreateEntity();
-            var chunk = new Chunk();
-            // TODO: Replace this with world generator
             chunk.Tiles = new short[Chunk.Size * Chunk.Size];
             chunk.New = false;
             chunk.TilesChanged = true;
 
             entity.Set(chunk);
-            entity.Set(new GridTransform(new TileCoords(chunkX, 0, chunkY, 0)));
+            entity.Set(new GridTransform(coords));
 
             plugin?.Chunk(entity);
 

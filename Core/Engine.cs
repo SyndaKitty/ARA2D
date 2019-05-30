@@ -1,6 +1,8 @@
 ﻿using Core.Archetypes;
 using Core.Plugins;
 using Core.PluginSystems;
+using Core.Position;
+using Core.WorldGeneration;
 using DefaultEcs;
 using DefaultEcs.System;
 
@@ -41,21 +43,23 @@ namespace Core
 
         public void Update()
         {
-            UpdateLogicContext();	
+            UpdateTickContext();	
             tickSystems.Update(tickContext);
         }
 
 		void Initialize()
         {
             var globalEntity = factory.CreateGlobal();
-            factory.CreateChunk(0, 0);
             factory.CreateBuilding(0, 6, 0, 6);
+            var coords = new TileCoords(0, 0, 0, 0);
+            var worldGenerator = new WorldGenerator();
+            factory.CreateChunk(coords, worldGenerator.GenerateChunk(coords));
 
-            frameContext = new FrameContext(globalEntity);
-            tickContext = new TickContext(globalEntity);
+            frameContext = new FrameContext(factory, globalEntity);
+            tickContext = new TickContext(factory, globalEntity);
         }
 
-        void UpdateLogicContext()
+        void UpdateTickContext()
         {
             if (timeService.TickMode == TickMode.Automatic)
             {

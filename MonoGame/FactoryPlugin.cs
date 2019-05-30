@@ -27,5 +27,9 @@ namespace MonoGame
         public void Global(Entity entity)
         {
         }
+
+        public void Camera(Entity entity)
+        {
+        }
     }
 }

@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MonoGame.Rendering
 {
-    public class BasicSpriteRenderer : AEntitySystem<RenderContext>
+    public class BasicSpriteRenderer : AEntitySystem<FrameContext>
     {
         readonly SpriteBatch spriteBatch;
 
@@ -16,7 +16,7 @@ namespace MonoGame.Rendering
             this.spriteBatch = spriteBatch;
         }
 
-        protected override void Update(RenderContext state, ReadOnlySpan<Entity> entities)
+        protected override void Update(FrameContext state, ReadOnlySpan<Entity> entities)
         {
             Vector2 position;
             foreach (var entity in entities)

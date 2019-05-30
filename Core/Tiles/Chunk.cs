@@ -2,8 +2,8 @@
 {
     public class Chunk
     {
-        const int Power = 4;
-        public const int Size = 1 << Power;
+        public const int Bits = 3;
+        public const int Size = 1 << Bits;
 
         public short[] Tiles;
 

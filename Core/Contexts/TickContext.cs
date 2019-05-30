@@ -1,4 +1,5 @@
-﻿using DefaultEcs;
+﻿using Core.Archetypes;
+using DefaultEcs;
 
 namespace Core
 {
@@ -9,9 +10,11 @@ namespace Core
         public int TicksPassed { get; set; }
 
         public readonly Entity GlobalEntity;
+        public readonly Factory Factory;
 
-        public TickContext(Entity globalEntity)
+        public TickContext(Factory factory, Entity globalEntity)
         {
+            Factory = factory;
             GlobalEntity = globalEntity;
         }
     }
