@@ -1,5 +1,6 @@
 ﻿using System;
 using Core;
+using Core.Rendering;
 using DefaultEcs;
 using DefaultEcs.System;
 using Microsoft.Xna.Framework;
@@ -18,13 +19,17 @@ namespace MonoGame.Rendering
 
         protected override void Update(FrameContext state, ReadOnlySpan<Entity> entities)
         {
+            // TODO: Handle multiple cameras
+            var cameraEntity = Engine.World.GetEntities().With(typeof(Camera), typeof(Transform)).Build().GetEntities()[0];
+            var cameraTransform = cameraEntity.Get<Transform>();
+
             Vector2 position;
             foreach (var entity in entities)
             {
                 var transform = entity.Get<Transform>();
                 var sprite = entity.Get<Sprite>();
-                position.X = transform.X;
-                position.Y = transform.Y;
+                position.X = (transform.X - cameraTransform.Position.X) * cameraTransform.ScaleX;
+                position.Y = (transform.Y - cameraTransform.Position.Y) * cameraTransform.ScaleY;
                 spriteBatch.Draw(sprite.Texture, position, Color.White);
             }
         }

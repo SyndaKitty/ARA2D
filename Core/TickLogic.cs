@@ -13,7 +13,7 @@ namespace Core
             wrappedSystems = new SequentialSystem<TickContext>
             (
                 new CameraDistanceLoader(),
-                new ChunkLoadProcessor(),
+                new ChunkLoadProcessor()
                 // new MoveSystem()
                 //new TileRandomizer()
             );
