@@ -1,5 +1,6 @@
 ﻿using System;
 using Core;
+using Core.Rendering;
 using DefaultEcs;
 using DefaultEcs.System;
 using Microsoft.Xna.Framework;
@@ -20,6 +21,10 @@ namespace MonoGame.Rendering
 
         protected override void Update(FrameContext state, ReadOnlySpan<Entity> entities)
         {
+            // TODO: Handle multiple cameras - probably with tag component
+            var cameraEntity = Engine.World.GetEntities().With<Camera>().Build().GetEntities()[0];
+            var cameraTransform = cameraEntity.Get<Transform>();
+
             GridTransform transform;
             ChunkMesh mesh;
             BasicEffect effect = new BasicEffect(graphicsDevice);
@@ -27,8 +32,7 @@ namespace MonoGame.Rendering
             effect.TextureEnabled = true;
             effect.Texture = tileMapTexture;
             effect.Projection = Matrix.CreateOrthographicOffCenter(0, graphicsDevice.Viewport.Width, graphicsDevice.Viewport.Height, 0, 0, 1);
-            // TODO: Get from camera
-            effect.View = Matrix.CreateScale(16);
+            effect.View = cameraTransform.Matrix.Convert();
 
             foreach (var entity in entities)
             {

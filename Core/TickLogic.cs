@@ -1,4 +1,5 @@
-﻿using Core.WorldGeneration;
+﻿using Core.Showcase;
+using Core.WorldGeneration;
 using DefaultEcs.System;
 
 namespace Core
@@ -13,7 +14,7 @@ namespace Core
             (
                 new CameraDistanceLoader(),
                 new ChunkLoadProcessor(),
-                new MoveSystem()
+                // new MoveSystem()
                 //new TileRandomizer()
             );
         }

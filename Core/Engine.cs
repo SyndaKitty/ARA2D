@@ -39,6 +39,7 @@ namespace Core
 
         public void Render()
         {
+            frameContext.Dt = timeService.DeltaTime;
             frameSystems.Update(frameContext);
         }
 

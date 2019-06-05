@@ -56,7 +56,7 @@ namespace Core.Archetypes
         {
             var entity = Engine.World.CreateEntity();
             entity.Set(new Camera());
-            entity.Set(new Transform(position));
+            entity.Set(new Transform(position, new Vector2(16, 16)));
 
             plugin?.Camera(entity);
 

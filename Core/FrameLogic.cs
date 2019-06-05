@@ -1,4 +1,5 @@
 ﻿using Core.Position;
+using Core.Rendering;
 using DefaultEcs.System;
 
 namespace Core
@@ -10,7 +11,9 @@ namespace Core
         public FrameLogic() : base(Engine.World)
         {
             wrappedSystems = new SequentialSystem<FrameContext>(
-                new GridMatrixUpdate()
+                new GridMatrixUpdate(),
+                new ViewMatrixUpdate(),
+                new CameraController()
             );
         }
 

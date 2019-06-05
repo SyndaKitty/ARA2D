@@ -38,6 +38,8 @@
     <Compile Include="Engine.cs" />
     <Compile Include="EntityCreation\Factory.cs" />
     <Compile Include="FrameLogic.cs" />
+    <Compile Include="Rendering\CameraController.cs" />
+    <Compile Include="Rendering\ViewMatrixUpdate.cs" />
     <Compile Include="TickLogic.cs" />
     <Compile Include="Global.cs" />
     <Compile Include="Contexts\TickContext.cs" />

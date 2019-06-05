@@ -8,6 +8,8 @@ namespace Core
         public readonly Entity GlobalEntity;
         public readonly Factory Factory;
 
+        public float Dt;
+
         public FrameContext(Factory factory, Entity globalEntity)
         {
             GlobalEntity = globalEntity;
