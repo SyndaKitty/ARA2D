@@ -38,6 +38,7 @@
     <Compile Include="Engine.cs" />
     <Compile Include="EntityCreation\Factory.cs" />
     <Compile Include="FrameLogic.cs" />
+    <Compile Include="Plugins\IInputService.cs" />
     <Compile Include="Rendering\CameraController.cs" />
     <Compile Include="Rendering\ViewMatrixUpdate.cs" />
     <Compile Include="TickLogic.cs" />
@@ -88,7 +89,9 @@
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Input\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>
