@@ -20,7 +20,7 @@ namespace MonoGame.Rendering
         protected override void Update(FrameContext state, ReadOnlySpan<Entity> entities)
         {
             // TODO: Handle multiple cameras
-            var cameraEntity = Engine.World.GetEntities().With(typeof(Camera), typeof(Transform)).Build().GetEntities()[0];
+            var cameraEntity = state.Factory.CameraSet.GetEntities()[0];
             var cameraTransform = cameraEntity.Get<Transform>();
 
             Vector2 position;

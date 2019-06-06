@@ -22,7 +22,7 @@ namespace MonoGame.Rendering
         protected override void Update(FrameContext state, ReadOnlySpan<Entity> entities)
         {
             // TODO: Handle multiple cameras - probably with tag component
-            var cameraEntity = Engine.World.GetEntities().With<Camera>().Build().GetEntities()[0];
+            var cameraEntity = state.Factory.CameraSet.GetEntities()[0];
             var cameraTransform = cameraEntity.Get<Transform>();
 
             GridTransform transform;

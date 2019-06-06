@@ -1,6 +1,5 @@
 ﻿using System;
 using Core;
-using Core.Rendering;
 using DefaultEcs;
 using DefaultEcs.System;
 using Microsoft.Xna.Framework;
@@ -20,7 +19,7 @@ namespace MonoGame.Rendering
         protected override void Update(FrameContext state, ReadOnlySpan<Entity> entities)
         {
             // TODO: Handle multiple cameras
-            var cameraEntity = Engine.World.GetEntities().With(typeof(Camera), typeof(Transform)).Build().GetEntities()[0];
+            var cameraEntity = state.Factory.CameraSet.GetEntities()[0];
 
             Matrix viewMatrix = cameraEntity.Get<Transform>().Matrix.Convert();
             Matrix worldMatrix;

@@ -12,9 +12,15 @@ namespace Core.Archetypes
     {
         readonly IFactoryPlugin plugin;
 
+        public readonly EntitySet ChunkSet;
+        public readonly EntitySet CameraSet;
+        //public readonly EntitySet BuildingSet
+
         public Factory(IFactoryPlugin plugin)
         {
             this.plugin = plugin;
+            ChunkSet = Engine.World.GetEntities().With<Chunk>().Build();
+            CameraSet = Engine.World.GetEntities().With<Camera>().Build();
         }
 
         public Entity CreateChunk(TileCoords coords, Chunk chunk)
