@@ -1,5 +1,4 @@
 ﻿using Core.Archetypes;
-using Core.Showcase;
 using Core.WorldGeneration;
 using DefaultEcs.System;
 
@@ -14,9 +13,9 @@ namespace Core
             wrappedSystems = new SequentialSystem<TickContext>
             (
                 new CameraDistanceLoader(factory),
-                new ChunkLoadProcessor(factory),
-                // new MoveSystem()
-                new TileRandomizer()
+                new ChunkLoadProcessor(factory)
+                // ,new MoveSystem()
+                // ,new TileRandomizer()
             );
         }
 

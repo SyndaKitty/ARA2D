@@ -1,6 +1,7 @@
 ﻿using Core.Plugins;
 using Core.Position;
 using Core.Rendering;
+using Core.TileBodies;
 using Core.Tiles;
 using Core.WorldGeneration;
 using DefaultEcs;
@@ -15,6 +16,7 @@ namespace Core.Archetypes
         public readonly EntitySet ChunkSet;
         public readonly EntitySet CameraSet;
         public readonly EntitySet GlobalSet;
+        public readonly EntitySet BodyPlacementSet;
         //public readonly EntitySet BuildingSet
 
         public Factory(IFactoryPlugin plugin)
@@ -23,6 +25,7 @@ namespace Core.Archetypes
             ChunkSet = Engine.World.GetEntities().With<Chunk>().Build();
             CameraSet = Engine.World.GetEntities().With<Camera>().Build();
             GlobalSet = Engine.World.GetEntities().With<Global>().Build();
+            BodyPlacementSet = Engine.World.GetEntities().With<BodyPlacement>().Build();
         }
 
         public Entity CreateChunk(TileCoords coords, Chunk chunk)
@@ -38,7 +41,7 @@ namespace Core.Archetypes
             return entity;
         }
 
-        public Entity CreateBuilding(long chunkX, int localX, long chunkY, int localY)
+        public Entity CreateBuilding(long chunkX, int localX, long chunkY, int localY, int width, int height)
         {
             var entity = Engine.World.CreateEntity();
             entity.Set(new GridTransform(new TileCoords(chunkX, localX, chunkY, localY)));
