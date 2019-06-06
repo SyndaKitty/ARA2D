@@ -1,5 +1,4 @@
-﻿using DefaultEcs;
-using DefaultEcs.System;
+﻿using DefaultEcs.System;
 
 namespace Core
 {

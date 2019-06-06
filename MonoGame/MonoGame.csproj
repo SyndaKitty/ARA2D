@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="ARA2D.cs" />
     <Compile Include="FactoryPlugin.cs" />
+    <Compile Include="InputService.cs" />
     <Compile Include="MatrixExtensions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

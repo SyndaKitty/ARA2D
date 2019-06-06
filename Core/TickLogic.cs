@@ -1,4 +1,5 @@
-﻿using Core.Showcase;
+﻿using Core.Archetypes;
+using Core.Showcase;
 using Core.WorldGeneration;
 using DefaultEcs.System;
 
@@ -8,14 +9,14 @@ namespace Core
     {
         readonly ISystem<TickContext> wrappedSystems;
 
-        public TickLogic() : base(Engine.World)
+        public TickLogic(Factory factory) : base(Engine.World)
         {
             wrappedSystems = new SequentialSystem<TickContext>
             (
-                new CameraDistanceLoader(),
-                new ChunkLoadProcessor()
+                new CameraDistanceLoader(factory),
+                new ChunkLoadProcessor(factory),
                 // new MoveSystem()
-                //new TileRandomizer()
+                new TileRandomizer()
             );
         }
 

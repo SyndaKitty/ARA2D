@@ -1,4 +1,5 @@
 ﻿using System;
+using Core.Archetypes;
 using Core.Position;
 using DefaultEcs;
 using DefaultEcs.System;
@@ -9,7 +10,7 @@ namespace Core.WorldGeneration
     {
         readonly WorldGenerator worldGenerator;
 
-        public ChunkLoadProcessor() : base(Engine.World.GetEntities().With<Global>().Build())
+        public ChunkLoadProcessor(Factory factory) : base(factory.GlobalSet)
         {
             worldGenerator = new WorldGenerator();
         }

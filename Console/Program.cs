@@ -3,7 +3,6 @@ using Core.Plugins;
 using System;
 using System.Text;
 using System.Threading;
-using DefaultEcs;
 
 namespace Console
 {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Numerics;
+using Core.Archetypes;
 using DefaultEcs;
 using DefaultEcs.System;
 
@@ -7,7 +8,7 @@ namespace Core.Rendering
 {
     public class ViewMatrixUpdate : AEntitySystem<FrameContext>
     {
-        public ViewMatrixUpdate() : base(Engine.World.GetEntities().With(typeof(Camera), typeof(Transform)).Build())
+        public ViewMatrixUpdate(Factory factory) : base(factory.CameraSet)
         {
         }
 

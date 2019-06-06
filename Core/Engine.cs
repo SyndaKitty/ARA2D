@@ -12,12 +12,13 @@ namespace Core
     public class Engine
     {
 		public static readonly World World = new World();
-		public const float TickLength = .3f;
+		public const float TickLength = .05f;
 
         readonly ISystem<FrameContext> frameSystems;
         readonly ISystem<TickContext> tickSystems;
 
         readonly ITimeService timeService;
+        readonly IInputService inputService;
         readonly Factory factory;
 
         FrameContext frameContext;
@@ -27,12 +28,13 @@ namespace Core
 
         public Engine(EnginePlugins plugins)
         {
-			// SequentialSystem handles null systems
-			frameSystems = new SequentialSystem<FrameContext>(new FrameLogic(), plugins.Render);
-			tickSystems = new SequentialSystem<TickContext>(new TickLogic());
-			
+            inputService = plugins.Input;
 			timeService = plugins.Time;
             factory = new Factory(plugins.Factory);
+			
+            // SequentialSystem handles null systems
+			frameSystems = new SequentialSystem<FrameContext>(new FrameLogic(factory), plugins.Render);
+			tickSystems = new SequentialSystem<TickContext>(new TickLogic(factory));
 
             Initialize();
         }
@@ -51,8 +53,9 @@ namespace Core
 
 		void Initialize()
         {
-            // Building
             var globalEntity = factory.CreateGlobal();
+
+            // Building
             factory.CreateBuilding(0, 6, 0, 6);
 
             // Chunk
@@ -63,8 +66,8 @@ namespace Core
             // Camera
             factory.CreateCamera(Vector2.Zero);
 
-            frameContext = new FrameContext(factory, globalEntity);
-            tickContext = new TickContext(factory, globalEntity);
+            frameContext = new FrameContext(factory, globalEntity, inputService);
+            tickContext = new TickContext(factory, globalEntity, inputService);
         }
 
         void UpdateTickContext()

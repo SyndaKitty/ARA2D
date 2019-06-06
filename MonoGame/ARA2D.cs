@@ -18,6 +18,7 @@ namespace MonoGame
         SpriteBatch spriteBatch;
         Engine engine;
         TimeService time;
+        InputService input;
 
         public ARA2D()
         {
@@ -36,6 +37,7 @@ namespace MonoGame
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             time = new TimeService();
+            input = new InputService();
 
             ISystem<FrameContext> rendering = new SequentialSystem<FrameContext>
             (
@@ -49,7 +51,7 @@ namespace MonoGame
 
             FactoryPlugin factoryPlugin = new FactoryPlugin(Content.Load<Texture2D>("Sprites/TestBuilding"));
 
-            EnginePlugins plugins = new EnginePlugins(rendering, time, factoryPlugin);
+            EnginePlugins plugins = new EnginePlugins(rendering, time, input, factoryPlugin);
             engine = new Engine(plugins);
 
             base.Initialize();

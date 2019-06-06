@@ -1,4 +1,5 @@
-﻿using Core.Position;
+﻿using Core.Archetypes;
+using Core.Position;
 using Core.Rendering;
 using DefaultEcs.System;
 
@@ -8,12 +9,12 @@ namespace Core
     {
         readonly ISystem<FrameContext> wrappedSystems;
 
-        public FrameLogic() : base(Engine.World)
+        public FrameLogic(Factory factory) : base(Engine.World)
         {
             wrappedSystems = new SequentialSystem<FrameContext>(
                 new GridMatrixUpdate(),
-                new ViewMatrixUpdate(),
-                new CameraController()
+                new ViewMatrixUpdate(factory),
+                new CameraController(factory)
             );
         }
 

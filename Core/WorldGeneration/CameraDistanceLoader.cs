@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Core.Archetypes;
 using Core.Position;
 using Core.Rendering;
 using Core.Tiles;
@@ -23,9 +24,9 @@ namespace Core.WorldGeneration
 
         readonly List<OffsetPoint> offsetPoints = new List<OffsetPoint>();
 
-        public CameraDistanceLoader() : base(Engine.World.GetEntities().With(typeof(Camera), typeof(Transform)).Build())
+        public CameraDistanceLoader(Factory factory) : base(factory.CameraSet)
         {
-            Distance = 3;
+            Distance = 4;
         }
 
         public void CalculateOffsetPoints()

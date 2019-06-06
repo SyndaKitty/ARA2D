@@ -1,4 +1,5 @@
 ﻿using Core.Archetypes;
+using Core.Plugins;
 using DefaultEcs;
 
 namespace Core
@@ -11,11 +12,13 @@ namespace Core
 
         public readonly Entity GlobalEntity;
         public readonly Factory Factory;
+        public readonly IInputService Input;
 
-        public TickContext(Factory factory, Entity globalEntity)
+        public TickContext(Factory factory, Entity globalEntity, IInputService input)
         {
             Factory = factory;
             GlobalEntity = globalEntity;
+            Input = input;
         }
     }
 }
