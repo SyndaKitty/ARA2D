@@ -8,7 +8,8 @@ namespace Core.TileBodies
         public TileCoords Anchor;
         public int Width;
         public int Height;
-        
+        public bool Success;
+
         public BodyPlacement(PlacementType type, TileCoords anchor, int width, int height)
         {
             Type = type;

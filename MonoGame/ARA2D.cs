@@ -54,6 +54,8 @@ namespace MonoGame
             EnginePlugins plugins = new EnginePlugins(rendering, time, input, factoryPlugin);
             engine = new Engine(plugins);
 
+            GraphicsDevice.SamplerStates[0] = SamplerState.PointClamp;
+
             base.Initialize();
         }
 

@@ -1,4 +1,5 @@
 ﻿using Core.Archetypes;
+using Core.Input;
 using Core.Position;
 using Core.Rendering;
 using DefaultEcs.System;
@@ -14,6 +15,7 @@ namespace Core
             wrappedSystems = new SequentialSystem<FrameContext>(
                 new GridMatrixUpdate(),
                 new ViewMatrixUpdate(factory),
+                new InputBuildingPlacer(),
                 new CameraController(factory)
             );
         }

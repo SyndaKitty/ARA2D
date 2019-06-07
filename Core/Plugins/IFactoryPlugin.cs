@@ -8,5 +8,6 @@ namespace Core.Plugins
         void Building(Entity entity);
         void Global(Entity entity);
         void Camera(Entity entity);
+        void BuildingPlacement(Entity entity);
     }
 }

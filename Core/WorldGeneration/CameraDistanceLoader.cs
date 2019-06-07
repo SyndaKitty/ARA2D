@@ -26,7 +26,7 @@ namespace Core.WorldGeneration
 
         public CameraDistanceLoader(Factory factory) : base(factory.CameraSet)
         {
-            Distance = 4;
+            Distance = 1;
         }
 
         public void CalculateOffsetPoints()

@@ -3,6 +3,7 @@ using Core.Archetypes;
 using Core.Plugins;
 using Core.PluginSystems;
 using Core.Position;
+using Core.TileBodies;
 using Core.WorldGeneration;
 using DefaultEcs;
 using DefaultEcs.System;
@@ -12,7 +13,7 @@ namespace Core
     public class Engine
     {
 		public static readonly World World = new World();
-		public const float TickLength = .05f;
+		public const float TickLength = .3f;
 
         readonly ISystem<FrameContext> frameSystems;
         readonly ISystem<TickContext> tickSystems;
@@ -56,7 +57,7 @@ namespace Core
             var globalEntity = factory.CreateGlobal();
 
             // Building
-            factory.CreateBuilding(0, 6, 0, 6);
+            factory.PlaceBuilding(PlacementType.Place, new TileCoords(0, 6, 0, 6), 4, 4);
 
             // Chunk
             var coords = new TileCoords(0, 0, 0, 0);

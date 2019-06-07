@@ -19,8 +19,9 @@ namespace Core.Rendering
                 var transform = entity.Get<Transform>();
                 if (!transform.Dirty) continue;
 
+                // TODO: Add ScreenService to get add half-screen translation
                 transform.Matrix = Matrix4x4.CreateTranslation(-transform.X, -transform.Y, 0) 
-                    * Matrix4x4.CreateScale(transform.ScaleX, transform.ScaleY, 0);
+                    * Matrix4x4.CreateScale(transform.ScaleX, transform.ScaleY, 1);
             }
         }
     }

@@ -1,4 +1,6 @@
-﻿using Core.Plugins;
+﻿using System.Diagnostics;
+using System.Linq.Expressions;
+using Core.Plugins;
 using Core.Position;
 using Core.Rendering;
 using Core.TileBodies;
@@ -41,10 +43,21 @@ namespace Core.Archetypes
             return entity;
         }
 
-        public Entity CreateBuilding(long chunkX, int localX, long chunkY, int localY, int width, int height)
+        public Entity PlaceBuilding(PlacementType type, TileCoords anchor, int width, int height)
         {
             var entity = Engine.World.CreateEntity();
-            entity.Set(new GridTransform(new TileCoords(chunkX, localX, chunkY, localY)));
+            entity.Set(new BodyPlacement(PlacementType.Place, anchor, width, height));
+
+            plugin?.BuildingPlacement(entity);
+            return entity;
+        }
+
+        public Entity CreateBuilding(BodyPlacement placement)
+        {
+            Debug.Assert(placement.Success);
+
+            var entity = Engine.World.CreateEntity();
+            entity.Set(new GridTransform(placement.Anchor));
             
             plugin?.Building(entity);
 

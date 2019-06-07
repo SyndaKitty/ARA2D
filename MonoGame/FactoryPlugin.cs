@@ -31,5 +31,9 @@ namespace MonoGame
         public void Camera(Entity entity)
         {
         }
+
+        public void BuildingPlacement (Entity entity)
+        {
+        }
     }
 }

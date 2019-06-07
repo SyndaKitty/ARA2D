@@ -33,6 +33,7 @@ namespace MonoGame.Rendering
             effect.Texture = tileMapTexture;
             effect.Projection = Matrix.CreateOrthographicOffCenter(0, graphicsDevice.Viewport.Width, graphicsDevice.Viewport.Height, 0, 0, 1);
             effect.View = cameraTransform.Matrix.Convert();
+            effect.GraphicsDevice.SamplerStates[0] = SamplerState.PointClamp;
 
             foreach (var entity in entities)
             {

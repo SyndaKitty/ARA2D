@@ -8,7 +8,7 @@ namespace Core.Rendering
 {
     public class CameraController : AEntitySystem<FrameContext>
     {
-        const float Speed = 8;
+        const float Speed = 16;
 
         public CameraController(Factory factory) : base(factory.CameraSet)
         {

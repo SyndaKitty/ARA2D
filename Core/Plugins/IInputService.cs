@@ -8,3 +8,4 @@ namespace Core.Plugins
         MouseState MouseState { get; }
     }
 }
+ 
