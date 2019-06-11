@@ -9,5 +9,7 @@ namespace Core.Plugins
         void Global(Entity entity);
         void Camera(Entity entity);
         void BuildingPlacement(Entity entity);
+        void CheckBodyPlacement(Entity entity);
+        void ChunkBodies(Entity entity);
     }
 }

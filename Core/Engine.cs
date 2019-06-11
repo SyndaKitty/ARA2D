@@ -1,5 +1,6 @@
 ﻿using System.Numerics;
 using Core.Archetypes;
+using Core.Buildings;
 using Core.Plugins;
 using Core.PluginSystems;
 using Core.Position;
@@ -56,8 +57,10 @@ namespace Core
         {
             var globalEntity = factory.CreateGlobal();
 
+            // Building Menu
+
             // Building
-            factory.PlaceBuilding(PlacementType.Place, new TileCoords(0, 6, 0, 6), 4, 4);
+            factory.PlaceBuilding(new TileCoords(0, 6, 0, 6), 4, 4, BuildingType.Test);
 
             // Chunk
             var coords = new TileCoords(0, 0, 0, 0);

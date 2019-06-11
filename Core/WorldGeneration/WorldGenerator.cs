@@ -11,7 +11,7 @@ namespace Core.WorldGeneration
 
             for (int i = 0; i < Chunk.Size * Chunk.Size; i++)
             {
-                chunk.Tiles[i] = (short)((i + i / Chunk.Size) % 2 == 0 ? 0 : 3);
+                chunk.Tiles[i] = (short)((i + i / Chunk.Size) % 2);
             }
 
             return chunk;

@@ -31,7 +31,6 @@ namespace Core.Rendering
                 var transform = entity.Get<Transform>();
                 transform.X += dx * state.Dt;
                 transform.Y += dy * state.Dt;
-                Console.WriteLine(transform.Position);
             }
         }
     }

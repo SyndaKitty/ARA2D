@@ -35,5 +35,9 @@ namespace MonoGame
         public void BuildingPlacement (Entity entity)
         {
         }
+
+        public void CheckBodyPlacement(Entity entity)
+        {
+        }
     }
 }

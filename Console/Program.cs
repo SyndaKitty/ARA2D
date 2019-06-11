@@ -11,8 +11,9 @@ namespace Console
         static void Main(string[] args)
         {
             ConsoleTimeService time = new ConsoleTimeService();
+            ConsoleInputService input = new ConsoleInputService();
 
-            EnginePlugins plugins = new EnginePlugins(null, time);
+            EnginePlugins plugins = new EnginePlugins(null, time, input);
             Engine engine = new Engine(plugins);
 
             ConsoleCommandRunner commandRunner = new ConsoleCommandRunner(time);

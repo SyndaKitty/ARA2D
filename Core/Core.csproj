@@ -35,9 +35,11 @@
     <LangVersion>7.2</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Buildings\Building.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="EntityCreation\Factory.cs" />
     <Compile Include="FrameLogic.cs" />
+    <Compile Include="Input\BuildingMenu.cs" />
     <Compile Include="Input\InputBuildingPlacer.cs" />
     <Compile Include="Plugins\IInputService.cs" />
     <Compile Include="Rendering\CameraController.cs" />
@@ -60,6 +62,7 @@
     <Compile Include="Showcase\TileRandomizer.cs" />
     <Compile Include="TileBodies\BodyCache.cs" />
     <Compile Include="TileBodies\BodyPlacement.cs" />
+    <Compile Include="TileBodies\BodyPlacementCleanup.cs" />
     <Compile Include="TileBodies\BodyPlacer.cs" />
     <Compile Include="TileBodies\ChunkBodies.cs" />
     <Compile Include="Tiles\Chunk.cs" />

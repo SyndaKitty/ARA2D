@@ -2,6 +2,7 @@
 using Core.Input;
 using Core.Position;
 using Core.Rendering;
+using Core.TileBodies;
 using DefaultEcs.System;
 
 namespace Core
@@ -15,8 +16,10 @@ namespace Core
             wrappedSystems = new SequentialSystem<FrameContext>(
                 new GridMatrixUpdate(),
                 new ViewMatrixUpdate(factory),
-                new InputBuildingPlacer(),
+                //new InputBuildingPlacer(),
+                //new BodyPlacer(factory),
                 new CameraController(factory)
+                //new BodyPlacementCleanup(factory)
             );
         }
 

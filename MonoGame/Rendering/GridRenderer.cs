@@ -29,11 +29,7 @@ namespace MonoGame.Rendering
                 GridTransform transform = entity.Get<GridTransform>();
                 Sprite sprite = entity.Get<Sprite>();
 
-                worldMatrix = new Matrix(
-                    transform.Matrix.M11, transform.Matrix.M12, transform.Matrix.M13, transform.Matrix.M14,
-                    transform.Matrix.M21, transform.Matrix.M22, transform.Matrix.M23, transform.Matrix.M24,
-                    transform.Matrix.M31, transform.Matrix.M32, transform.Matrix.M33, transform.Matrix.M34,
-                    transform.Matrix.M41, transform.Matrix.M42, transform.Matrix.M43, transform.Matrix.M44);
+                worldMatrix = transform.Matrix.Convert();
 
                 position.X = (worldMatrix * viewMatrix).Translation.X;
                 position.Y = (worldMatrix* viewMatrix).Translation.Y;
