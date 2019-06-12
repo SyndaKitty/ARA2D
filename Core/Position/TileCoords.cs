@@ -74,7 +74,7 @@ namespace Core.Position
                 ChunkX--;
             }
 
-            while (LocalX > Chunk.Size)
+            while (LocalX >= Chunk.Size)
             {
                 LocalX -= Chunk.Size;
                 ChunkX++;
@@ -89,7 +89,7 @@ namespace Core.Position
                 ChunkY--;
             }
 
-            while (LocalY > Chunk.Size)
+            while (LocalY >= Chunk.Size)
             {
                 LocalY -= Chunk.Size;
                 ChunkY++;

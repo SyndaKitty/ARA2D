@@ -13,11 +13,6 @@ namespace Core.TileBodies
 
         protected override void Update(FrameContext state, in Entity entity)
         {
-            var placement = entity.Get<BodyPlacement>();
-            if (entity.Has<Building>())
-            {
-                var building = entity.Get<Building>();
-            }
             entity.Dispose();
         }
     }

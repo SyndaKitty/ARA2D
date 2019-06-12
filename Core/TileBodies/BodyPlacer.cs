@@ -26,10 +26,23 @@ namespace Core.TileBodies
                 {
                     var coords = new TileCoords(cx, x, cy, y);
                     var chunkBodies = state.Factory.GetChunkBodies(coords);
-                    if (chunkBodies.Bodies[y * Chunk.Size + x] >= 0)
+                    if (chunkBodies.Bodies[coords.LocalY * Chunk.Size + coords.LocalX] >= 0)
                     {
                         placement.Success = false;
                         return;
+                    }
+                }
+            }
+
+            if (placement.Type == PlacementType.Place)
+            {
+                for (int y = ly; y < ly + placement.Height; y++)
+                {
+                    for (int x = lx; x < lx + placement.Width; x++)
+                    {
+                        var coords = new TileCoords(cx, x, cy, y);
+                        var chunkBodies = state.Factory.GetChunkBodies(coords);
+                        chunkBodies.Bodies[coords.LocalY * Chunk.Size + coords.LocalX] = 1; // TODO set to body ID
                     }
                 }
             }

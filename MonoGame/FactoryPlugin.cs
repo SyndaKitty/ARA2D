@@ -1,4 +1,5 @@
-﻿using Core.Plugins;
+﻿using Core.Buildings;
+using Core.Plugins;
 using DefaultEcs;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Rendering;
@@ -34,9 +35,15 @@ namespace MonoGame
 
         public void BuildingPlacement (Entity entity)
         {
+            var building = entity.Get<Building>();
+
         }
 
         public void CheckBodyPlacement(Entity entity)
+        {
+        }
+
+        public void ChunkBodies(Entity entity)
         {
         }
     }

@@ -60,11 +60,12 @@
     <Compile Include="Rendering\SpriteLoad.cs" />
     <Compile Include="Position\Transform.cs" />
     <Compile Include="Showcase\TileRandomizer.cs" />
-    <Compile Include="TileBodies\BodyCache.cs" />
     <Compile Include="TileBodies\BodyPlacement.cs" />
     <Compile Include="TileBodies\BodyPlacementCleanup.cs" />
     <Compile Include="TileBodies\BodyPlacer.cs" />
+    <Compile Include="TileBodies\BuildingPlacer.cs" />
     <Compile Include="TileBodies\ChunkBodies.cs" />
+    <Compile Include="TileBodies\ChunkBodyCache.cs" />
     <Compile Include="Tiles\Chunk.cs" />
     <Compile Include="WorldGeneration\CameraDistanceLoader.cs" />
     <Compile Include="Tiles\ChunkCache.cs" />

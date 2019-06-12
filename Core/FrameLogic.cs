@@ -16,10 +16,11 @@ namespace Core
             wrappedSystems = new SequentialSystem<FrameContext>(
                 new GridMatrixUpdate(),
                 new ViewMatrixUpdate(factory),
-                //new InputBuildingPlacer(),
-                //new BodyPlacer(factory),
+                new InputBuildingPlacer(),
+                new BodyPlacer(factory),
+                new BuildingPlacer(factory),
+                new BodyPlacementCleanup(factory),
                 new CameraController(factory)
-                //new BodyPlacementCleanup(factory)
             );
         }
 

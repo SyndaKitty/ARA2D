@@ -21,10 +21,11 @@ namespace Core.Archetypes
         public readonly EntitySet CameraSet;
         public readonly EntitySet GlobalSet;
         public readonly EntitySet BodyPlacementSet;
+        public readonly EntitySet BuildingPlacementSet;
         //public readonly EntitySet BuildingSet
         public ChunkCache ChunkCache;
         public ChunkBodyCache ChunkBodyCache;
-
+        
         public Factory(IFactoryPlugin plugin)
         {
             this.plugin = plugin;
@@ -32,6 +33,7 @@ namespace Core.Archetypes
             CameraSet = Engine.World.GetEntities().With<Camera>().Build();
             GlobalSet = Engine.World.GetEntities().With<Global>().Build();
             BodyPlacementSet = Engine.World.GetEntities().With<BodyPlacement>().Build();
+            BuildingPlacementSet = Engine.World.GetEntities().With(typeof(BodyPlacement), typeof(Building)).Build();
         }
 
         public Entity CreateChunk(TileCoords coords, Chunk chunk)
@@ -96,8 +98,8 @@ namespace Core.Archetypes
             var buildingMenu = new BuildingMenu();
             buildingMenu.Enabled = true;
             buildingMenu.SelectedBuildingType = BuildingType.Test;
-            buildingMenu.SelectedBuildingWidth = 3;
-            buildingMenu.SelectedBuildingHeight = 2;
+            buildingMenu.SelectedBuildingWidth = 4;
+            buildingMenu.SelectedBuildingHeight = 4;
             entity.Set(buildingMenu);
 
             plugin?.Global(entity);
