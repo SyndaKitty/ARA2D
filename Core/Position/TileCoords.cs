@@ -3,128 +3,52 @@ using Core.Tiles;
 
 namespace Core.Position
 {
-    public class TileCoords : IEqualityComparer<TileCoords>
+    public struct TileCoords : IEqualityComparer<TileCoords>
     {
+        public static TileCoords Create(long cx, long cy, int lx, int ly)
+        {
+            // Normalize coordinates (LocalX and LocalY must be from 0 to Chunk.Size-1)
+            int dx = lx / Chunk.Size;
+            if (lx < 0) dx--;
+            cx += dx;
+            lx -= dx * Chunk.Size;
+
+            int dy = ly / Chunk.Size;
+            if (ly < 0) dy--;
+            cy += dy;
+            ly -= dy * Chunk.Size;
+
+            return new TileCoords
+            {
+                ChunkX = cx,
+                ChunkY = cy,
+                LocalX = lx,
+                LocalY = ly
+            };
+        }
+
         // The coords of the chunk
-        long chunkX;
-        long chunkY;
+        public long ChunkX;
+        public long ChunkY;
 
         // The coords within the chunk
-        int localX;
-        int localY;
-
-        public bool Dirty;
-
-        public long ChunkX
-        {
-            get => chunkX;
-            set
-            {
-                chunkX = value;
-                Dirty = true;
-            }
-        }
-
-        public long ChunkY
-        {
-            get => chunkY;
-            set
-            {
-                chunkY = value;
-                Dirty = true;
-            }
-        }
-
-        public int LocalX
-        {
-            get => localX;
-            set
-            {
-                localX = value;
-                NormalizeLocalX();
-                Dirty = true;
-            }
-        }
-
-        public int LocalY
-        {
-            get => localY;
-            set
-            {
-                localY = value;
-                NormalizeLocalY();
-                Dirty = true;
-            }
-        }
-
-        public TileCoords(long chunkX, int localX, long chunkY, int localY)
-        {
-            ChunkX = chunkX;
-            LocalX = localX;
-
-            ChunkY = chunkY;
-            LocalY = localY;
-        }
-
-        void NormalizeLocalX()
-        {
-            while (LocalX < 0)
-            {
-                LocalX += Chunk.Size;
-                ChunkX--;
-            }
-
-            while (LocalX >= Chunk.Size)
-            {
-                LocalX -= Chunk.Size;
-                ChunkX++;
-            }
-        }
-
-        void NormalizeLocalY()
-        {
-            while (LocalY < 0)
-            {
-                LocalY += Chunk.Size;
-                ChunkY--;
-            }
-
-            while (LocalY >= Chunk.Size)
-            {
-                LocalY -= Chunk.Size;
-                ChunkY++;
-            }
-        }
-
+        public int LocalX;
+        public int LocalY;
+        
         #region Equality
         public bool Equals(TileCoords a, TileCoords b)
         {
-            if (ReferenceEquals(a, b))
-            {
-                return true;
-            }
-
-            if (ReferenceEquals(a, null))
-            {
-                return false;
-            }
-
-            if (ReferenceEquals(b, null))
-            {
-                return false;
-            }
-
-            return a.chunkX == b.chunkX && a.chunkY == b.chunkY && a.localX == b.localX && a.localY == b.localY;
+            return a.ChunkX == b.ChunkX && a.ChunkY == b.ChunkY && a.LocalX == b.LocalX && a.LocalY == b.LocalY;
         }
 
         public int GetHashCode(TileCoords coords)
         {
             unchecked
             {
-                var hashCode = coords.chunkX.GetHashCode();
-                hashCode = (hashCode * 397) ^ coords.chunkY.GetHashCode();
-                hashCode = (hashCode * 397) ^ coords.localX;
-                hashCode = (hashCode * 397) ^ coords.localY;
+                var hashCode = coords.ChunkX.GetHashCode();
+                hashCode = (hashCode * 397) ^ coords.ChunkY.GetHashCode();
+                hashCode = (hashCode * 397) ^ coords.LocalX;
+                hashCode = (hashCode * 397) ^ coords.LocalY;
                 return hashCode;
             }
         }
@@ -140,8 +64,8 @@ namespace Core.Position
             {
                 unchecked
                 {
-                    var hashCode = obj.chunkX.GetHashCode();
-                    hashCode = (hashCode * 397) ^ obj.chunkY.GetHashCode();
+                    var hashCode = obj.ChunkX.GetHashCode();
+                    hashCode = (hashCode * 397) ^ obj.ChunkY.GetHashCode();
                     return hashCode;
                 }
             }

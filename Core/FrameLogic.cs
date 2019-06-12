@@ -15,7 +15,7 @@ namespace Core
         public FrameLogic(Factory factory) : base(Engine.World)
         {
             wrappedSystems = new SequentialSystem<FrameContext>(
-                new TileRandomizer(),
+                //new TileRandomizer(),
                 new CameraController(factory),
                 new ViewMatrixUpdate(factory),
                 new InputBuildingPlacer(),

@@ -24,7 +24,7 @@ namespace Core.TileBodies
             {
                 for (int x = lx; x < lx + placement.Width; x++)
                 {
-                    var coords = new TileCoords(cx, x, cy, y);
+                    var coords = TileCoords.Create(cx, cy, x, y);
                     var chunkBodies = state.Factory.GetChunkBodies(coords);
                     if (chunkBodies.Bodies[coords.LocalY * Chunk.Size + coords.LocalX] >= 0)
                     {
@@ -40,7 +40,7 @@ namespace Core.TileBodies
                 {
                     for (int x = lx; x < lx + placement.Width; x++)
                     {
-                        var coords = new TileCoords(cx, x, cy, y);
+                        var coords = TileCoords.Create(cx, cy, x, y);
                         var chunkBodies = state.Factory.GetChunkBodies(coords);
                         chunkBodies.Bodies[coords.LocalY * Chunk.Size + coords.LocalX] = 1; // TODO set to body ID
                     }

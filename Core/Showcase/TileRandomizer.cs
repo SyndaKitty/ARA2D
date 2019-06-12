@@ -7,7 +7,7 @@ namespace Core.Showcase
     public class TileRandomizer : AComponentSystem<FrameContext, Chunk>
     {
         Random random;
-
+        
         public TileRandomizer() : base(Engine.World)
         {
             random = new Random((int)TimeSpan.FromDays((DateTime.Now - DateTime.MinValue).Days).TotalMilliseconds);

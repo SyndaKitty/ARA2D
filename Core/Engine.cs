@@ -61,7 +61,7 @@ namespace Core
             factory.BuildingPlacementGhost(BuildingType.Test);
             
             // Chunk
-            var coords = new TileCoords(0, 0, 0, 0);
+            var coords = TileCoords.Create(0, 0, 0, 0);
             var worldGenerator = new WorldGenerator();
             factory.CreateChunk(coords, worldGenerator.GenerateChunk(coords));
 

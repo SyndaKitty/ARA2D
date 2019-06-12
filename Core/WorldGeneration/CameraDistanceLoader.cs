@@ -58,7 +58,7 @@ namespace Core.WorldGeneration
 
                 foreach (var offsetPoint in offsetPoints)
                 {
-                    TileCoords offsetCoords = new TileCoords(chunkX + offsetPoint.Ox, 0, chunkY + offsetPoint.Oy, 0);
+                    TileCoords offsetCoords = TileCoords.Create(chunkX + offsetPoint.Ox, chunkY + offsetPoint.Oy, 0, 0);
                     if (cache.ChunkLookup.ContainsKey(offsetCoords)) continue;
                     requests.Add(offsetCoords);
                 }

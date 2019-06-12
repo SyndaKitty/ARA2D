@@ -15,7 +15,7 @@ namespace Core.Position
         {
             foreach (GridTransform transform in components)
             {
-                if (!transform.Coords.Dirty) continue;
+                if (!transform.Dirty) continue;
 
                 // Recalculate matrix
                 float globalX = transform.Coords.ChunkX * Chunk.Size + transform.Coords.LocalX;

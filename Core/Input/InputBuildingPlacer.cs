@@ -36,7 +36,7 @@ namespace Core.Input
             int anchorX = (int)(centerX - width / 2);
             int anchorY = (int)(centerY - height / 2);
 
-            TileCoords mouseAnchor = new TileCoords(0, anchorX, 0, anchorY);
+            TileCoords mouseAnchor = TileCoords.Create(0, 0, anchorX, anchorY);
 
             if (state.Input.MouseState.LeftButton == ButtonState.Pressed)
             {
