@@ -11,5 +11,6 @@ namespace Core.Plugins
         void BuildingPlacement(Entity entity);
         void CheckBodyPlacement(Entity entity);
         void ChunkBodies(Entity entity);
+        void BuildingPlacementGhost(Entity entity);
     }
 }

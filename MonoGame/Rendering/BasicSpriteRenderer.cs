@@ -1,6 +1,7 @@
 ﻿using System;
 using Core;
 using Core.Rendering;
+using Core.TileBodies;
 using DefaultEcs;
 using DefaultEcs.System;
 using Microsoft.Xna.Framework;

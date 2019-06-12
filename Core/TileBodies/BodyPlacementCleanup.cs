@@ -7,7 +7,7 @@ namespace Core.TileBodies
 {
     public class BodyPlacementCleanup : AEntitySystem<FrameContext>
     {
-        public BodyPlacementCleanup(Factory factory) : base(factory.BodyPlacementSet)
+        public BodyPlacementCleanup() : base(Engine.World.GetEntities().With<BodyPlacement>().Without<BuildingGhost>().Build())
         {
         }
 

@@ -57,11 +57,9 @@ namespace Core
         {
             var globalEntity = factory.CreateGlobal();
 
-            // Building Menu
-
-            // Building
-            factory.PlaceBuilding(new TileCoords(0, 6, 0, 6), 4, 4, BuildingType.Test);
-
+            // Building Ghost
+            factory.BuildingPlacementGhost(BuildingType.Test);
+            
             // Chunk
             var coords = new TileCoords(0, 0, 0, 0);
             var worldGenerator = new WorldGenerator();

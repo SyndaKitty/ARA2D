@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using System.Linq.Expressions;
 using Core.Plugins;
 using Core.Position;
 using Core.Rendering;
@@ -22,7 +21,7 @@ namespace Core.Archetypes
         public readonly EntitySet GlobalSet;
         public readonly EntitySet BodyPlacementSet;
         public readonly EntitySet BuildingPlacementSet;
-        //public readonly EntitySet BuildingSet
+        public readonly EntitySet BuildingGhostSet;
         public ChunkCache ChunkCache;
         public ChunkBodyCache ChunkBodyCache;
         
@@ -34,6 +33,7 @@ namespace Core.Archetypes
             GlobalSet = Engine.World.GetEntities().With<Global>().Build();
             BodyPlacementSet = Engine.World.GetEntities().With<BodyPlacement>().Build();
             BuildingPlacementSet = Engine.World.GetEntities().With(typeof(BodyPlacement), typeof(Building)).Build();
+            BuildingGhostSet = Engine.World.GetEntities().With<BuildingGhost>().Build();
         }
 
         public Entity CreateChunk(TileCoords coords, Chunk chunk)
@@ -49,13 +49,28 @@ namespace Core.Archetypes
             return entity;
         }
 
-        public Entity CheckBuildingPlacement(TileCoords anchor, int width, int height)
+        public Entity BuildingPlacementGhost(BuildingType type)
         {
             var entity = Engine.World.CreateEntity();
+            entity.Set(new Building(type));
+            entity.Set(new BuildingGhost());
+
+            plugin?.BuildingPlacementGhost(entity);
+
+            return entity;
+        }
+
+        public Entity CheckBuildingPlacement(Entity entity, TileCoords anchor, int width, int height)
+        {
             entity.Set(new BodyPlacement(PlacementType.Check, anchor, width, height));
 
             plugin?.CheckBodyPlacement(entity);
             return entity;
+        }
+
+        public Entity CheckBuildingPlacement(TileCoords anchor, int width, int height)
+        {
+            return CheckBuildingPlacement(Engine.World.CreateEntity(), anchor, width, height);
         }
 
         public Entity PlaceBuilding(TileCoords anchor, int width, int height, BuildingType type)

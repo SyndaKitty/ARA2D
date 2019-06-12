@@ -46,5 +46,11 @@ namespace MonoGame
         public void ChunkBodies(Entity entity)
         {
         }
+
+        public void BuildingPlacementGhost(Entity entity)
+        {
+            var sprite = new Sprite(buildingTexture);
+            entity.Set(sprite);
+        }
     }
 }

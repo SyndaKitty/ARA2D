@@ -23,27 +23,40 @@ namespace Core.Input
             Vector3 screenPoint = new Vector3(state.Input.MouseState.X, state.Input.MouseState.Y, 0);
             Vector3 worldPoint = Vector3.Transform(screenPoint, invertedViewMatrix);
 
-            float centerX;
-            float centerY;
+            int width = menuState.SelectedBuildingWidth;
+            int height = menuState.SelectedBuildingHeight;
 
-            centerX = menuState.SelectedBuildingWidth % 2 == 0 ? 
+            float centerX = width % 2 == 0 ? 
                 (float)Math.Round(worldPoint.X) : 
                 (float)Math.Round(worldPoint.X + .5f) - .5f;
-            centerY = menuState.SelectedBuildingHeight % 2 == 0 ?
+            float centerY = height % 2 == 0 ?
                 (float)Math.Round(worldPoint.Y) :
                 (float)Math.Round(worldPoint.Y + .5f) - .5f;
 
-            int anchorX = (int)(centerX - menuState.SelectedBuildingWidth / 2);
-            int anchorY = (int)(centerY - menuState.SelectedBuildingHeight / 2);
+            int anchorX = (int)(centerX - width / 2);
+            int anchorY = (int)(centerY - height / 2);
+
+            TileCoords mouseAnchor = new TileCoords(0, anchorX, 0, anchorY);
 
             if (state.Input.MouseState.LeftButton == ButtonState.Pressed)
             {
-                state.Factory.PlaceBuilding(new TileCoords(0, anchorX, 0, anchorY), menuState.SelectedBuildingWidth, menuState.SelectedBuildingHeight, menuState.SelectedBuildingType);
+                state.Factory.PlaceBuilding(mouseAnchor, width, height, menuState.SelectedBuildingType);
             }
-            else
+            
+            var ghosts = state.Factory.BuildingGhostSet.GetEntities();
+            if (ghosts.Length > 0)
             {
-                state.Factory.CheckBuildingPlacement(new TileCoords(0, anchorX, 0, anchorY), menuState.SelectedBuildingWidth, menuState.SelectedBuildingHeight);
+                state.Factory.CheckBuildingPlacement(ghosts[0], mouseAnchor, width, height);
+                if (!ghosts[0].Has<GridTransform>())
+                {
+                    ghosts[0].Set(new GridTransform(mouseAnchor));
+                }
+                else
+                {
+                    ghosts[0].Get<GridTransform>().Coords = mouseAnchor;
+                }
             }
+
         }
 
         public void Dispose()

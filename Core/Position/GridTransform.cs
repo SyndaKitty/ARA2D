@@ -5,9 +5,20 @@ namespace Core
 {
     public class GridTransform
     {
-        public TileCoords Coords;
-        
+        TileCoords coords;
+
+        public TileCoords Coords
+        {
+            get => coords;
+            set
+            {
+                coords = value;
+                Dirty = true;
+            }
+        }
+
         public Matrix4x4 Matrix; // Calculated
+        public bool Dirty;
 
         public GridTransform(TileCoords coords)
         {

@@ -2,6 +2,7 @@
 using Core.Input;
 using Core.Position;
 using Core.Rendering;
+using Core.Showcase;
 using Core.TileBodies;
 using DefaultEcs.System;
 
@@ -14,13 +15,15 @@ namespace Core
         public FrameLogic(Factory factory) : base(Engine.World)
         {
             wrappedSystems = new SequentialSystem<FrameContext>(
-                new GridMatrixUpdate(),
+                new TileRandomizer(),
+                new CameraController(factory),
                 new ViewMatrixUpdate(factory),
                 new InputBuildingPlacer(),
                 new BodyPlacer(factory),
                 new BuildingPlacer(factory),
-                new BodyPlacementCleanup(factory),
-                new CameraController(factory)
+                new BuildingGhostColor(factory),
+                new BodyPlacementCleanup(),
+                new GridMatrixUpdate()
             );
         }
 

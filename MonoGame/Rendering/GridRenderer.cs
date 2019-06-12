@@ -1,5 +1,6 @@
 ﻿using System;
 using Core;
+using Core.TileBodies;
 using DefaultEcs;
 using DefaultEcs.System;
 using Microsoft.Xna.Framework;
@@ -33,7 +34,15 @@ namespace MonoGame.Rendering
 
                 position.X = (worldMatrix * viewMatrix).Translation.X;
                 position.Y = (worldMatrix* viewMatrix).Translation.Y;
-                spriteBatch.Draw(sprite.Texture, position, Color.White);
+                
+                if (entity.Has<BuildingGhost>())
+                {
+                    spriteBatch.Draw(sprite.Texture, position, entity.Get<BuildingGhost>().Color.Convert());
+                }
+                else
+                {
+                    spriteBatch.Draw(sprite.Texture, position, Color.White);
+                }
             }
         }
     }

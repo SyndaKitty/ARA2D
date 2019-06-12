@@ -63,6 +63,8 @@
     <Compile Include="TileBodies\BodyPlacement.cs" />
     <Compile Include="TileBodies\BodyPlacementCleanup.cs" />
     <Compile Include="TileBodies\BodyPlacer.cs" />
+    <Compile Include="TileBodies\BuildingGhost.cs" />
+    <Compile Include="TileBodies\BuildingGhostColor.cs" />
     <Compile Include="TileBodies\BuildingPlacer.cs" />
     <Compile Include="TileBodies\ChunkBodies.cs" />
     <Compile Include="TileBodies\ChunkBodyCache.cs" />
