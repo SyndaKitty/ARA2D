@@ -49,6 +49,7 @@ namespace Core
 
         public void Update()
         {
+            System.Console.WriteLine(factory.GetChunkBodies(new TileCoords(0, 0, 0, 0))[0]);
             UpdateTickContext();	
             tickSystems.Update(tickContext);
         }
@@ -59,7 +60,7 @@ namespace Core
 
             // Building Ghost
             factory.BuildingPlacementGhost(BuildingType.Test);
-            
+
             // Chunk
             var coords = new TileCoords(0, 0, 0, 0);
             var worldGenerator = new WorldGenerator();

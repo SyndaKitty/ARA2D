@@ -4,6 +4,8 @@ namespace Core.TileBodies
 {
     public class ChunkBodies
     {
-        public short[] Bodies = new short[Chunk.Size * Chunk.Size];
+        public int[] Bodies = new int[Chunk.Size * Chunk.Size];
+
+        public int this[int index] => Bodies[index]; 
     }
 }

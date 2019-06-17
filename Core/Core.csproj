@@ -39,6 +39,7 @@
     <Compile Include="Engine.cs" />
     <Compile Include="EntityCreation\Factory.cs" />
     <Compile Include="FrameLogic.cs" />
+    <Compile Include="IDTracker.cs" />
     <Compile Include="Input\BuildingMenu.cs" />
     <Compile Include="Input\InputBuildingPlacer.cs" />
     <Compile Include="Plugins\IInputService.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="TileBodies\BuildingPlacer.cs" />
     <Compile Include="TileBodies\ChunkBodies.cs" />
     <Compile Include="TileBodies\ChunkBodyCache.cs" />
+    <Compile Include="TileBodies\TileBody.cs" />
     <Compile Include="Tiles\Chunk.cs" />
     <Compile Include="WorldGeneration\CameraDistanceLoader.cs" />
     <Compile Include="Tiles\ChunkCache.cs" />
