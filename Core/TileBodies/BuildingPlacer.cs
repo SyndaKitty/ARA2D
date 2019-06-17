@@ -15,7 +15,7 @@ namespace Core.TileBodies
         {
             var placement = entity.Get<BodyPlacement>();
             if (!placement.Success || placement.Type == PlacementType.Check) return;
-            state.Factory.CreateBuilding(placement, entity.Get<Building>());
+            state.Factory.CreateBuilding(placement, entity.Get<Building>(), entity.Get<TileBody>());
         }
     }
 }

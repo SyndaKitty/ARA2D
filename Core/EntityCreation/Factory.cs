@@ -22,6 +22,7 @@ namespace Core.Archetypes
         public readonly EntitySet BodyPlacementSet;
         public readonly EntitySet BuildingPlacementSet;
         public readonly EntitySet BuildingGhostSet;
+        public readonly IDTracker TileBodyID = new IDTracker();
         public ChunkCache ChunkCache;
         public ChunkBodyCache ChunkBodyCache;
         
@@ -79,18 +80,20 @@ namespace Core.Archetypes
 
             var entity = Engine.World.CreateEntity();
             entity.Set(new BodyPlacement(PlacementType.Place, anchor, width, height));
+            entity.Set(new TileBody(TileBodyID.Next()));
             entity.Set(new Building(type));
 
             plugin?.BuildingPlacement(entity);
             return entity;
         }
 
-        public Entity CreateBuilding(BodyPlacement placement, Building building)
+        public Entity CreateBuilding(BodyPlacement placement, Building building, TileBody body)
         {
             Debug.Assert(placement.Success);
 
             var entity = Engine.World.CreateEntity();
             entity.Set(new GridTransform(placement.Anchor));
+            entity.Set(body);
             entity.Set(building);
 
             plugin?.Building(entity);
