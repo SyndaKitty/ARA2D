@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Numerics;
 using Core.Tiles;
 
 namespace Core.Position
@@ -27,6 +28,11 @@ namespace Core.Position
             };
         }
 
+        public static TileCoords Create(TileCoords source, int dx, int dy)
+        {
+            return Create(source.ChunkX, source.ChunkY, source.LocalX + dx, source.LocalY + dy);
+        }
+
         // The coords of the chunk
         public long ChunkX;
         public long ChunkY;
@@ -34,7 +40,14 @@ namespace Core.Position
         // The coords within the chunk
         public int LocalX;
         public int LocalY;
-        
+
+        public int Index => LocalY * Chunk.Size + LocalX;
+
+        public Vector2 ToVector2()
+        {
+            return new Vector2(ChunkX * Chunk.Size + LocalX, ChunkY * Chunk.Size + LocalY);
+        }
+
         #region Equality
         public bool Equals(TileCoords a, TileCoords b)
         {

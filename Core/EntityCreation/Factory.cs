@@ -9,6 +9,7 @@ using DefaultEcs;
 using System.Numerics;
 using Core.Buildings;
 using Core.Input;
+using Core.Movement;
 
 namespace Core.Archetypes
 {
@@ -22,10 +23,16 @@ namespace Core.Archetypes
         public readonly EntitySet BodyPlacementSet;
         public readonly EntitySet BuildingPlacementSet;
         public readonly EntitySet BuildingGhostSet;
+        public readonly EntitySet ComputerSet;
+        public readonly EntitySet MovementResultsSet;
+        public readonly EntitySet PureTransformSet;
+
         public readonly IDTracker TileBodyID = new IDTracker();
         public ChunkCache ChunkCache;
         public ChunkBodyCache ChunkBodyCache;
         
+        public readonly MovementRequests MovementRequests;
+
         public Factory(IFactoryPlugin plugin)
         {
             this.plugin = plugin;
@@ -35,6 +42,11 @@ namespace Core.Archetypes
             BodyPlacementSet = Engine.World.GetEntities().With<BodyPlacement>().Build();
             BuildingPlacementSet = Engine.World.GetEntities().With(typeof(BodyPlacement), typeof(Building)).Build();
             BuildingGhostSet = Engine.World.GetEntities().With<BuildingGhost>().Build();
+            ComputerSet = Engine.World.GetEntities().With<Computer>().Build();
+            MovementResultsSet = Engine.World.GetEntities().With<MovementResults>().Build();
+            PureTransformSet = Engine.World.GetEntities().With<Transform>().Without<Camera>().Build();
+
+            MovementRequests = new MovementRequests();
         }
 
         public Entity CreateChunk(TileCoords coords, Chunk chunk)
@@ -43,17 +55,17 @@ namespace Core.Archetypes
             chunk.TilesChanged = true;
 
             entity.Set(chunk);
-            entity.Set(new GridTransform(coords));
+            entity.Set(new GridTransform(coords, Chunk.Size, Chunk.Size));
 
             plugin?.Chunk(entity);
 
             return entity;
         }
 
-        public Entity BuildingPlacementGhost(BuildingType type)
+        public Entity BuildingPlacementGhost(BuildingMenu menu)
         {
             var entity = Engine.World.CreateEntity();
-            entity.Set(new Building(type));
+            entity.Set(new Building(menu.SelectedBuildingType));
             entity.Set(new BuildingGhost());
 
             plugin?.BuildingPlacementGhost(entity);
@@ -74,7 +86,7 @@ namespace Core.Archetypes
             return CheckBuildingPlacement(Engine.World.CreateEntity(), anchor, width, height);
         }
 
-        public Entity PlaceBuilding(TileCoords anchor, int width, int height, BuildingType type)
+        public Entity TryPlaceBuilding(TileCoords anchor, int width, int height, BuildingType type)
         {
             Debug.Assert(type != BuildingType.None);
 
@@ -92,9 +104,14 @@ namespace Core.Archetypes
             Debug.Assert(placement.Success);
 
             var entity = Engine.World.CreateEntity();
-            entity.Set(new GridTransform(placement.Anchor));
+            entity.Set(new GridTransform(placement.Anchor, placement.Width, placement.Height));
             entity.Set(body);
             entity.Set(building);
+
+            if (building.Type == BuildingType.Computer)
+            {
+                entity.Set(new Computer());
+            }
 
             plugin?.Building(entity);
 
@@ -113,11 +130,13 @@ namespace Core.Archetypes
             entity.Set(new ChunkLoadRequests());
             entity.Set(new Global());
 
-            var buildingMenu = new BuildingMenu();
-            buildingMenu.Enabled = true;
-            buildingMenu.SelectedBuildingType = BuildingType.Test;
-            buildingMenu.SelectedBuildingWidth = 4;
-            buildingMenu.SelectedBuildingHeight = 4;
+            var buildingMenu = new BuildingMenu
+            {
+                Enabled = true,
+                SelectedBuildingType = BuildingType.Computer,
+                SelectedBuildingWidth = 1,
+                SelectedBuildingHeight = 1
+            };
             entity.Set(buildingMenu);
 
             plugin?.Global(entity);
@@ -150,6 +169,21 @@ namespace Core.Archetypes
             entity.Set(coords);
             ChunkBodyCache.ChunkLookup.Add(coords, bodies);
             return bodies;
+        }
+
+        public int GetChunkBody(TileCoords coords)
+        {
+            return GetChunkBodies(coords)[coords.Index];
+        }
+
+        public void RequestMovement(Direction direction, Entity entity)
+        {
+            Debug.Assert(entity.Has<TileBody>());
+            var transform = entity.Get<GridTransform>();
+            Debug.Assert(transform.Width == 1 && transform.Height == 1);
+
+            entity.Set<MovementResults>();
+            MovementRequests.Add(transform.Coords, direction, entity);
         }
     }
 }

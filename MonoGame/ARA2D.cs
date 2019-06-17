@@ -49,7 +49,7 @@ namespace MonoGame
                 new RenderEnd(spriteBatch)
             );
 
-            FactoryPlugin factoryPlugin = new FactoryPlugin(Content.Load<Texture2D>("Sprites/TestBuilding"));
+            FactoryPlugin factoryPlugin = new FactoryPlugin(Content.Load<Texture2D>("Sprites/TestBuilding"), Content.Load<Texture2D>("Sprites/Computer"));
 
             EnginePlugins plugins = new EnginePlugins(rendering, time, input, factoryPlugin);
             engine = new Engine(plugins);

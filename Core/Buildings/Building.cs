@@ -2,7 +2,7 @@
 {
     public class Building
     {
-        BuildingType Type;
+        public BuildingType Type;
 
         public Building(BuildingType type)
         {
@@ -13,6 +13,7 @@
     public enum BuildingType
     {
         None,
-        Test
+        Test,
+        Computer
     }
 }

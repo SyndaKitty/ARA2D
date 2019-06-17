@@ -1,4 +1,5 @@
-﻿using Core.Buildings;
+﻿using System.Collections.Generic;
+using Core.Buildings;
 using Core.Plugins;
 using DefaultEcs;
 using Microsoft.Xna.Framework.Graphics;
@@ -8,11 +9,14 @@ namespace MonoGame
 {
     public class FactoryPlugin : IFactoryPlugin
     {
-        readonly Texture2D buildingTexture;
+        readonly Dictionary<BuildingType, Texture2D> buildingTextures;
 
-        public FactoryPlugin(Texture2D buildingTexture)
+        public FactoryPlugin(Texture2D buildingTexture, Texture2D computerTexture)
         {
-            this.buildingTexture = buildingTexture;
+            buildingTextures = new Dictionary<BuildingType, Texture2D>
+            {
+                [BuildingType.Test] = buildingTexture, [BuildingType.Computer] = computerTexture
+            };
         }
 
         public void Chunk(Entity entity)
@@ -22,7 +26,8 @@ namespace MonoGame
 
         public void Building(Entity entity)
         {
-            entity.Set(new Sprite(buildingTexture));
+            var building = entity.Get<Building>();
+            entity.Set(new Sprite(buildingTextures[building.Type]));
         }
 
         public void Global(Entity entity)
@@ -33,10 +38,8 @@ namespace MonoGame
         {
         }
 
-        public void BuildingPlacement (Entity entity)
+        public void BuildingPlacement(Entity entity)
         {
-            var building = entity.Get<Building>();
-
         }
 
         public void CheckBodyPlacement(Entity entity)
@@ -49,7 +52,8 @@ namespace MonoGame
 
         public void BuildingPlacementGhost(Entity entity)
         {
-            var sprite = new Sprite(buildingTexture);
+            var building = entity.Get<Building>();
+            var sprite = new Sprite(buildingTextures[building.Type]);
             entity.Set(sprite);
         }
     }

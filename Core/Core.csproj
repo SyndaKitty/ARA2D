@@ -42,7 +42,16 @@
     <Compile Include="IDTracker.cs" />
     <Compile Include="Input\BuildingMenu.cs" />
     <Compile Include="Input\InputBuildingPlacer.cs" />
+    <Compile Include="Movement\ComputerMovement.cs" />
+    <Compile Include="Movement\Direction.cs" />
+    <Compile Include="Movement\MovementEvaluator.cs" />
+    <Compile Include="Movement\MovementResults.cs" />
+    <Compile Include="Movement\MovementRequests.cs" />
+    <Compile Include="Movement\SuccessfulMoverPlacer.cs" />
+    <Compile Include="Movement\SuccessfulMoveRemover.cs" />
+    <Compile Include="Movement\TransformMover.cs" />
     <Compile Include="Plugins\IInputService.cs" />
+    <Compile Include="Position\MatrixUpdate.cs" />
     <Compile Include="Rendering\CameraController.cs" />
     <Compile Include="Rendering\ViewMatrixUpdate.cs" />
     <Compile Include="TickLogic.cs" />
@@ -69,6 +78,7 @@
     <Compile Include="TileBodies\BuildingPlacer.cs" />
     <Compile Include="TileBodies\ChunkBodies.cs" />
     <Compile Include="TileBodies\ChunkBodyCache.cs" />
+    <Compile Include="TileBodies\Computer.cs" />
     <Compile Include="TileBodies\TileBody.cs" />
     <Compile Include="Tiles\Chunk.cs" />
     <Compile Include="WorldGeneration\CameraDistanceLoader.cs" />

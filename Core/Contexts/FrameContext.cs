@@ -11,6 +11,7 @@ namespace Core
         public readonly IInputService Input;
 
         public float Dt;
+        public float TickProgress;
 
         public FrameContext(Factory factory, Entity globalEntity, IInputService input)
         {

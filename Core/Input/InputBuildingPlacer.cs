@@ -40,7 +40,7 @@ namespace Core.Input
 
             if (state.Input.MouseState.LeftButton == ButtonState.Pressed)
             {
-                state.Factory.PlaceBuilding(mouseAnchor, width, height, menuState.SelectedBuildingType);
+                state.Factory.TryPlaceBuilding(mouseAnchor, width, height, menuState.SelectedBuildingType);
             }
             
             var ghosts = state.Factory.BuildingGhostSet.GetEntities();
@@ -49,7 +49,7 @@ namespace Core.Input
                 state.Factory.CheckBuildingPlacement(ghosts[0], mouseAnchor, width, height);
                 if (!ghosts[0].Has<GridTransform>())
                 {
-                    ghosts[0].Set(new GridTransform(mouseAnchor));
+                    ghosts[0].Set(new GridTransform(mouseAnchor, width, height));
                 }
                 else
                 {

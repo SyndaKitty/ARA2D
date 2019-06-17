@@ -1,8 +1,8 @@
 ﻿using Core.Archetypes;
 using Core.Input;
+using Core.Movement;
 using Core.Position;
 using Core.Rendering;
-using Core.Showcase;
 using Core.TileBodies;
 using DefaultEcs.System;
 
@@ -23,7 +23,9 @@ namespace Core
                 new BuildingPlacer(factory),
                 new BuildingGhostColor(factory),
                 new BodyPlacementCleanup(),
-                new GridMatrixUpdate()
+                new GridMatrixUpdate(),
+                new MatrixUpdate(factory),
+                new TransformMover(factory)
             );
         }
 
